@@ -5,52 +5,134 @@
 
 \title{Problem Statement and Goals\\\progname}
 
-\author{\authname}
 
-\date{}
+%Here is the link to the lecture slides for this deliverable
+%https://gitlab.cas.mcmaster.ca/courses/capstone/-/blob/main/Lectures/L02_ProbStateAndGoals/ProbStateGoalsDevPlan.pdf
 
-\input{../Comments}
-\input{../Common}
+\documentclass{article}
 
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+\title{%
+\textbf{4TB6: Problem Statement and Goals}\\
+\addlinespace
+\addlinespace
+\addlinespace
+\addlinespace
+\large \textbf{Stonecap Solutions - Smart Serve}
+\addlinespace
+\addlinespace
+\addlinespace
+\addlinespace}
+
+\author{Max Turek $turekm$\\Ryan Were $werer$\\Sam Nusselder $nusselds$\\Peter Minbashian $minbashp$\\David Bednar $bednad1$}
+
+\date{09/26/2022}
 \begin{document}
 
 \maketitle
-
+\newpage
+\tableofcontents
+\addlinespace
+\addlinespace
+\addlinespace
+\addlinespace
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
+\addlinespace
+\addlinespace
 \begin{tabularx}{\textwidth}{llX}
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
+ & Max Turek & \\
+09/26/22 & Sam Nusselder & Initial Draft \\
+  & Ryan Were & \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
+\newpage
+
 \section{Problem Statement}
 
-\wss{You should check your problem statement with the
-\href{https://github.com/smiths/capTemplate/blob/main/docs/Checklists/ProbState-Checklist.pdf}
-{problem statement checklist}.}
-\wss{You can change the section headings, as long as you include the required information.}
+\subsection{Problem Explanation}
+Stonecap Solutions aims to solve existing issues in the billion dollar bartending industry relating to the process of fulfilling drink orders. Bars are often busy with many orders being processed through a mental queue by bartenders. This can result in long wait times. Furthermore, many restaurants and bars are susceptible to being understaffed, further exasperating this issue. Cocktails and other drinks are imprecisely made, varying in volume and consistency. When bartenders are rushing around to make these drinks, the risk of spilling them arises. If these issues are severe enough, it could result in unsatisfied customers, decreasing business profits.
 
-\subsection{Problem}
+%If your going to spend 15 dollars on a cocktail, it better not taste like crap or make you have to wait too long. However, the creation of a cocktail is a process that cannot be rushed and must be treated as an art. Pours and ingredients must be exact otherwise customers will be dissatisfied and business owners upset. Furthermore, restaurants and bars are always busy and are always looking for an extra hand when they're falling behind on drink orders. StoneCap Solutions is looking to disrupt the service industry by creating an autonomous system that will solve the problem of inaccurate drink/cocktail creation, spillage and waste from human error and slow drink service. \\
+
+\subsection{Proposed Solution}
+Stonecap Solutions aims to solve this problem by developing a drink delivery system that streamlines the process of a customer ordering a drink up to them receiving it. The system would automate the tasks of taking customer orders, making the drinks, and alerting the end user when the drinks are ready. This would result in a system that creates consistent, accurate and timely drinks while avoiding unnecessary spillage.
 
 \subsection{Inputs and Outputs}
-
-\wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
-Use abstraction so that you can avoid details.}
-
+Inputs
+\begin{itemize}
+\item Drink choice of the customer
+\item Empty glass
+\item Ingredients that make up the drink
+\item Customer name or identifier to match the drink with the customer
+\end{itemize}
+Outputs
+\begin{itemize}
+    \item Accurately made cocktail/drink
+    \item Communication to customer that their drink is ready 
+    \item Communication to staff on ingredient and system status
+\end{itemize}
 \subsection{Stakeholders}
+\begin{itemize}
+    \item Restaurants and business owners that serve cocktails/drinks
+    \item Consumers seeking an autonomous cocktail/drink creation system
+    \item Bartenders
+    \item Customers at bars
+\end{itemize}
 
 \subsection{Environment}
 
-\wss{Hardware and software}
-
+\textbf{Hardware} \\
+The hardware environment will consist of working either in a lab or in a kitchen at home or in a restaurant. We have a connection to a bar owner which might allow us to test/build the product in a more realistic environment. Electrical access through wall or battery and internet access will be needed for building the hardware components. \\
+\newline
+\textbf{Software}\\
+The software environment will consist of a web app which communicates to a server. The web app will be accessible from any computer or smartphone. The web app will have everything that the user needs to browse, order, and buy their drink/drinks. The server which takes in all orders from the web app and sends commands to the hardware. The server will be located on the cloud.
+\newpage
 \section{Goals}
+\subsection{Immediate Goals}
+\begin{center}
+\begin{tabular}{ | p{7cm} | p{7cm} | }
+\hline
+ \textbf{Goal} & \textbf{Explanation} \\
+ & & 
+ \hline
+ Ease of Communication & End users are able to effectively communicate with Smart Serve. Users understand the status of Smart Serve. This would be measured by all customer orders being fulfilled correctly and all users being informed on their order status.  \\
+ \hline
+  Ease of Use & System is simple and easy to use for all customers. This would be measured by at least 75 percent of users find the product intuitive to use.\\  
+ \hline
+   Autonomy & Smart Serve is fully autonomous once starting up. This allows customers to interact with Smart Serve without any human interaction. \\  
+ \hline
+  Consistency & Smart Serve continues to pour a consistent drink after 100 pours. \\  
+ \hline
+  Accuracy & Smart Serve pours drinks with accurate proportions. This would be measured by checking if the individual ingredients of a drink follow the appropriate proportion (i.e. 100 millilitres of rum and 300 millilitres of coke). \\  
+ \hline
+  Fast Service & Drinks are served to consumers quickly. One drink is served within 45 seconds. \\  
+ \hline
+\end{tabular}
+\end{center}
 
-\section{Stretch Goals}
+
+\subsection{Stretch Goals}
+\begin{center}
+\begin{tabular}{ | p{7cm} | p{7cm} | }
+\hline
+ \textbf{Goal} & \textbf{Explanation} \\ 
+  & & 
+ \hline
+  Self Cleaning & Smart Serve is able to clean all necessary components without human interaction. \\  
+ \hline
+ Fool Proof & Any risks posed by realistic system malfunctions should be minimized through smart design.\\
+ \hline
+  Smart Recommendations & Smart Serve can provide drink recommendations. This can be measured by drink recommendations being purchased at least 20 percent of the time.\\
+ \hline
+\end{tabular}
+\end{center}
 
 \end{document}
