@@ -1,0 +1,145 @@
+\documentclass{article}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\title{%
+\textbf{4TB6: Development Plan\\\progname}\\
+\addlinespace
+\addlinespace
+\addlinespace
+\addlinespace
+\large \textbf{Stonecap Solutions - Smart Serve}
+\addlinespace
+\addlinespace
+\addlinespace
+\addlinespace}
+
+\author{Max Turek $turekm$\\Ryan Were $werer$\\Sam Nusselder $nusselds$\\Peter Minbashian $minbashp$\\David Bednar $bednad1$}
+
+\date{09/26/2022}
+
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\addlinespace
+\addlinespace
+\addlinespace
+\addlinespace
+
+\begin{table}[hp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\midrule
+09/26/22 & David Bednar & Initial Draft\\
+09/26/22 & Peter Minbashian & Initial Draft \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\maketitle
+
+This document outlines our plans for the development of Smart Serve. This includes plans for team meetings and communication, the roles of team members, a workflow plan, a plan for the proof of concept demo, technology that will be used, coding standards, and project scheduling.
+
+\section{Team Meeting Plan}
+
+A weekly team meeting will take place at 1:30 pm on Wednesdays in Thode library. The leader of the meeting will rotate each week, and will follow the weekly agenda. All team members have access to the agenda in google docs and can add topics that need to be discussed. The meeting will last at least an hour but may go overtime if all members are available and if the meeting needs more time. The leader of the meeting will assess the agenda and time constraints, and set time limits so that each topic gets adequate time. At the end of each meeting, all members should have action items that need to be completed.
+
+\section{Team Communication Plan}
+
+The team will use weekly team meetings to discuss all important topics for the week and will add extra meetings when more time is needed. The team will use a private discord server as a group text channel to bring up ideas and topics, share useful information, and discuss work items. Discord will also be used for group voice chats, screen sharing, and one on one discussions. \\\\
+No team member can fall in love with another team member. It is forbidden!
+
+\section{Team Member Roles}
+
+The team is currently split into hardware and software members because the project utilizes both components. These roles are not firm, software members will work on hardware components at certain parts of the project and vice versa. Members will be flexible and ready to change roles as needed.
+
+\begin{center}
+\begin{tabular}{ | c | c | c | }
+\hline
+ Member & Role & Responsibility \\ 
+ \hline
+ David & Software & Development, Testing \\  
+ Peter & Software & Development, Testing \\  
+ \hline
+ Max & Hardware & Design, Development, Testing \\  
+ Sam & Hardware & Design, Development, Testing \\  
+ Ryan & Hardware & Design, Development, Testing \\  
+ \hline
+\end{tabular}
+\end{center}
+
+\section{Workflow Plan}
+
+\begin{itemize}
+\subsection{Branches}
+GitHub will be the tool used for sharing and submitting code within the group. With the group being split into two sub-teams (Hardware and Software) two branches will be made off of the Main Branch, these will be the sub-team branches. The two teams will then make branches off those two branches to develop any code, appropriately titling these branches based on the spirit of code (i.e. feature, bug fixes, etc.), making Pull Requests (PRs) to the sub-team branches, and tagging all members of the sub-teams in these PRs. Once any changes are ready to be made to the Main Branch, a PR will be made again but waiting for the approval of at least two group members. \\\\
+
+
+\subsection{Issues}
+The Issues feature on GitHub will be used throughout the project to report any bugs. Issues that are detected, will be given to the person responsible for developing said code. \\\\
+
+\subsection{Labels}
+Labels will be used to communicate any concerns with code written by other team members. Labels should follow the default naming convention: \\\\ https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels\\\\
+Additionally, all labels must have a detailed description regarding the spirit of the label.
+\end{itemize}
+
+\section{Proof of Concept Demonstration Plan}
+
+There have been three main risks identified for the success of the project at various staged. The first of which is portability. The project will most likely be the size of a coffee table and will be hard to transport. We will be able to overcome this risk by making the project modular and easy to assemble and dismantle. The next risk is using electronic components around large amounts of fluid. This risk will be mitigated by securing all wires in protective coating and separating the electronic components from the fluids in the design. A testing risk is using real drinks in testing. Real alcohol and soda can be expensive, sticky, hard to clean, and unnecessary. We will overcome this by testing mainly with water and food coloring.
+
+\section{Technology}
+
+\begin{itemize}
+\item \textbf{Languages}: JavaScript, Python, and C
+\item\textbf{IDE}: VSCode
+\item \textbf{Unit Testing}: Selenium (JavaScript) and Pytest (Python)
+\item \textbf{Testing}: Measuring and monitoring the output of fluids
+\item \textbf{Continuous Integration}: Continuous Integration will not be used as success will be measured by a physical object (The Drink)
+\item \textbf{Document Generation}: Doxygen for documenting C code
+\item \textbf{Libraries}: ReactJS, Anime.js, jQuery, Passport.js, socket (Python)
+\item \textbf{Hardware}: MC, Electronic Nozzle, Wiring
+\item \textbf{Build Tools}:  \href{https://www.thecocktaildb.com/api.php}{Cocktail database API}, Carpentering Tools, Soldering Tools
+\end{itemize}
+
+\section{Coding Standard}
+\\
+\subsection{C}
+For C, the NASA C Style guide will be standard for the project.
+\subsection{JavaScript}
+For JavaScript, the Google Python Style guide will be standard for the project.
+\ \textbf{Linter}: standardjs
+\subsection{Python}
+For Python, the PEP8 guide will be standard for the project.
+\\ \textbf{Linter}: flake8
+\section{Project Scheduling}
+
+\subsection{Scheduling}
+Working hours throughout the week will be decided upon at each weekly meeting. A total of 9 hours will be scheduled for each week where members must be online and working on the project. The meetings will be uploaded on \href{www.when2meet.com} {when to meet}.
+
+\subsection{Milestones}
+\\Major General Milestones will adhere to the following schedule:
+\\\\Requirements Document Revision 0:      \textbf{October 5}
+\\Hazrard Analysis 0:                    \textbf{October 19}
+\\V&V Plan Revision 0:                   \textbf{November 2}
+\\Proof of Concept Demonstration:        \textbf{November 14-25}
+\\Design Document Revision 0:            \textbf{January 18}
+\\Revision 0 Demonstration:              \textbf{February 6-17}
+\\V&V Report Revision 0:                 \textbf{March 8}
+\\Final Demonstration (Revision 1):      \textbf{March 20 & 31}
+\\Expo Demonstration (Revision 1):       \textbf{April TBD}
+\\Final Documentation (Revision 1):      \textbf{April 5}
+\\\\
+All specific milestones tailored towards the design and implementation of the project will be finalized when the project design is agreed upon. Milestones will be documented on a Google Drive, which will be a live document to make changes to dates and deliverables when seen fit.
+
+\subsection{Tasks}
+Tasks will be identified at each weekly meeting. Tasks will be divided up evenly amongst the sub-teams and each member has the week to complete it, having the completed task pushed to GitHub before the upcoming meeting.
+
+\end{document}
