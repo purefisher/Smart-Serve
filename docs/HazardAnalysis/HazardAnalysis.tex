@@ -1,35 +1,222 @@
+
+%Here is the link to the lecture slides for this deliverable
+%https://gitlab.cas.mcmaster.ca/courses/capstone/-/tree/main/Lectures/L08_HazardAnalysis
+
 \documentclass{article}
 
-\usepackage{booktabs}
-\usepackage{tabularx}
 
-\title{Hazard Analysis\\\progname}
+\usepackage{hyperref} %for referencing tables and links
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue, %Makes any referencing links blueeeeee
+    filecolor=magenta,      
+    urlcolor=cyan,
+    }
+\usepackage{blindtext}
+\setlength{\footskip}{10pt}
+\usepackage{tabularx}	
+\usepackage{longtable} %allows tables to span multiple pages
+\usepackage{geometry}
+\usepackage{float}
 
-\author{\authname}
 
-\date{}
+%\usepackage[margin=1.25in]{geometry}
+\usepackage{indentfirst} %this indents the first line after a section/subsection
+\usepackage{graphicx}%to add photos
+\usepackage{float} %for formatting table spacing
+\usepackage{pdflscape} %used to change the orientation of some pages to landscape/portrait
+\usepackage{array}
+\usepackage[paper=portrait,pagesize]{typearea}
+\title{\textbf{4TB6: Hazard Analysis}\\
+\addlinespace
+\addlinespace
+\addlinespace
+\addlinespace
+\large \textbf{Stonecap Solutions - Smart Serve}
+\addlinespace
+\addlinespace
+\addlinespace
+\addlinespace}
 
-\input{../Comments}
-\input{../Common}
+
+\author{Max Turek $turekm$\\Ryan Were $werer$\\Sam Nusselder $nusselds$\\Peter Minbashian $minbashp$\\David Bednar $bednad1$}
+
+\date{10/19/2022}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=10mm,
+ }
 
 \begin{document}
 
-\begin{table}[hp]
-\caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
-\toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
-\midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
-\bottomrule
-\end{tabularx}
-\end{table}
-
+\maketitle
+\newpage
+\tableofcontents
+\listoffigures
+\listoftables
 \newpage
 
-\maketitle
+    % Revision History table
+    \begin{table}[hp]
+    \caption{Revision History} \label{TblRevisionHistory}
+    \hline
+        \begin{tabularx}{\textwidth}{l1X}
+        \toprule
+        \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+        \midrule
+        & Max Turek & \\
+        & Sam Nusselder &  \\
+        10/19/22 & Ryan Were & Initial Draft\\
+        & Peter Minbasian & \\
+        & David Bednar & \\
+        \bottomrule
+        \hline
+        \end{tabularx}
+    \end{table}
 
+\newpage
+\section{Introduction}
+    This document is the Hazard Analysis for Stonecap Solutions - Smart Serve. Smart Serve is an autonomous bartending robot that aims to streamline the process of a customer ordering a drink up to them receiving it. The system would automate the tasks of taking customer orders, making the drinks, and alerting the end user when the drinks are ready. This would result in a system that creates consistent, accurate and timely drinks while avoiding unnecessary spillage.
 
+\section{Scope and Purpose of Hazard Analysis}
+    The scope of this document is to conduct a Hazard Analysis on the proposed Smart Serve System using a Failure Modes and Effects Analysis (FMEA). We aim to identify possible failures, their modes, effects, and causes. Knowing these, we will be able to recommend actions to mitigate these hazards.
+
+\section{System Boundary}
+    The boundary of the system will include a variety of different components that work together to create our autonomous drink creator called Smart Serve. They will consist of :
+    \begin{enumerate}
+    \item The physical hardware that makes up the autonomous bartending system can be divided into two main sections:
+        \begin {itemize}
+        \item The physical frame that encapsulates the system 
+        \item The computer, pumps and tubing 
+        \item The drink ingredients 
+        \end{itemize}
+    \item The users and/or operators phone used for the web application 
+    \item The web application both front and back end which is used for users and operators to interact with the system
+    \item The container used to house the cocktail 
+    \end{enumerate}
+    All the hardware of the system excluding cloud servers for the web application and the users phone, are the responsibility of StoneCap Solutions. All these systems work together to create the overall system boundary profile of Smart Serve for every use case. 
+
+\section{Definition of Hazard}
+As defined by Nancy Leveson's work a hazard is a condition, property or state of a system coupled with a state in the environment that has the potential to cause harm or damage. %need citation 
+    
+\section{Critical Assumptions}
+    Critical assumptions of the system include:
+    \begin{itemize}
+        \item Smart Serve is not intentionally tampered with or physically damaged by anyone 
+        \item Cloud services that are provided by third parties for the web app are always up and running 
+        %could we also say something about smart serve being in a safe area where it can't fall? 
+        %Yeeeee, we could also add a bracket to the base of it where you could just add some screws to mount it to a surface pretty easily tho
+        \item Smart Serve is set up on a well balanced surface that users aren't able to easily knock over
+        \item All people who have access to the system are of legal drinking age 
+        \item All drinking containers used with the system are made of plastic \item Internet service within the system environment is assumed to be working consistently at high-speed
+        \item All containers are filled with the drink specified in the Web App
+    \end{itemize}
+\section{Failure Modes and Effects Analysis}
+    The following is a table depicting failure modes and effects analysis (FMEA) table:
+    \subsection{Hazards Out of Scope}
+    Hazards out of scope will include:
+    \begin{itemize}
+        \item The physical location of a bar or restaurant environment
+        \item The user's mobile device to connect to the web application and works as intended
+        \item Database and backend resource issues which are provided by a third party
+        \item Human behaviour from the result of intoxication or alcohol use 
+        \item User payment failure
+    \end{itemize}
+    
+    %Maybe instead of focusing on a component, lets focus on an area like his lecture slides example, so pouring too much liquid can have a failure cause from electrical and mechanical sources.
+    \subsection{Failures Modes and Effects Analysis Table}
+
+    \begin{rotate}{}
+    
+    \begin{landscape}
+        \begin{table}
+           \begin{tabular}{|p{1.75cm}|p{4cm}|p{4cm}|p{4cm}|p{4cm}|p{1cm}|p{0.75cm}|}
+            \hline
+            \multicolumn{7}{|c|}{Failure Mode and Effects Analysis} \\
+            \hline
+            Design Function & Failure Modes & Effects of Failures & Causes of Failures & Recommended Action & SR & Ref.  \\ [0.5ex]
+            \hline\hline
+            Pouring drinks & Over pouring of alcoholic ingredients into drink & User could become intoxicated or fall ill & a. Pump malfunctions \newline b. Web app sends wrong information  & a\&b. Add a flow-meter to sense if the amount of liquid dispensed is as expected & ODR11 & H1-1 \\
+            \cline{2-7}
+            & Under pouring of ingredients & Drinks would be made with much less volume than expected, or have an incorrect mix ratio & a. Refer to H1-1a \newline b. Leak in the lines liquids are being pumped through & a. Same as H1-1a \newline b. Sense that this error is occurring and send a notification to the operator so a new line can be swapped into place & ODR11 & H1-2 \\
+            \cline{2-7}
+            & System dispenses improper drink ingredients & User could become ill & a. Software sends the wrong drink order & a. Notify operator of issue, and run our test suite to validate drink orders & ODR11 & H1-3  \\
+            \cline{2-7}
+                & Glass is misaligned & Water could spill in the machine, on the user, or on the table & a. User does not place glass in machine correctly & a. Clean up mess and dry machine & ODR11 & H1-4  \\
+            \hline
+            Hardware of System & Short circuiting of electrical components & Undefined System behaviour would result & a. Damage to smart serve could loosen components, or a spill/leak as described above & a. Use heat shrink on any loose wiring and epoxy to cover and secure electronic components that are exposed & ODR14 ODR15 & H2-1\\
+            \cline{2-7}
+            & Front panels for chassis are not water tight & Damage to key components can result in system failures, i.e. short circuiting & a. Spillage of internal or external liquids of the system may be able to permeate into key electrical/hardware components & a. Use an epoxy to seal key areas that spills are likely to occur in that lead to electrical components of the Smart Serve System & ODR14 & H2-2 \\ 
+            \cline{2-7}
+            & Smart Serve gets bumped into & Damage to the chassis of Smart Serve and other mechanical/electrical components may result & a. Smart Serve is at a risk of being pushed off of the surface it is sitting on & a. Add a rubber mat to the bottom of Smart Serve to increase its grip  b. Add mounting e to Smart Serve so that it may be screwed into place & ODR15 & H2-3 \\
+            %\cline{2-7}
+            % &  &  &  &  &  &   \\
+            \hline
+            
+            \end{tabular}
+            \caption{FMEA for Smart Serve System.}
+            \label{tab: caption}
+            %table gets messed up with caption
+        \end{table}
+    \end{landscape}
+    \end{rotate}
+
+    \begin{rotate}{}
+    
+    \begin{landscape}
+        \begin{table}
+           \begin{tabular}{|p{1.75cm}|p{4cm}|p{4cm}|p{4cm}|p{4cm}|p{1cm}|p{0.75cm}|}
+            \hline
+            \multicolumn{7}{|c|}{Failure Mode and Effects Analysis} \\
+            \hline
+            Design Function & Failure Modes & Effects of Failures & Causes of Failures & Recommended Action & SR & Ref.  \\ [0.5ex]
+            
+            \hline
+            Web Application & User is given operator privileges & User can access all information on drink ingredients and user info & a. Authentication error & a. Operator is notified, who will then disable the web app. and remove permissions for that user & ODR13 ODR2 & H3-1 \\
+            \cline{2-7}
+             & User cannot login & User is unable to order drinks & Login credentials do not match what is stored in the database & a.  Reset user credentials & ODR12 & H3-2  \\
+            %Data in data base gets deleted unintentionally Web app keeps track of drinks made
+            \cline{2-7}
+             & Queue of drinks is reset & Ordered drinks are not made by Smart Serve & Operator accidentally clears all orders & a.  Reset to old database & ODR3 ORD6 & H3-3  \\
+            \hline
+            Ordering Drinks & QR code is unable to be scanned & The user will not be able to order a drink using Smart Serve & \newline a. QR code surface gets damaged & a. Add a link underneath our QR code that leads to the web app \newline b. Same as H4-1a & ODR1 & H4-1\\
+            \hline
+            
+            \end{tabular}
+            \caption{FMEA for Smart Serve System.}
+            \label{tab: caption}
+            %table gets messed up with caption
+        \end{table}
+    \end{landscape}
+    \end{rotate}
+
+\section{Safety and Security Requirements}
+    %not really sure if we list all requirements here even if it relates to a hazard. For example ODR2 ist really related to safety and security
+    \noindent
+    Note: New Safety & Security Requirements not found in Version 0 are \textbf{bolded}
+    \subsection{Ordering Drinks} 
+    \\\\
+    \noindent\textbf{ODR1:} User can scan QR code launching smart-serve web app \\\\ 
+    \textbf{ODR2:} User can access the menu and select drinks to order\\\\ 
+    \textbf{ODR3:} User can cancel or change order while waiting for drink to be made \\\\ 
+    \textbf{ODR4:} User can view place/time remaining for the drink to be made \\\\ 
+    \textbf{ODR5:} User is notified if drink ingredients are out of inventory\\\\ 
+    \textbf{ODR6:} User is notified when drink is done\\\\
+    \textbf{ODR7:} Web app gives an intoxication test when the customer has ordered too many drinks too quickly\\\\
+    \textbf{ODR8:} Operator is notified if drink ingredients are out of inventory\\\\
+    \textbf{ODR9:} Operator inputs all ingredients available for drinks into the web app\\\\
+    \textbf{ODR10:} Operator inputs dispenser location of each ingredient into web app\\\\
+    \textbf{\textbf{ODR11:} User's drink is the same drink they ordered on the app \\\\
+    \textbf{ODR12:} User can login successfully into the app 
+    \\\\
+    \textbf{ODR13:} User has user permissions } \\\\
+    \textbf{ODR14:} \textbf{Electrical components of high exposure to liquids have waterproof covering}\\\\
+    \textbf{ODR15:} \textbf{Have a robust and durable architcecture/components}
+    
+    
+\section{Roadmap}
+    Throughout the course of the project, the hazard analysis will be an important tool that will be used to mitigate any risks and prevent failures of design components. Although there is a possibility that not all source of risk can be or will be mitigated by our final revision, it is important that level of risk assessed is within our tolerable limits. The project will plan on implementing all safety requirements listed above given the time constraints. 
+    
 \end{document}
