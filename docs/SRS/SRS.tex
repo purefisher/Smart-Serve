@@ -8,7 +8,7 @@
 \usepackage{hyperref} %for referencing tables and links
 \hypersetup{
     colorlinks=true,
-    linkcolor=blue, %Makes any referencing links blue
+    linkcolor=blue, %Makes any referencing links blueeeeee
     filecolor=magenta,      
     urlcolor=cyan,
     }
@@ -55,6 +55,11 @@
         10/05/22 & Ryan Were & Initial Draft\\
         & Peter Minbasian & \\
         & David Bednar & \\
+        \bottomrule
+        \hline
+        \toprule
+        \midrule
+        11/02/22 & Sam Nusselder & Added new functional requirements ODR14 - ODR19 from Hazard Analysis Doc\\
         \bottomrule
         \hline
         \end{tabularx}
@@ -277,8 +282,12 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
     \textbf{ODR13:} Web app keeps track of drinks made\\
 
     \textbf{Rationale:} Data used for analytics to track popular drinks/ingredients or for inventory check\\\\
-    \textbf{ODR13:} Server decrypts drink name and gathers ingredients\\\\
-
+    \textbf{ODR14:} Server decrypts drink name and gathers ingredients\\\\
+    \textbf{ODR15:} User's drink is the same drink they ordered on the app \\\\
+    \textbf{ODR16:} User can login successfully into the app \\\\
+    \textbf{ODR17:} User has user permissions  \\\\
+    \textbf{ODR18:} Electrical components of high exposure to liquids have waterproof covering\\\\
+    \textbf{ODR19:} Have a robust and durable architecture/components
 
 \subsection{Making Drink}
     \noindent\textbf{MDR1.} Hardware receives ingredients from server \\\\
@@ -293,13 +302,12 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
     \textbf{MDR10.} Hardware does not begin a new drink until the previous drink is removed \\\\
     \textbf{MDR11.} Hardware sends error messaging to the web app (Operator Side) when the system is malfunctioning\\\\
     \textbf{MDR12.} Hardware must complete all drinks in queue if internet access is terminated \\\\
-    \textbf{MDR13.} Hardware must restart drink and resume queue if power is lost \\\\
-
+    \textbf{MDR13.} Hardware must restart drink and resume queue if power is lost \\
 
 \section{Non-Functional Requirements}
 \subsection{Quality requirements of the entire system}
-    \noindent\textbf{QR1.} Smart Serve must be robust\\\\
-
+    \noindent\textbf{QR1.} Smart Serve must be robust\\ 
+    
 \subsection{Look and Feel Requirements}
     \noindent\textbf{LFR1.} The web app must be intuitive and visually appealing \\\\
     \textbf{LFR2.} Smart Serve must have all electrical and mechanical components concealed \\\\
@@ -346,7 +354,7 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
         \textbf{MSR2.} Smart Serve must be restocked with new ingredients to be able to serve drinks \\
     \subsubsection{Special Maintenance Conditions} 
         \noindent\textbf{MSR3.} No electronic or water sensitive components of Smart Serve can get wet during cleaning \\\\
-        \textbf{MSR4.} The administrator must add the ingredients to the web app when Smart Serve is restocked \\
+        \textbf{MSR4.} The operator must add the ingredients to the web app when Smart Serve is restocked \\
     \subsubsection{Portability}
         \noindent\textbf{MSR5.} Smart Serve must be modular and easy to transport \\\\
         \textbf{MSR6.} Smart Serve must be under 100 pounds \\\\
