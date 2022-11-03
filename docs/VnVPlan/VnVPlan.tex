@@ -1,5 +1,6 @@
 \documentclass[12pt, titlepage]{article}
 
+\usepackage{xr}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
@@ -12,13 +13,22 @@
 }
 \usepackage[round]{natbib}
 
-\input{../Comments}
-\input{../Common}
-
 \begin{document}
 
-\title{Project Title: System Verification and Validation Plan for \progname{}} 
-\author{\authname}
+\title{\textbf{4TB6: System Verification and Validation plan}\\
+\addlinespace
+\addlinespace
+\addlinespace
+\addlinespace
+\large \textbf{Stonecap Solutions - Smart Serve}
+\addlinespace
+\addlinespace
+\addlinespace
+\addlinespace}
+
+\newcommand{\mycomment}[1]{} %used for a commented code section below in 6.2
+
+\author{Max Turek $turekm$\\Ryan Were $werer$\\Sam Nusselder $nusselds$\\Peter Minbashian $minbashp$\\David Bednar $bednad1$}
 \date{\today}
 	
 \maketitle
@@ -26,304 +36,627 @@
 \pagenumbering{roman}
 
 \section{Revision History}
-
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
-\end{tabularx}
+ % Revision History table
+        \begin{tabularx}{\textwidth}{l1X}
+        \toprule
+        \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+        \midrule
+        & Max Turek & \\
+        & Sam Nusselder &  \\
+        11/02/22 & Ryan Were & Initial Draft\\
+        & Peter Minbasian & \\
+        & David Bednar & \\
+        \bottomrule
+        \hline
+        \end{tabularx}
 
 \newpage
 
 \tableofcontents
 
 \listoftables
-\wss{Remove this section if it isn't needed}
-
-\listoffigures
-\wss{Remove this section if it isn't needed}
 
 \newpage
 
 \section{Symbols, Abbreviations and Acronyms}
 
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
-  \bottomrule
-\end{tabular}\\
-
-\wss{symbols, abbreviations or acronyms -- you can simply reference the SRS
-  \citep{SRS} tables, if appropriate}
-
+Refer to Definitions, Terms, Acronyms and Abbreviations table in \href{https://github.com/purefisher/Smart-Serve/blob/main/docs/SRS/SRS.pdf}{SRS}.
+%need to figure out how to 
 \newpage
 
+
 \pagenumbering{arabic}
-
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
-
 \section{General Information}
+This document serves to detail the specific activities and tools that will be implemented in order to verify, validate and test the requirements and functionalities of our system Smart Serve.  
+
+
 
 \subsection{Summary}
-
-\wss{Say what software is being tested.  Give its name and a brief overview of
-  its general functions.}
+Smart Serve aims to provide the user the creation of a cocktail that is completely automated from an order generated through the Web App accessed by the user. The Smart Serve system is comprised of both a hardware and software component, therefore our system testing will include the integration of these two components working successfully together. Unit testing will aim to test individual components separately. 
 
 \subsection{Objectives}
-
-\wss{State what is intended to be accomplished.  The objective will be around
-  the qualities that are most important for your project.  You might have
-  something like: ``build confidence in the software correctness,''
-  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
-  just those that are most important.}
+The test plan outlined in this document plans on focusing on these following objectives:
+\begin{enumerate}
+    \item Enumerate and describe all relevant tools and activities in conjunction with the testing plan 
+    \item Specify the testing environment 
+    \item Specify the given conditions required for successful testing
+    
+\end{enumerate}
 
 \subsection{Relevant Documentation}
+Relevant documentation includes the \href{https://github.com/purefisher/Smart-Serve/blob/main/docs/SRS/SRS.pdf}{SRS}. 
 
-\wss{Reference relevant documentation.  This will definitely include your SRS
-  and your other project documents (MG, MIS, etc).  You can include these even
-  before they are written, since by the time the project is done, they will be
-  written.}
-
-\citet{SRS}
-
+\newpage
 \section{Plan}
-
-\wss{Introduce this section.   You can provide a roadmap of the sections to
-  come.}
+The Plan Section will document the Verification and Validation Team and their given roles. Additionally, plans for the SRS, Design, Verification, Implementation, and Software plans are outlined along with the Automated Testing and Verification Tools. 
 
 \subsection{Verification and Validation Team}
-
-\wss{You, your classmates and the course instructor.  Maybe your supervisor.
-  You shoud do more than list names.  You should say what each person's role is
-  for the project.  A table is a good way to summarize this information.}
-
+\\
+  \begin{center}
+  \begin{table}[!ht]
+      \centering
+      \begin{tabular}{ | p{5cm} | p{8cm} | }
+      \hline
+           \textbf{Name} & \textbf{Testing Team (Description)} \\
+           && 
+           \hline
+           David & Hardware Verification (SRS and Implementation Verification around Hardware)\\
+           \hline
+           Max & Software Verification (Design Verification around Software)\\
+           \hline
+           Peter & Hardware Verification (Design and Implementation around hardware)\\
+           \hline
+           Ryan & Software Verification (SRS Verification around Software)\\
+           \hline
+           Sam & Software Verification (Implementation Verification around Software))\\
+           \hline
+           Timofey Tomashevskiy & General Verification (Contacted throughout both streams of design any verification plan)\\
+           \hline
+           Volunteers & Front-End Design Verification (Attempt to operate beta stages of Front-End design)\\
+           \hline
+      \end{tabular}
+      \caption{Validation Team \& Roles}
+      \label{Table 1}
+  \end{table}
+  \end{center}
+  
 \subsection{SRS Verification Plan}
 
-\wss{List any approaches you intend to use for SRS verification.  This may just
-  be ad hoc feedback from reviewers, like your classmates, or you may have
-  something more rigorous/systematic in mind..}
+\subsubsection{Reviewers}
+Reviewers will be contacted on a bi-weekly basis, to ensure that the work of the project stays within the original scope. Reviewers will be contacted on a rolling basis to ensure that feedback is being given consistently throughout development.
 
-\wss{Remember you have an SRS checklist}
+\paragraph{Opposing Sub-Team}
+\newline
+As the team is split into two development sub-teams  (software and hardware) each team will review the progress of the others' work.
+
+\paragraph{Supervisor}\newline
+The supervising TA for the project will be asked for specific feedback regarding causes of concern with the project.
+
+\subsubsection{Major Tasks Reviewed}
+Major tasks will be reviewed throughout the development and deployment of the project. These major tasks are selected based on whether said tasks are vital to the base functionality of the project. These tasks are reviewed both based on their functionality and the elegance of the implementation.\\
+
+\\\\ \indent \textbf{1. Opening and Operating The Web App}
+\\\\ \indent \textbf{2. Selecting a Drink}
+\\\\ \indent \textbf{3. Pouring of a Drink}
+\\\\ \indent \textbf{4. Completing Creation of a Drink}
 
 \subsection{Design Verification Plan}
+\subsubsection{Software}
+\paragraph{Back-End} Back-end verification will be done with the help of two separate reviewers: The Hardware Team and the Supervising TA. Reviewing will be done to ensure that the code being written is simple to follow, clean, and that the solution is elegant in nature. Reviewers will be contacted once the design of pseudo code is developed to ensure solutions are straightforward and efficient.
+\paragraph{Front-End}Front-end verification will be completed with the help of one reviewing team: Volunteers. With the spirit of the front end being simple to operate, it is the intent to have average university students, from differing backgrounds, review the front end to ensure it is easy to navigate. Reviewers will be asked to complete basic tasks on the beta version and asked for feedback with regard to the experience. Volunteers will be contacted whenever a major milestone or decision is being made.
+\subsubsection{Hardware}
+For Hardware design, the main reviewers will be the supervising TA and the Software team. Both sets of reviewers will review any aspect of the design before its actual creation. This is to ensure that the design of the functionality is as simple as possible while being able to pass appropriate tests and complete appropriate tasks.
 
-\wss{Plans for design verification}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Remember you have MG and MIS checklists}
 
 \subsection{Implementation Verification Plan}
-
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
-
-\wss{In this section you would also give any details of any plans for static verification of
-  the implementation.  Potential techniques include code walkthroughs, code
-  inspection, static analyzers, etc.}
+For implementing features into the design, all final implementations must successfully pass the tests outlined in Section 5 of the report.\\
+Additionally, all code must make use of its appropriate linter and be reviewed by other group members in the format of a pull request to ensure well-structured code. This pull request must also include outputs of any aforementioned tests which would be applicable to the nature of the feature being implemented along with detailed comments when needed.
 
 \subsection{Automated Testing and Verification Tools}
+\subsubsection{Automated Testing}
+\paragraph{Python:}
+For Python \textbf{PyTest} will be used to conduct any automated testing needs.
+\paragraph{JavaScript:} 
+For JavaScript \textbf{Gulp} will be used to conduct any automated testing needs.
 
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
+\subsubsection{Linters}
+\paragraph{Python:}
+For Python \textbf{flake9} will be used as a linter to verify the integrity and structure of any Python code.
 
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
+\paragraph{JavaScript:} 
+For JavaScript \textbf{Standard JS} will be used as a linter to verify the integrity and structure of any JavaScript code.
+
+\paragraph{HTML:}
+For HTML \textbf{HTML} will be used as a linter to verify the integrity and structure of any HTML code.
+
+\paragraph{CSS:} 
+For CSS \textbf{CSSLINT} will be used as a linter to verify the integrity and structure of any CSS code.
+
 
 \subsection{Software Validation Plan}
+Due to the nature of the system, and the physical product which is used as the output, there is no external data that will be used to validate the functionality of the software. \\
+\indent To validate the functionality of the software, it must be observed that the system is properly communicating between its components to create the correct drink. This can be checked by observing the creation of the drink and determining if the correct amount/type of liquid is being dispensed, corresponding to the user input.
 
-\wss{If there is any external data that can be used for validation, you should
-  point to it here.  If there are no plans for validation, you should state that
-  here.}
-
+\newpage
 \section{System Test Description}
 	
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
+\wss{The subsections below walk through testing the systems functional requirements in a natural sequential flow. We first test the Ingredient Availability and cover the functional requirements related to those. Next the tests look at the requirements related to ordering, and then making a drink. All of these requirements can be seen in the SRS in section 3.1 Ordering Drink and 3.2 Making Drink.}
 
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good.}
+\subsubsection{Ingredient Availability}
 
-\subsubsection{Area of Testing1}
 
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
+\wss{The area of testing in this subsection verifies how our system handles ingredient availability. This relates to requirements MDR6, ODR5, ODR8, ODR9, and ODR10 in the SRS documentation. The tests run through two scenarios of different ingredient availability. The Web App is then checked to ensure that the system is properly communicating this information as detailed in the requirements. A final test is performed to ensure the operator is able to communicate the available ingredients and the dispenser location of these ingredients with the Web App.}
 		
-\paragraph{Title for Test}
+\paragraph{Ingredient Communications Test}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{ST-FR-ICT-01\\}
+%Test for MDR6, ODR2, ODR5, ODR8 this is right
+%Could automate this, but sounds like a PITA
 
-Control: Manual versus Automatic
+Control: Manual
 					
-Initial State: 
+Initial State: System is powered and ready.
 					
-Input: 
+Input: Ingredient(s) are out of inventory.
 					
-Output: \wss{The expected result for the given inputs}
+Output: \wss{The operator receives a notification on the Web App. Specifying which ingredient vat(s) are empty. Menus on user accounts will display that drinks containing out of inventory ingredients are now unavailable.}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. These are MDR6, ODR6, and ODR9.}
 					
-How test will be performed: 
+How test will be performed: The operator will remove ingredient(s) at their choosing, and check the Web App to see if they have a notification relating to the specific ingredient(s) being out of inventory. They will also check the menu on a user account, and verify that affected drinks are unavailable. For example, if the vat of gin is removed, then a gin & tonic will not be available on the menu.
 					
-\item{test-id2\\}
+\item{ST-FR-ICT-02\\}
+%Test for MDR6, ODR2, ODR5, ODR8 this is right
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+Control: Manual
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Initial State: System is powered and ready.
 
-How test will be performed: 
+Input: Ingredients are all in inventory.
+
+Output: \wss{The operator has no notifications on the Web App relating to ingredients being out of inventory. The menu on a user account has all drinks being available.}
+
+Test Case Derivation: \wss{This is the expected behaviour for our system when there are no errors present.}
+
+How test will be performed: After completing ST-FR-ICT-01, the operator will refill all previously empty vats. Once this is complete, they will check the Web App to see if the previous notification has been removed. Then they will check the menu on a user account to verify that all drinks are now available. 
+
+\item{ST-FR-ICT-03\\}
+%Test for ODR9, ODR10 (this is right)
+
+Control: Manual
+
+Initial State: System is powered and ready.
+
+Input: Operator inputs all ingredients available and dispenser location of each ingredient into the Web App.
+
+Output: \wss{The ingredients and dispenser location map is updated to match the inputted ingredients and dispenser locations added by the operator. The menu on a user account has all drink combinations possible available.} %note we could have a separate test case to ensure the ingredients and dispenser location map match up with the hardware ingredients.. i.e. vat 1 on the map has vodka and the physical vat 1 actually has vodka
+
+Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. These are ODR9 and ODR10.}
+
+How test will be performed: The operator will use the Web App and go to the ingredients and dispenser location map page. They will input all ingredients available and the corresponding dispenser location for each ingredient. Once saved, the operator will check to see if the ingredients and dispenser location map is updated properly and that the menu the user will see has all the correct possible drink combinations as options.
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
 
-...
+
+\subsubsection{Drink Ordering}
+\wss{The tests below go over the functional requirements related to the processes of ordering a drink. The first test relates to testing the Web App and ensuring the user is able to scan the QR code which will successfully bring the user to a functioning We App. Tests are then performed to ensure the user is able to order a drink and see the order number in the queue of orders as well as the estimated time remaining until the drink is made. Two more tests follow this to ensure the user is able to change and/or cancel the order they previously placed.}
+
+\paragraph{Web App Up Test}
+
+\begin{enumerate}
+
+\item{ST-FR-WAUT-01\\}
+%Test for ODR1 this is right
+
+Control: Manual
+					
+Initial State: System is powered and ready.
+					
+Input: Operator scans QR code with their phone.
+					
+Output: \wss{Operator successfully reaches the Web App. Web App is functional.}
+
+Test Case Derivation: \wss{As per functional requirement ODR1 in the SRS, the QR code should lead all users to website that is functional.}
+					
+How test will be performed: The operator will scan the QR code on the frame of the system using their phone. They will then go to the link that pops up. They will verify that they can reach the Web App.
+\end{enumerate}
+
+\paragraph{Drink Ordered Test}
+
+\begin{enumerate}
+
+\item{ST-FR-DOT-01\\}
+%Test for ODR4 this is right
+
+Control: Manual
+					
+Initial State: System is powered and ready.
+					
+Input: Operator orders a drink on a user account.
+					
+Output: \wss{Operator can view the order number in the queue of orders and the estimated time remaining until the drink is made.}
+
+Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. This is ODR4.}
+					
+How test will be performed: The operator will order a drink on a user account. They will then check the order number in the queue and the estimated time remaining until the drink is made.
+					
+\item{ST-FR-DOT-02\\}
+%Test for ODR3 this is right
+
+Control: Manual
+
+Initial State: Initial State: System is powered and ready. User has ordered a drink.
+
+Input: Operator changes the drink order on the user account.
+
+Output: \wss{The drink order is updated to the new order. The order number in the queue remains the same and the estimated time remaining is very similar.}
+
+Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. This is ODR3.}
+
+How test will be performed: After completion of test ST-FR-DOT-01, the operator will change the drink order they previously placed. They will then check to see that the drink order was in fact updated and the order number in the queue remained the same.
+
+\item{ST-FR-DOT-03\\}
+%Test for ODR3 this is right
+
+Control: Manual
+
+Initial State: Initial State: System is powered and ready. User has ordered a drink.
+
+Input: Operator cancels the drink order on the user account.
+
+Output: \wss{The drink order is cancelled and no longer appears in the queue.}
+
+Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. This is ODR3.}
+
+How test will be performed: After completion of test ST-FR-DOT-02, the operator will cancel the drink order they previously placed. They will then check to see that the drink order was in fact cancelled and the order no longer appears in the queue.
+
+\end{enumerate}
+
+\subsubsection{Drink Making}
+
+\wss{The tests below go over the functional requirements related to checking that a cup is present for pouring, and making drinks. A test is then performed to ensure that the system dispenses the correct proportions and the drink is made properly. Another test ensures that when a cup is filled, the user and operator receive and will continue to receive notifications until the full cup is removed so the next drink can begin to be created. These notifications will be cleared and the next drink will begin to be created once the full cup has been removed.}
+
+
+		
+\paragraph{Cup Present Test}
+
+\begin{enumerate}
+
+\item{ST-FR-CPT-01\\}
+%Test for MDR3 and MDR7 this is right
+
+Control: Manual
+					
+Initial State: System is powered and ready, except no cup is present.
+					
+Input: Operator orders a drink on a user account. 
+					
+Output: \wss{Operator receives a "no cup present" notification.}%should we mention that system shouldn't pour without a cup
+
+Test Case Derivation: \wss{If the system is ready, this is the only scenario that a notification about no cup being present will occur.}
+					
+How test will be performed: The operator will order a drink on a user account. They will then check their operator account to see if they have received a notification that there is no cup present for the current order.
+					
+\item{ST-FR-CPT-02\\}
+%Test for MDR3 and MDR7 this is right
+
+Control: Manual
+
+Initial State: Initial State: System is powered and ready, except no cup is present. User has ordered a drink.
+
+Input: Operator supplies a cup into the pouring area.
+
+Output: \wss{The no cup present notification on the operators account has been removed.}
+
+Test Case Derivation: \wss{The no cup present notification will only occur when an order has been placed and there is no cup present. By adding a cup, this notification is no longer expected.}
+%Should I also add a test case where instead of adding a cup the order is removed, so no orders are placed?
+
+How test will be performed: After completion of test ST-FR-CPT-01, the operator will place a cup correctly orientated in the pouring area. They will then check their operator account to see if the no cup present notification has been removed.
+
+\end{enumerate}
+
+\paragraph{Drink Made Test}
+
+\begin{enumerate}
+
+\item{ST-FR-DMT-01\\}
+%Test for MDR2, MDR4, MDR5, MDR7, MDR8, ODR11, and ODR12 this is right
+
+Control: Manual
+					
+Initial State: System is powered and ready. Operator has ordered a drink on a user account. A cup is present.
+					
+Input: System is dispensing a drink.
+					
+Output: \wss{Completed drink made with the correct proportions. The operator receives a "cup is full" notification. The correct user account receives a drink is done notification. The green light that an order has been completed is lit up.}
+%do we want the cup is full notification to only occur for the operator after 30 seconds so they are not spammed every time? If so I will make another test case for this
+
+Test Case Derivation: \wss{If the system is ready, this is the only scenario that a notification about a full cup being present in the pouring area will occur. Likewise it is the only scenario when a user will receive an order completed notification.}
+					
+How test will be performed: After completion of test ST-FR-CPT-01 the ordered drink will begin to pour. Once this process has completed, the operator will check that the green LED on the system is lit. Next, they will check their account to see if they have received a notification that there is full cup present at the pouring area. Then they will then check the user account that placed the order to see if an order completed notification has been received on that users account. They will also check another user account that did not place the order to make sure they have not received this notification. The operator will check if the proportions dispensed for the drink are correct, using a calibration apparatus. Lastly, the operator will also check the Web App statistics to ensure that these have been updated to include this completed order in the statistics.
+%apparatus will divide the pouring of each ingredient into separate areas
+
+\item{ST-FR-DMT-02\\}
+%Test for MDR9 and MDR10 this is right
+
+Control: Manual
+
+Initial State: Initial State: System is powered and ready, cup is full in the pouring area.
+
+Input: Operator orders a drink on a user account.
+
+Output: \wss{The full cup present notification on the operators account remains. The correct users account will continue to have an order completed notification. The user who has just placed an order will not have an order done notification, unless it is the user account that placed the initial order. The green LED remains lit. The next drink that has been ordered does not start pouring.}
+%Could add a test where the next order is placed using the same user account, make sure they still have their order completed notification from the first drinks, and still have order info for their next one.
+
+Test Case Derivation: \wss{From requirement MDR9 and MDR10 in the SRS, the expected behaviour of our system when there is a completed drink in the pouring area and other drinks in queue, is to not pour the next drink until the completed one is removed.}
+
+How test will be performed: After completion of test ST-FR-DMT-01, the operator will order another drink with a different user account. They will then check the green LED to ensure it has not shut off. Next, they will note whether the system is dispensing another drink or not, as it should not be. Then they will check their operator account to see if the full cup present notification remains. Next they will check the user account that placed the initial order to see if the order completed notification remains on that account. They will also check the users account who placed the new order, looking to see that they have their own order status information, but no drink complete notification. Lastly, they will check another user account that did not place the order to make sure they still have not received any notifications.
+
+\item{ST-FR-DMT-03\\}
+%Test for MDR4, MDR5, MDR7, MDR8, and ODR11 this is right
+
+Control: Manual
+
+Initial State: Initial State: System is powered and ready, cup is full in the pouring area. Another user order is in the queue.
+
+Input: Operator removes cup from the pouring area.
+
+Output: \wss{The full cup present notification on the operators account has been removed. The correct users account will have an order completed notification removed. The green LED on the system is no longer lit. The operator gets a no cup present notification again.}
+
+Test Case Derivation: \wss{The cup is full notification for the operator and the order is done notification for the user will only occur when there is a completed drink in the pouring area. By adding a cup, this notification is no longer expected.}
+
+How test will be performed: After completion of test ST-FR-DMT-02, the operator will remove the full cup from the pouring area. They will then check the green LED to ensure it has now shut off. Next, they will check their operator account to see if the full cup present notification has been removed. Then they will check the user account that placed the order to see if the order completed notification has been removed from that users account. They will also check another user account that did not place the order to make sure they still have not received any notifications. The operator will make sure that they still receive a no cup present notification.
+
+\end{enumerate}
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.}
+\wss{The tests for non-functional requirements set out to cover all measurable non-functional requirements outlined in the SRS document. Tests are done manually, automated, with user test groups, or with administrator access.}
 
-\wss{Tests related to usability could include conducting a usability test and
-  survey.}
+\wss{The following test cases cover usability and performance.}
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\subsubsection{Usability Requirements}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{ST-NFR-UR-01\\}
 
-Type: 
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+Control: Manual
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+Initial State: Testers are logged into a user account on the Web App
+
+Input: Testers are asked to navigate the web page and place an order. Testers will rate their navigating and ordering experience on a scale from 1 to 5: 1 - unusable, 2 - poor, 3 - satisfactory, 4- good, 5 - excellent.
+
+Output: The average score from the testers in the survey is greater than 3
+
+How the test will be performed: A test group of individuals who are of legal drinking age will be equipped with a device and a user account to log into the Smart Serve Web App. The testers will be given 10 minutes to navigate the webpage and submit mock orders that will not be sent to 
+
+\item{ST-NFR-UR-02\\}
+
+Control: Manual
+
+Initial State: Testers will approach Smart Serve and grab a cup
+
+Input: Testers are asked to grab a cup. Testers will report if the machine was too high, too low, or fine.
+
+Output:  More than half of the testers say the height is fine.
+
+How the test will be performed: A test group of individuals who are of legal drinking age will approach Smart Serve and grab a cup. Testers will report if the height of the machine was too high, too low, or fine. The test will pass if more than half of the testers say that the height is fine.
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Performance Requirements}
 
-...
+\begin{enumerate}
+
+\item{ST-NFR-PR-01\\}
+
+Control: Manual
+
+Initial State: System is powered and ready with an empty cup present
+
+Input: Operator orders a drink on a user account
+
+Output: The drink is made and ready within 45 seconds of input
+
+How the test will be performed: The operator will have already gone through the process of logging into the user account. The operator will order any drink on the menu and begin a timer at the same time of the order. The order will then be sent to and made by Smart Serve. The operator will wait until the green LED is lit up and will stop the timer. The test will pass if the timer has recorded less than 45 seconds.
+					
+\item{ST-NFR-PR-02\\}
+
+Control: Manual
+
+Initial State: Testers are logged into a user account on the Web App
+
+Input: Testers are asked to navigate the Web App and perform many different operations. Testers will rate the responsiveness of the webpage on a scale from 1 to 5: 1 - unusable, 2 - slow, 3 - satisfactory, 4- fast, 5 - instant.
+
+Output: The average score from the testers in the survey is larger than 3
+
+How the test will be performed: A test group of individuals who are of legal drinking age will be equipped with a device and the Web App logged into a user account. The testers will be given 5 minutes to navigate the web page and will be told to try as many different actions as possible. The Web App will be disconnected from Smart Serve and will not send any commands to the machine. The testers will be asked to rate the responsiveness of the Web App from 1-5 based on the criteria explained above. The test will pass if the average is over 3.
+
+\item{ST-NFR-PR-03\\}
+
+Control: Automated
+
+Initial State: System is powered and ready with an empty cup present
+
+Input: Operator initiates test case
+
+Output: The order is added to Smart Serves internal queue within 20 seconds of input
+
+How the test will be performed: The administrator will initiate the automated test case. The test case will use administrative privileges to send an order to Smart Serve with a timestamp. Smart Serve will receive the order into the queue and return an acknowledgement to the administrator with a timestamp. The test case will compare these two timestamps and it will pass if they are within 20 seconds of each other.
+
+\item{ST-NFR-PR-04\\}
+
+Control: Manual
+
+Initial State: System is powered and ready with an empty cup present
+
+Input: Operator orders a drink consisting of a single type of alcohol mixed without anything on a user account
+
+Output: The drink must contain less than 1.1x the amount of expected alcohol
+
+How the test will be performed: The operator will have already gone through the process of logging into the user account. The operator will order a drink consisting of a single type of alcohol mixed without anything. The order will then be sent to and made by Smart Serve. The drink will be poured into a measuring cup to manually measure the content. The test will pass if the content of the measuring cup is less than 1.1x the ordered amount of alcohol.
+
+
+\end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
 
-\wss{Provide a table that shows which test cases are supporting which
+\wss{A table that shows which test cases are supporting which
   requirements.}
 
+\begin{center}
+\begin{tabular}{||c c||} 
+ \hline
+ Test Case & Requirement(s)  \\ [0.5ex] 
+ \hline\hline
+ ST-FR-ICT-01 & MDR6, ODR2, ODR5, \& ODR8 \\ 
+ \hline
+ ST-FR-ICT-02 & MDR6, ODR2, ODR5, \& ODR8 \\ 
+ \hline
+ ST-FR-ICT-03 & ODR9 \& ODR10 \\ 
+ \hline
+ ST-FR-WAUT-01 & ODR1\\ 
+ \hline
+ ST-FR-DOT-01 & ODR4 \\ 
+ \hline
+ ST-FR-DOT-02 & ODR3 \\ 
+ \hline
+ ST-FR-DOT-03 & ODR3 \\ 
+ \hline
+ ST-FR-CPT-01 & MDR3 \& MDR7 \\ 
+ \hline 
+ ST-FR-CPT-02 & MDR3 \& MDR7 \\ 
+ \hline
+ ST-FR-DMT-01 & MDR2, MDR4, MDR5, MDR7, MDR8, ODR11, \& ODR12 \\ 
+ \hline
+ ST-FR-DMT-02 & MDR9 \& MDR10 \\ 
+ \hline
+ ST-FR-DMT-03 & MDR2, MDR4, MDR5, MDR7, MDR8, \& ODR11 \\ 
+ \hline
+ ST-NFR-UR-01 & UHR4  \\ 
+ \hline
+ ST-NFR-UR-02 & UHR1 \\
+ \hline
+ ST-NFR-PR-01 & PR1  \\
+ \hline
+ ST-NFR-PR-02 & PR2 \\
+ \hline
+ ST-NFR-PR-03 & PR3 \\ [1ex] 
+ \hline
+ ST-NFR-PR-04 & PR4 \\ [1ex] 
+ \hline
+\end{tabular}
+\end{center}
+  
+\newpage
 \section{Unit Test Description}
-
-\wss{Reference your MIS and explain your overall philosophy for test case
-  selection.}  
-\wss{This section should not be filled in until after the MIS has
-  been completed.}
+    \wss{This section will be filled out once the MIS is completed.
+    %The following unit test cases are to be done to ensure proper function. Most of the unit test cases are on components that are critical to the operation of Smart Serve.
+    }
 
 \subsection{Unit Testing Scope}
-
-\wss{What modules are outside of the scope.  If there are modules that are
-  developed by someone else, then you would say here if you aren't planning on
-  verifying them.  There may also be modules that are part of your software, but
-  have a lower priority for verification than others.  If this is the case,
-  explain your rationale for the ranking of module importance.}
+    \wss{This section will be filled out once the MIS is completed.
+    %The unit testing on the pump and raspberry pi are hardware tests. The other tests are software tests but are still essential to ensure proper operation. All of these modules are inside the unit testing scope.
+    }
 
 \subsection{Tests for Functional Requirements}
+    \wss{This section will be filled out once the MIS is completed.
+    %Most of the verification will be through automated unit testing. If  appropriate specific modules can be verified by a non-testing based technique.  That can also be documented in this section.
+    }
 
-\wss{Most of the verification will be through automated unit testing.  If
-  appropriate specific modules can be verified by a non-testing based
-  technique.  That can also be documented in this section.}
 
-\subsubsection{Module 1}
-
-\wss{Include a blurb here to explain why the subsections below cover the module.
-  References to the MIS would be good.  You will want tests from a black box
-  perspective and from a white box perspective.  Explain to the reader how the
-  tests were selected.}
-
-\begin{enumerate}
-
-\item{test-id1\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-
-\item{...\\}
+\mycomment{ %begin my comment function (end below)
+\subsubsection{Peristaltic Pump}
+    \wss{The following subsections include tests to ensure the peristaltic pump is functioning in a proper manner.}
     
+    \begin{enumerate}
+    \item{UT-FR-PP-01\\}
+    Type: \wss{Automatic}
+    
+    Initial State: OFF
+    
+    Input: Power
+    
+    Output: \wss{Pump turns ON when given power.}
+    
+    Test Case Derivation: \wss{Pump is expected to turn on when given power. This ensures the pump is working properly.}
+    
+    How test will be performed: Send full voltage to pump and wait for it to turn on.
+	
+	\item{UT-FR-PP-02\\}
+    Type: \wss{Automatic}
+    
+    Initial State: ON
+    
+    Input: No power
+    
+    Output: \wss{Pump turns OFF when given no power.}
+    
+    Test Case Derivation: \wss{Pump is expected to turn off when given no power. This ensures the pump is working properly.}
+    
+    How test will be performed: Send no voltage to pump and wait for it to turn off.
 \end{enumerate}
 
-\subsubsection{Module 2}
 
-...
+\subsubsection{Raspberry Pi Zero}
+    \wss{The following subsections include tests to ensure the raspberry pi is functioning in a proper manner.}
+    
+    \begin{enumerate}
+    \item{UT-FR-RPZ-01\\}
+    Type: \wss{Automatic}
+    
+    Initial State: OFF
+    
+    Input: Power
+    
+    Output: \wss{Raspberry pi turns ON when given power.}
+    
+    Test Case Derivation: \wss{Raspberry pi is expected to turn on when given power. This ensures the raspberry pi is working properly.}
+    
+    How test will be performed: Plug in the raspberry pi and wait for it to turn on.
+	
+	\item{UT-FR-RPZ-02\\}
+    Type: \wss{Automatic}
+    
+    Initial State: ON
+    
+    Input: No power
+    
+    Output: \wss{Raspberry pi turns OFF when given no power.}
+    
+    Test Case Derivation: \wss{Raspberry pi is expected to turn off when given no power. This ensures the raspberry pi is working properly.}
+    
+    How test will be performed: Unplug the raspberry pi and wait for it to turn off.
+\end{enumerate}
+
+\subsubsection{Web App}
+    \wss{The following subsections include tests to ensure the Web App is functioning in a proper manner.}
+    
+    \begin{enumerate}
+    \item{UT-FR-WA-01\\}
+    Type: \wss{Automatic}
+    
+    Initial State: Create account screen
+    
+    Input: Less than 15 characters for first name
+    
+    Output: \wss{Web App accepts this first name}
+    
+    Test Case Derivation: \wss{Create account screen on the Web App should only accept characters for the first name and not allow more than 15 characters.}
+    
+    How test will be performed: Access the Web App and enter a first name on the create account screen.
+\end{enumerate}
+} %end my comment function
 
 \subsection{Tests for Nonfunctional Requirements}
-
+This section will be filled out once the MIS is completed.
+\mycomment{
 \wss{If there is a module that needs to be independently assessed for
   performance, those test cases can go here.  In some projects, planning for
   nonfunctional tests of units will not be that relevant.}
@@ -365,10 +698,11 @@ How test will be performed:
 \subsubsection{Module ?}
 
 ...
+}
 
 \subsection{Traceability Between Test Cases and Modules}
-
-\wss{Provide evidence that all of the modules have been considered.}
+This section will be filled out once the MIS is completed.
+%\wss{Provide evidence that all of the modules have been considered.}
 				
 \bibliographystyle{plainnat}
 
@@ -378,26 +712,59 @@ How test will be performed:
 
 \section{Appendix}
 
-This is where you can place additional information.
-
 \subsection{Symbolic Parameters}
 
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 
-\subsection{Usability Survey Questions?}
+\subsection{Usability Survey Questions}
 
 \wss{This is a section that would be appropriate for some projects.}
 
 \newpage{}
 \section*{Appendix --- Reflection}
 
+\mycomment{ %from template
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Lifelong Learning.  Please answer the following questions:
 
 \begin{enumerate}
-  \item 
-  \item 
+  \item What knowledge and skills will the team collectively need to acquire to
+  successfully complete the verification and validation of your project?
+  Examples of possible knowledge and skills include dynamic testing knowledge,
+  static testing knowledge, specific tool usage etc.  You should look to
+  identify at least one item for each team member.
+  \item For each of the knowledge areas and skills identified in the previous
+  question, what are at least two approaches to acquiring the knowledge or
+  mastering the skill?  Of the identified approaches, which will each team
+  member pursue, and why did they make this choice?
 \end{enumerate}
+} %end from template
+
+ \\
+%What knowledge and skills will you need to acquire for
+%VnV?
+%I What options do you have to acquire these skills?
+%I What option have you selected for acquiring each skill?
+%I As for SRS reflection
+\noindent\textbf{Max Turek:} \\
+\indent In order to successfully execute our VnV plan, I will need to acquire skills in the areas of automated and embedded testing. Although I have used pytest before, I know there are many other libraries of tests like Serenity that can be used to verify certain software requirements for our system. In regards to embedded testing, since most of that testing will involve someone acting as a user and running through a bunch of regression testing, all use cases of the system need to be specified. Therefore, I will need to systemically learn a framework or methods in order to have an extensive list of workflow uses of the Smart Serve system. My options to learn these skills will be to ask help from my group mates that are more familiar with these tools. Furthermore, there are lots of videos on YouTube or Udemy that can educate me in automated and embedded testing. Fortunately, in my previous job we used some testing tools and I know I could always reach out to my former supervisor for any advice. 
+\\\\
+\noindent\textbf{Peter Minbashian:} \\
+\indent
+In order to execute the outlined VnV plan I will have to learn how to properly conduct an efficient survey to understand the general perception of our design. With the spirit of the project revolving around a user-friendly design, it is imperative that we have a strong user experience. This will require communicating with a varying amount of people, most likely volunteers. It is imperative that strong questions are asked as it gives a stronger insight into the flaws of any design, so appropriate changes can be made Although simple, this is also still a skill I have yet to practice. To learn more, there are plenty of basic online tools, such as YouTube, which can be used. However, more specific tools can be used to gather a greater understanding of this skill, mainly research-specific institutes that detail effective survey creation. An example of this can be found on the site of the Pew Research Center which has written a guide to developing an effective survey.
+\\\\
+\noindent\textbf{Ryan Were:} \\
+\indent
+To successfully complete the verification and validation of our project, I will need to acquire static testing knowledge. I have never participated in code reviews or walkthroughs, but I see them as a valuable tool to help remove any silly errors or make code more efficient before running it through dynamic tests. To acquire this skill, I can research this topic, learn the processes in detail and then try to run a code review meeting with our team. Another approach would be to ask other group members if this is an area they have some degree of expertise in, and then have them run a code review or similar static testing tool. I personally would like to take the first approach where I do my own research so I have a really good understanding before I am actively participating in it.
+\\\\
+\noindent\textbf{Sam Nusselder:} \\
+\indent
+In order to successfully complete the verification and validation of our project, I will need to gain knowledge and skills in system and unit testing. It will be important to execute the tests needed to ensure proper functionality of Smart Serve in a robust and accurate way. When performing these tests it is important to follow the outlined tests with the correct inputs and outputs and determine if the result is desired. New tests will also need to be developed as Smart Serve is created to test different systems or components of the system. One of the ways to gain knowledge and skills in the area of system and unit testing is to do research and watch videos on testing. Another approach would be to talk to professors, TA's and fellow classmates to learn from any system or unit testing they were involved in. I will likely use the first approach as this will allow me to do extensive learning in this area.
+\\\\
+\noindent\textbf{David Bednar:} \\
+\indent
+To successfully follow through with the outline VnV plan, I will need to learn how to create automated end to end test cases along with learning proper test group surveying methods. Learning to create automated test cases can be done using online resources and working with my groupmates to learn different testing methods. Automated testing will require a testing framework that is compatible with the web application. The web application will likely use javascript, so I will mostly likely learn the automated testing framework Selenium. I will learn proper group surveying techniques. I can do this by using online resources or approaching TA’s that have performed these methods before.
+\indent
 
 \end{document}
