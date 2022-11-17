@@ -5,7 +5,7 @@ export default class DrinkListLetter extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            items: [],
+            // items: [],
             DataisLoaded: false
         };
     }
@@ -40,7 +40,7 @@ export default class DrinkListLetter extends Component {
             <h1> Please wait some time.... </h1> </div> ;
         return (
         <div>
-            {this.state.items["drinks"].map(d => (<li onClick={() => ingredients(d.strDrink)} key={d.idDrink}>{d.strDrink}</li>))}
+            {this.state.items?.["drinks"].map(d => (<div onClick={() => ingredients(d.strDrink)} key={d.idDrink} style={{boxShadow: '2px 2px 2px 2px lightgray', marginTop: '20px', marginBottom: '20px', borderRadius: '5px', cursor: 'pointer', paddingTop: '5px', paddingBottom: '5px', backgroundColor: 'rgb(194, 241, 138)'}}>{d.strDrink}</div>))}
         </div>
         );
 }
