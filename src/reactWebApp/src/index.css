@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  background-color: rgb(243, 239, 239);
+  color: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Garamond, serif !important;
+  font-size: 20px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
