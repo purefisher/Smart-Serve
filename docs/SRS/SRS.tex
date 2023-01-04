@@ -67,6 +67,10 @@
         11/02/22 & Max Turek & Changed glass to cup for definitions, terms, acronyms and abbreviations table \\
         \bottomrule
         \hline
+        \toprule
+        \midrule
+        01/04/23 & Max Turek & Updated document to reflect issues from other teams. Removed ODR7, edited PR7 \&\ PR8, rationale added for QR1 and citation added for HSR3\\
+        \bottomrule
         \end{tabularx}
     \end{table}
 
@@ -275,7 +279,6 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
     \textbf{ODR4:} User can view place/time remaining for the drink to be made \\\\ 
     \textbf{ODR5:} User is notified if drink ingredients are out of inventory\\\\ 
     \textbf{ODR6:} User is notified when drink is done\\\\
-    \textbf{ODR7:} Web app gives an intoxication test when the customer has ordered too many drinks too quickly\\
 
     \textbf{Rationale:} This is done to comply with Ontario Laws to ensure no customer is served when already intoxicated\\\\
     \textbf{ODR8:} Operator is notified if drink ingredients are out of inventory\\\\
@@ -313,6 +316,7 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
 \subsection{Quality requirements of the entire system}
     \noindent\textbf{QR1.} Smart Serve must be robust\\ 
     
+    \textbf{Rationale:} During steady state operation, smart serve will satisfy all it's functional requirements.\\\\
 \subsection{Look and Feel Requirements}
     \noindent\textbf{LFR1.} The web app must be intuitive and visually appealing \\\\
     \textbf{LFR2.} Smart Serve must have all electrical and mechanical components concealed \\\\
@@ -339,8 +343,8 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
     \subsubsection{Reliability and availability requirement}
         \noindent\textbf{PR6.} Smart Serve must be able to create the correct drink every time as long as it has the correct ingredients \\
     \subsubsection{Capacity requirement}
-        \noindent\textbf{PR7.} Smart Serve must be able to store up to 8 ingredients \\\\
-        \textbf{PR8.} Smart Serve must be able to store up to 2 liters of each ingredient \\\\
+        \noindent\textbf{PR7.} Smart Serve must be able to store up to 5 ingredients \\\\
+        \textbf{PR8.} Smart Serve must be able to store up to 1 liters of each ingredient \\\\
 
 \subsection{Operational and Environmental Requirements}
     \subsubsection{Expected physical environment}
@@ -380,7 +384,7 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
 \subsection{Health and Safety Requirements}
     \noindent\textbf{HSR1.} Smart Serve or the operator must not serve a drink to someone who is dangerously intoxicated \\\\
     \textbf{HSR2.} Smart Serve should not be operational near unsupervised persons under the drinking age \\\\
-    \textbf{HSR3.} Smart Serve or the operator must not serve more than 2 drinks per hour to one user \\\\
+    \textbf{HSR3.} Smart Serve or the operator must not serve more than 2 drinks per hour to one user\textsuperscript{[1]} \\\\
     \textbf{HSR4.} No electrical component can come into contact with any fluid \\\\
 
 \section{Likely Changes to Requirements}
@@ -414,7 +418,7 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
     \noindent\textbf{Justification: }It must be assumed that a large demographic of operators of Smart Serve do not have a background in technology. The maintenance of the device should be straightforward, with limited technological experience required. 
 \newpage
 \section{References}
-    \noindent Not applicable.
+   1. Alcohol and your body. [Online]. Available: https://shop.ucsc.edu/alcohol-other-drugs/alcohol/your-body.html. [Accessed: 04-Jan-2023]. 
 \newpage
 \section{Appendixes}
 \subsection{Reflection}
