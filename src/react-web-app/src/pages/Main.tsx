@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Drinks from '../components/Drinks';
 
 function Main() {
-
+  
   return (
     <AppShell
       fixed
