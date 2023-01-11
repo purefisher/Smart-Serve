@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, HashRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Main from './pages/Main';
 import LoginPage from './pages/Login';
 import { useState } from 'react';
@@ -9,10 +9,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {signedin && <Navigate to="/Main" replace={true} />}
         <Routes>
           <Route path="/" element={<Navigate to='Login'/>}/>
-          <Route path='Login' element={<LoginPage setsignedin={setsignedin} />} />
+          <Route path='Login' element={<LoginPage setsignedin={setsignedin} signedin={signedin} />} />
           <Route path='Main' element={<Main />} />
         </Routes>
 
