@@ -10,20 +10,7 @@ import OldFashioned from '../images/OldFashioned.jpeg';
 import PinaColada from '../images/PinaColada.jpeg';
 import Soju from '../images/Soju.jpeg';
 
-type Category = 'cocktails' | 'spirits' | 'liqueurs';
-
-export interface Drink {
-  name: string;
-  image: string;
-  category: Category;
-}
-
-interface DrinkSection {
-  category: Category;
-  drinks: Array<Drink>;
-}
-
-const info: Array<DrinkSection> = [
+const info = [
   {
     category: 'cocktails',
     drinks: [
@@ -95,7 +82,5 @@ const info: Array<DrinkSection> = [
     ],
   },
 ];
-
-export const allDrinks = info.map(({ category, drinks }) => drinks).flat(1);
 
 export default info;
