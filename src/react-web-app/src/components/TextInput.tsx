@@ -9,31 +9,33 @@ import {
     Image,
     Modal,
     Text,
-    Input
+    Input,
+    PasswordInput
   } from '@mantine/core';
 
-function UsernameInputField(){
+function InputField(props: any){
     return(
         <Center>
-                <Input
-                placeholder="Username"
-                size="lg"
-                />
-        </Center>
-
-    );
-}
-
-function PasswordInputField(){
-    return(
-        <Center>
-                <Input
+            {props.password ? 
+                <PasswordInput
                 placeholder="Password"
+                label="Password"
+                size='lg'
+                style={{width: 500}}
+                
+              />
+            :<Input.Wrapper label={props.name} size='lg'>
+            <Input
+                placeholder={props.name}
                 size="lg"
+                style={{width: 500}}
                 />
+            </Input.Wrapper>
+            }
         </Center>
 
     );
 }
 
-export default UsernameInputField
+
+export default InputField
