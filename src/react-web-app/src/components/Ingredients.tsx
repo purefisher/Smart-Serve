@@ -27,13 +27,13 @@ function Drinks() {
             <Group spacing="xs">
                 
             <Select
-                label=""
-                placeholder="Pick one"
+                label="Ingredients"
+                placeholder="Ingredient 1"
                 data={ings}
                 />
             <Select
-                label=""
-                placeholder="Pick one"
+                label="Dispensors"
+                placeholder="Dispensor 1"
                 data={disps}
             />
             </Group>
@@ -41,28 +41,28 @@ function Drinks() {
                 
             <Select
                 label=""
-                placeholder="Pick one"
+                placeholder="Ingredient 2"
                 data={ings}
                 />
             <Select
                 label=""
-                placeholder="Pick one"
+                placeholder="Dispensor 2"
                 data={disps}
             />
             </Group>
             <Group spacing="xs">
-                
-                <Select
-                    label=""
-                    placeholder="Pick one"
-                    data={ings}
-                    />
-                <Select
-                    label=""
-                    placeholder="Pick one"
-                    data={disps}
+            
+            <Select
+                label=""
+                placeholder="Ingredient 3"
+                data={ings}
                 />
-                </Group>
+            <Select
+                label=""
+                placeholder="Dispensor 3"
+                data={disps}
+            />
+            </Group>
 
             <Group position="right" mt="md">
               <Button type="submit">Submit</Button>
