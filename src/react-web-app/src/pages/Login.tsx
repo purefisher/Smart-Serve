@@ -1,4 +1,4 @@
-import { AppShell } from '@mantine/core';
+import { AppShell, Space, Stack } from '@mantine/core';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import App from '../App';
@@ -14,20 +14,12 @@ const LoginPage = (props: any) => {
                 fixed
                 header={<Header height={90} padding='md' />}
             >
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>                
-                <InputField name={"Username"} password={0}/>
-                <br></br>
-                <br></br>
-                <br></br>
-                <InputField password={1}/>
-                <br></br>
-                <br></br>
-                <br></br>
-                <LoginButton event={props.setsignedin}></LoginButton>
-
+                <Space h="xl"/>
+                <Stack align="center" spacing='xl'>
+                    <InputField name={"Username"} password={0}/>
+                    <InputField password={1}/>
+                    <LoginButton event={props.setsignedin}></LoginButton>
+                </Stack>
                 {(props.signedin? <Navigate to="/Main" replace={true} />: null)} 
             </AppShell>}
             
