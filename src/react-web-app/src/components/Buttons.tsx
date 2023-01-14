@@ -28,14 +28,14 @@ import {
     },
   }));
   
-  function LoginButton(props: any){
+  function GeneralButton(props: any){
     return(
         <Center>
             <Button style={{width:150, height:50}} variant="outline" color='dark' onClick={() => props.event(true)}>
                 <Text
                 size={23}
                 weight={'bold'}>
-                    Login
+                    {props.name}
                 </Text>
                 
             </Button>
@@ -45,4 +45,4 @@ import {
   }
 
 
-  export default LoginButton
+  export default GeneralButton
