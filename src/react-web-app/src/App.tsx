@@ -3,6 +3,7 @@ import { BrowserRouter, HashRouter as Router, Navigate, Route, Routes, useLocati
 import Main from './pages/Main';
 import LoginPage from './pages/Login';
 import { useState } from 'react';
+import Admin from './pages/Admin';
 
 function App() {
   const [signedin, setsignedin] = useState(false);
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Navigate to='Login'/>}/>
           <Route path='Login' element={<LoginPage setsignedin={setsignedin} signedin={signedin} />} />
           <Route path='Main' element={<Main />} />
+          <Route path='/admin' element={<Admin />} />
         </Routes>
 
       </BrowserRouter>

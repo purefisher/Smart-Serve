@@ -1,4 +1,5 @@
 import {
+  Button,
   Center,
   Container,
   createStyles,
@@ -8,8 +9,10 @@ import {
   Text,
 } from '@mantine/core';
 
+import { useNavigate } from "react-router-dom";
+
 const styles = createStyles(({
-  spacedHeader: {
+  spacing: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -31,21 +34,33 @@ type HeaderProps = {
 
 function Header({ ...hP }: HeaderProps) {
   const { classes } = styles();
+  const navigate = useNavigate();
+
+  function handleHeading() {
+    navigate("/");
+  }
+
+  function handleButton() {
+    navigate("/admin");
+  }
 
   return (
     <HD className={classes.blur} {...hP}>
-      <Container className={classes.spacedHeader} fluid>
+      <Container className={classes.spacing} fluid>
         
         <Center style={{ width: 1500, height: 200 }}>
-        <Group spacing='xs'>
-          <Text
-            size={50}
-            weight={'bold'}
-          >
+        <Group position="center">
+          <Text size={50} weight={'bold'} onClick={handleHeading}>
             SMART - SERVE
           </Text>
         </Group>
         </Center>
+        
+        <Group position="right">
+          <Button onClick={handleButton}>
+            ADMIN PAGE
+          </Button>
+        </Group>
       </Container>
     </HD>
   );
