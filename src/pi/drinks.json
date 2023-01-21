@@ -1,0 +1,32 @@
+[
+	{
+		"Pump": 1,
+		"Ingredient": "Rum",
+        "Pin": 5,
+        "Type": 1
+    },
+    {
+        "Pump": 2,
+        "Ingredient": "Cola",
+        "Pin": 7,
+        "Type": 2
+    },
+    {
+        "Pump": 3,
+        "Ingredient": "OJ",
+        "Pin": 10,
+        "Type": 2
+    },
+    {
+        "Pump": 4,
+        "Ingredient": "Vodka",
+        "Pin": 20,
+        "Type": 1
+    },
+    {
+        "Pump": 5,
+        "Ingredient": "Sprite",
+        "Pin": 15,
+        "Type": 2
+    }
+]
