@@ -14,7 +14,7 @@ class cocktailcreate():
     def __init__(self):
         #initialize GPIO 
         io.setwarnings(False)
-        io.setmode(io.BCM)
+        io.setmode(io.BOARD)
 
         self.senseconfiguration = False #assume that it is not ready to receive a drink 
         #this will be the initial state of the machine
@@ -26,35 +26,45 @@ class cocktailcreate():
         #io.setup(5,io.OUT) #this is the turntable output
 
         #setting up each pin to the appropriate pump 
-        print(self.pumpconfiguration[0]['Pin'])
         
         for i in range(0,len(self.pumpconfiguration)):
-            #print(self.pumpconfiguration[i]['Pin'])
+            print(self.pumpconfiguration[i]['Pin'])
             io.setup(self.pumpconfiguration[i]['Pin'], io.OUT) 
-        
 
     def pourdrink(self, ing1, ing2=None, ing3=None):
 
         #each ing is a json object with pump, ingredient, pin, and type (similar to the drinks.json file)
         #this function is going to be called by the web app upon the ordering of a drink
+        pump_threads = []
         if self.senseconfig():
             if ing2 == None:
                 self.pumprun(ing1)
             elif ing3 == None:
                 try:
-                    thread1=threading.Thread(target=self.pumprun, args=(ing1, "thread1"))
-                    thread2=threading.Thread(target=self.pumprun, args=(ing2, "thread2"))
-                    thread1.start()
-                    thread2.start()
-                    thread1.join()
-                    thread2.join()
+                    pump_thread_one=threading.Thread(target=self.pumprun, args=(ing1, "thread1"))
+                    pump_threads.append(pump_thread_one)
+                    pump_thread_two=threading.Thread(target=self.pumprun, args=(ing2, "thread2"))
+                    pump_threads.append(pump_thread_two)
+                    for threads in pump_threads:
+                         threads.start()
+                    
+                    for threads in pump_threads:
+                         threads.join()
                 except:
                     print("Error: unable to start threads")
             else:
                 try:
-                    threading.start_new_thread(self.pumprun(ing1))
-                    threading.start_new_thread(self.pumprun(ing2))
-                    threading.start_new_thread(self.pumprun(ing3))
+                    pump_thread_one=threading.Thread(target=self.pumprun, args=(ing1, "thread1"))
+                    pump_threads.append(pump_thread_one)
+                    pump_thread_two=threading.Thread(target=self.pumprun, args=(ing2, "thread2"))
+                    pump_threads.append(pump_thread_two)
+                    pump_thread_three=threading.Thread(target=self.pumprun, args=(ing1, "thread3"))
+                    pump_threads.append(pump_thread_three)
+                    for threads in pump_threads:
+                         threads.start()
+                    
+                    for threads in pump_threads:
+                         threads.join()
                 except:
                     print("Error: unable to start threads") #use three different threads here
         else:
@@ -76,18 +86,22 @@ class cocktailcreate():
     #def turntable(self):
 
     def pumprun(self, ing, threadnumb): #this is the threading function
-        if (ing[0]['Type']==2):
-            io.output(ing[0]['Pin'], io.HIGH)
+        if (ing['Type']==2):
+            io.output(ing['Pin'], io.LOW)
             print("Pouring pop")
             time.sleep(pop_time_constant)
-            io.output(ing[0]['Pin'], io.LOW)
+            io.output(ing['Pin'], io.HIGH)
             print("All done pop")
         else:
-            io.output(ing[0]['Pin'], io.HIGH)
+            io.output(ing['Pin'], io.LOW)
             print("Pouring alcohol")
             time.sleep(alcohol_time_constant)
-            io.output(ing[0]['Pin'], io.LOW)
+            io.output(ing['Pin'], io.HIGH)
             print("All done alcohol")      
+    
+    def offpumps(self):
+        for i in range(0,len(self.pumpconfiguration)):
+            io.output(self.pumpconfiguration[i]['Pin'], io.HIGH)
 
     def run(self):
         try :
