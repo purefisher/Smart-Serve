@@ -21,6 +21,10 @@ class cocktailcreate():
         #load pump configuration from a file for each pump
         self.pumpconfiguration=cocktailcreate.pumpconfig()
 
+        self.turntable = False
+
+        io.setup(5,io.OUT) #this is the turntable output
+
         #setting up each pin to the appropriate pump 
         for i in self.pumpconfiguration:
             io.setup(self.pumpconfiguration[i][3]['Pin'], io.OUT) 
@@ -35,8 +39,8 @@ class cocktailcreate():
                 self.pumprun(ing1)
             elif ing3 == None:
                 try:
-                    thread.start_new_thread(self.pumprun(ing1))
-                    thread.start_new_thread(self.pumprun(ing2))
+                    thread.start_new_thread(self.pumprun, (ing1, 'thread1'))
+                    thread.start_new_thread(self.pumprun, (ing2, 'thread2'))
                 except:
                     print("Error: unable to start threads")
             else:
@@ -64,15 +68,15 @@ class cocktailcreate():
 
     #def turntable(self):
 
-    def pumprun(self, ing): #this is the threading function
+    def pumprun(self, ing, threadnumb): #this is the threading function
         if (ing[4]['Type']==2):
             io.output(ing[3]['Pin'], io.HIGH)
-            print("Pouring pop")
+            print("Pouring pop", + threadnumb)
             time.sleep(POP_TIME_CONSTANT)
             io.output(ing[3]['Pin'], io.LOW)
         else:
             io.output(ing[3]['Pin'], io.HIGH)
-            print("Pouring alcohol")
+            print("Pouring alcohol", + threadnumb)
             time.sleep(AlCOHOL_TIME_CONSTANT)
             io.output(ing[3]['Pin'], io.LOW)      
 
@@ -87,4 +91,7 @@ bartender = cocktailcreate()
 
 # this is what will be called by the web app bartender.pourdrink(arg1, arg2), create a single object called "bartender" then use that object to access the methods of the class
 
-bartender.pourdrink()
+ing1=json.load(open('test1ingredient.json'))
+ing2=json.load(open('test2ingredient.json'))
+
+bartender.pourdrink(ing1,ing2)
