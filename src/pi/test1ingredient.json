@@ -1,8 +1,6 @@
-{"Rum":
-    [
-        {"Pump": 1},
-        {"Ingredient": "Rum"},
-        {"Pin": 5},
-        {"Type": 1}
-    ]
-}
+[{
+       "Pump": 1,
+       "Ingredient": "Rum",
+       "Pin": 5,
+       "Type": 1
+}]

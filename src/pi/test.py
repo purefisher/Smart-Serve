@@ -13,5 +13,4 @@ def pumpconfig():
 
 pumpconfiguration=pumpconfig()
 
-for i in pumpconfiguration:
-    print(pumpconfiguration[i][2]['Pin'])
+print(pumpconfiguration[0])

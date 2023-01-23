@@ -1,14 +1,14 @@
 import RPi.GPIO as io
 import time
 import json
-from threading import thread
+import threading
 
 
 
 #represents the GPIO pins for each respective pump
 
-PUMP_TIME_CONSTANT=10
-ALCOHOL_TIME_CONSTANT=5
+pop_time_constant=10
+alcohol_time_constant=5
 
 class cocktailcreate():
     def __init__(self):
@@ -23,11 +23,14 @@ class cocktailcreate():
 
         self.turntable = False
 
-        io.setup(5,io.OUT) #this is the turntable output
+        #io.setup(5,io.OUT) #this is the turntable output
 
         #setting up each pin to the appropriate pump 
-        for i in self.pumpconfiguration:
-            io.setup(self.pumpconfiguration[i][3]['Pin'], io.OUT) 
+        print(self.pumpconfiguration[0]['Pin'])
+        
+        for i in range(0,len(self.pumpconfiguration)):
+            #print(self.pumpconfiguration[i]['Pin'])
+            io.setup(self.pumpconfiguration[i]['Pin'], io.OUT) 
         
 
     def pourdrink(self, ing1, ing2=None, ing3=None):
@@ -39,15 +42,19 @@ class cocktailcreate():
                 self.pumprun(ing1)
             elif ing3 == None:
                 try:
-                    thread.start_new_thread(self.pumprun, (ing1, 'thread1'))
-                    thread.start_new_thread(self.pumprun, (ing2, 'thread2'))
+                    thread1=threading.Thread(target=self.pumprun, args=(ing1, "thread1"))
+                    thread2=threading.Thread(target=self.pumprun, args=(ing2, "thread2"))
+                    thread1.start()
+                    thread2.start()
+                    thread1.join()
+                    thread2.join()
                 except:
                     print("Error: unable to start threads")
             else:
                 try:
-                    thread.start_new_thread(self.pumprun(ing1))
-                    thread.start_new_thread(self.pumprun(ing2))
-                    thread.start_new_thread(self.pumprun(ing3))
+                    threading.start_new_thread(self.pumprun(ing1))
+                    threading.start_new_thread(self.pumprun(ing2))
+                    threading.start_new_thread(self.pumprun(ing3))
                 except:
                     print("Error: unable to start threads") #use three different threads here
         else:
@@ -69,16 +76,18 @@ class cocktailcreate():
     #def turntable(self):
 
     def pumprun(self, ing, threadnumb): #this is the threading function
-        if (ing[4]['Type']==2):
-            io.output(ing[3]['Pin'], io.HIGH)
-            print("Pouring pop", + threadnumb)
-            time.sleep(POP_TIME_CONSTANT)
-            io.output(ing[3]['Pin'], io.LOW)
+        if (ing[0]['Type']==2):
+            io.output(ing[0]['Pin'], io.HIGH)
+            print("Pouring pop")
+            time.sleep(pop_time_constant)
+            io.output(ing[0]['Pin'], io.LOW)
+            print("All done pop")
         else:
-            io.output(ing[3]['Pin'], io.HIGH)
-            print("Pouring alcohol", + threadnumb)
-            time.sleep(AlCOHOL_TIME_CONSTANT)
-            io.output(ing[3]['Pin'], io.LOW)      
+            io.output(ing[0]['Pin'], io.HIGH)
+            print("Pouring alcohol")
+            time.sleep(alcohol_time_constant)
+            io.output(ing[0]['Pin'], io.LOW)
+            print("All done alcohol")      
 
     def run(self):
         try :
@@ -95,3 +104,4 @@ ing1=json.load(open('test1ingredient.json'))
 ing2=json.load(open('test2ingredient.json'))
 
 bartender.pourdrink(ing1,ing2)
+
