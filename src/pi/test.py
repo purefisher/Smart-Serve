@@ -1,16 +1,7 @@
-import json
+def func():
+    return [1,2,3,4,5]
 
 
+var = func()
 
-#print(pumpconfiguration['OJ'])
-
-
-
-
-
-def pumpconfig():
-    return json.load(open('drinks.json'))
-
-pumpconfiguration=pumpconfig()
-
-print(pumpconfiguration[0])
+print(var)
