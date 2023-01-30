@@ -1,7 +1,7 @@
-def func():
-    return [1,2,3,4,5]
 
 
-var = func()
+my_string = "4,2"
 
-print(var)
+result = [x.strip() for x in my_string.split(',')]
+
+print(int(result[0]))

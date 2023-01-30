@@ -15,7 +15,6 @@ class cocktailcreate():
         io.setmode(io.BOARD)
 
         self.idle_state = True
-        
 
         #relay is off when pin given a high 
         self.relay_off_state = 'High'
@@ -98,18 +97,19 @@ class cocktailcreate():
             pump_threads.append(pump_thread)
         return pump_threads
 
-    def pumprun(self, pin, type): #this is the threading function
-        if (type==2):
-            io.output(pin, io.LOW)
+    def pumprun(self, ing): #this is the threading function
+        result = [x.strip() for x in ing.split(',')]
+        if (int(result[1])==2):
+            io.output(int(result[0]), io.LOW)
             print("Pouring pop")
             time.sleep(pop_time_constant)
-            io.output(pin, io.HIGH)
+            io.output(int(result[0]), io.HIGH)
             print("All done pop")
         else:
-            io.output(pin, io.LOW)
+            io.output(int(result[0]), io.LOW)
             print("Pouring alcohol")
             time.sleep(alcohol_time_constant)
-            io.output(pin, io.HIGH)
+            io.output(int(result[0]), io.HIGH)
             print("All done alcohol")      
     
     def offpumps(self):
@@ -123,15 +123,17 @@ class cocktailcreate():
         except:
             print("false")
 
-bartender = cocktailcreate()
+
+
 
 # this is what will be called by the web app bartender.pourdrink(arg1, arg2), create a single object called "bartender" then use that object to access the methods of the class
 
-ing1=json.load(open('test1ingredient.json'))
-ing2=json.load(open('test2ingredient.json'))
-ing3=json.load(open('test3ingredient.json'))
+3#ing1=json.load(open('test1ingredient.json'))
+#ing2=json.load(open('test2ingredient.json'))
+#ing3=json.load(open('test3ingredient.json'))
 
-bartender.pourdrink(ing1,ing2,ing3)
+#bartender.pourdrink(ing1,ing2,ing3)
 
-print("ok")
+
+
 
