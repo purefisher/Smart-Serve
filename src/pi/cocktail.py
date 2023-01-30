@@ -122,7 +122,7 @@ class cocktailcreate():
             time.sleep(pop_time_constant)
             io.output(int(result[0]), io.HIGH)
             print("All done pop")
-        else:
+        elif (int(result[1])==1):
             io.output(int(result[0]), io.LOW)
             print("Pouring alcohol")
             time.sleep(alcohol_time_constant)
@@ -140,16 +140,6 @@ class cocktailcreate():
         except:
             print("false")
 
-
-
-
-# this is what will be called by the web app bartender.pourdrink(arg1, arg2), create a single object called "bartender" then use that object to access the methods of the class
-
-#ing1=json.load(open('test1ingredient.json'))
-#ing2=json.load(open('test2ingredient.json'))
-#ing3=json.load(open('test3ingredient.json'))
-
-#bartender.pourdrink(ing1,ing2,ing3)
 
 
 
