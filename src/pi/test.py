@@ -1,7 +1,5 @@
 
+from startup import bartender as bar
 
-my_string = "4,2"
 
-result = [x.strip() for x in my_string.split(',')]
-
-print(int(result[0]))
+bar.pourdrink('40,2','37,2', '19,1', '13,1', '15,1')
