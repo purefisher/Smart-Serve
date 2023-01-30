@@ -31,8 +31,8 @@ class cocktailcreate():
             io.setup(self.pumpconfiguration[i]['Pin'], io.OUT) 
         #turn off pumps
         self.offpumps()
-    #@staticmethod
-    def pourdrink(self, ing1, ing2=None, ing3=None):
+
+    def pourdrink(self, ing1, ing2=None, ing3=None, ing4=None, ing5=None):
         pump_threads=[]
 
         #each ing is a json object with pump, ingredient, pin, and type (similar to the drinks.json file)
@@ -43,11 +43,8 @@ class cocktailcreate():
                 self.pumprun(ing1)
             elif ing3 == None:
                 try:
-                    #pump_threads=self.threads(2, ing1, ing2)
-                    pump_thread_one=threading.Thread(target=self.pumprun, args=(ing1))
-                    pump_threads.append(pump_thread_one)
-                    pump_thread_two=threading.Thread(target=self.pumprun, args=(ing2))
-                    pump_threads.append(pump_thread_two)
+                    pump_threads.append(self.threads(ing1))
+                    pump_threads.append(self.threads(ing2))
                     for threads in pump_threads:
                          threads.start()
                     
@@ -55,15 +52,39 @@ class cocktailcreate():
                          threads.join()
                 except:
                     print("Error: unable to start threads")
+            elif ing4 == None:
+                try:
+                    pump_threads.append(self.threads(ing1))
+                    pump_threads.append(self.threads(ing2))
+                    pump_threads.append(self.threads(ing3))
+                    for threads in pump_threads:
+                         threads.start()
+                    
+                    for threads in pump_threads:
+                         threads.join()
+                except:
+                    print("Error: unable to start threads")
+            elif ing5 == None:
+                try:
+                    pump_threads.append(self.threads(ing1))
+                    pump_threads.append(self.threads(ing2))
+                    pump_threads.append(self.threads(ing3))
+                    pump_threads.append(self.threads(ing4))
+                    for threads in pump_threads:
+                         threads.start()
+                    
+                    for threads in pump_threads:
+                         threads.join()
+                except:
+                    print("Error: unable to start threads")
+
             else:
                 try:
-                    #pump_threads=self.threads(3, ing1, ing2, ing3)
-                    pump_thread_one=threading.Thread(target=self.pumprun, args=(ing1['Pin'],ing1['Type']))
-                    pump_threads.append(pump_thread_one)
-                    pump_thread_two=threading.Thread(target=self.pumprun, args=(ing2['Pin'],ing2['Type']))
-                    pump_threads.append(pump_thread_two)
-                    pump_thread_three=threading.Thread(target=self.pumprun, args=(ing3['Pin'],ing3['Type']))
-                    pump_threads.append(pump_thread_three)
+                    pump_threads.append(self.threads(ing1))
+                    pump_threads.append(self.threads(ing2))
+                    pump_threads.append(self.threads(ing3))
+                    pump_threads.append(self.threads(ing4))
+                    pump_threads.append(self.threads(ing5))
                     for threading_t in pump_threads:
                          threading_t.start()
                     
@@ -89,13 +110,9 @@ class cocktailcreate():
 
     #def turntable(self):
     
-    def threads(self,numbofthreads, ing1, ing2=None, ing3=None):
-        pump_threads=[]
-        
-        for thread in range(0,numbofthreads):
-            pump_thread=threading.Thread(target=self.pumprun, args=(ing1))
-            pump_threads.append(pump_thread)
-        return pump_threads
+    def threads(self, ing):
+        pump_thread=threading.Thread(target=self.pumprun, args=(ing,))
+        return pump_thread 
 
     def pumprun(self, ing): #this is the threading function
         result = [x.strip() for x in ing.split(',')]
@@ -128,7 +145,7 @@ class cocktailcreate():
 
 # this is what will be called by the web app bartender.pourdrink(arg1, arg2), create a single object called "bartender" then use that object to access the methods of the class
 
-3#ing1=json.load(open('test1ingredient.json'))
+#ing1=json.load(open('test1ingredient.json'))
 #ing2=json.load(open('test2ingredient.json'))
 #ing3=json.load(open('test3ingredient.json'))
 

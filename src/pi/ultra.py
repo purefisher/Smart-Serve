@@ -98,10 +98,10 @@ if __name__ == '__main__':
   try:
     while True:
     
-      cupStatus(ultra_1_TRIGGER, ultra_1_ECHO, cup_dist_limit)
+      #cupStatus(ultra_2_TRIGGER, ultra_2_ECHO, cup_dist_limit)
+      #time.sleep(2)
+      fillStatus(ultra_1_TRIGGER, ultra_1_ECHO, empty_cup_limit, full_cup_limit)
       time.sleep(2)
-      fillStatus(ultra_2_TRIGGER, ultra_2_ECHO, empty_cup_limit, full_cup_limit)
-      time.sleep(4)
     
       #dist = distance(ultra_1_TRIGGER, ultra_1_ECHO)
       #print ("Measured Distance of sensor 1 = %.1f cm" % dist)
