@@ -1,7 +1,6 @@
 import { Button, createStyles, Group, Select, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import ings from '../database/ings';
-import disps from '../database/disps';
 
 const useStyles = createStyles(() => ({
   container: {
@@ -22,46 +21,54 @@ function Drinks() {
       });
 
       return (
+
           <form onSubmit={form.onSubmit((values) => console.log(values))}>
             
             <Group spacing="xs">
-                
+            <Text
+                sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
+                ta="center"
+                fz="xl"
+                fw={700}
+              >
+              Dispensor 1
+            </Text>
             <Select
                 label="Ingredients"
                 placeholder="Ingredient 1"
                 data={ings}
                 />
-            <Select
-                label="Dispensors"
-                placeholder="Dispensor 1"
-                data={disps}
-            />
             </Group>
             <Group spacing="xs">
-                
+            <Text
+                sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
+                ta="center"
+                fz="xl"
+                fw={700}
+              >
+              Dispensor 2
+            </Text>
             <Select
                 label=""
                 placeholder="Ingredient 2"
                 data={ings}
                 />
-            <Select
-                label=""
-                placeholder="Dispensor 2"
-                data={disps}
-            />
             </Group>
             <Group spacing="xs">
+            <Text
+                sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
+                ta="center"
+                fz="xl"
+                fw={700}
+              >
+              Dispensor 3
+            </Text>
             
             <Select
                 label=""
                 placeholder="Ingredient 3"
                 data={ings}
                 />
-            <Select
-                label=""
-                placeholder="Dispensor 3"
-                data={disps}
-            />
             </Group>
 
             <Group position="right" mt="md">

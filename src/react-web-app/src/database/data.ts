@@ -1,27 +1,19 @@
-import Bacardi from '../images/Bacardi.webp';
-import Daiqiri from '../images/Daiqiri.jpeg';
-import GreyGoose from '../images/GreyGoose.jpeg';
-import Jagermeister from '../images/Jagermeister.jpeg';
-import Licor43 from '../images/Licor43.jpeg';
-import Limoncello from '../images/Limoncello.jpeg';
-import MoscowMule from '../images/MoscowMule.webp';
-import Negroni from '../images/Negroni.jpeg';
-import OldFashioned from '../images/OldFashioned.jpeg';
-import PinaColada from '../images/PinaColada.jpeg';
-import Soju from '../images/Soju.jpeg';
+import Bacardi from '../images/rum.jpg';
+import Daiquiri from '../images/daiquiri.jpg';
+import GreyGoose from '../images/vodka.jpg';
+import MoscowMule from '../images/mm.jpg';
+import OldFashioned from '../images/old_fashioned.jpg';
+import RumAndCoke from '../images/rc.jpg';
+import WhiskeySour from '../images/ws.jpg';
+import Tequila from '../images/tequila.jpg';
 
 const info = [
   {
     category: 'cocktails',
     drinks: [
       {
-        name: 'Negroni',
-        image: Negroni,
-        category: 'cocktails',
-      },
-      {
-        name: 'Daiquiri',
-        image: Daiqiri,
+        name: 'Whiskey Sour',
+        image: WhiskeySour,
         category: 'cocktails',
       },
       {
@@ -30,8 +22,13 @@ const info = [
         category: 'cocktails',
       },
       {
-        name: 'Piña Colada',
-        image: PinaColada,
+        name: 'Daiquiri',
+        image: Daiquiri,
+        category: 'cocktails',
+      },
+      {
+        name: 'Rum and Coke',
+        image: RumAndCoke,
         category: 'cocktails',
       },
       {
@@ -45,39 +42,19 @@ const info = [
     category: 'spirits',
     drinks: [
       {
-        name: 'Grey Goose',
+        name: 'Vodka',
         image: GreyGoose,
         category: 'spirits',
       },
       {
-        name: 'Bacardi',
+        name: 'Rum',
         image: Bacardi,
         category: 'spirits',
       },
       {
-        name: 'Chum Churum Soju',
-        image: Soju,
+        name: 'Tequila',
+        image: Tequila,
         category: 'spirits',
-      },
-    ],
-  },
-  {
-    category: 'liqueurs',
-    drinks: [
-      {
-        name: 'Jägermeister',
-        image: Jagermeister,
-        category: 'liqueurs',
-      },
-      {
-        name: 'Licor 43',
-        image: Licor43,
-        category: 'liqueurs',
-      },
-      {
-        name: 'Russo Limoncello',
-        image: Limoncello,
-        category: 'liqueurs',
       },
     ],
   },
