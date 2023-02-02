@@ -1,8 +1,10 @@
 
 from cocktail import cocktailcreate
-
+import startup
 
 bartender = cocktailcreate()
 
 
-bartender.pourdrink('40,2','37,2', '19,1', '13,1', '15,1')
+#bartender.pourdrink('40,1','37,1')
+
+bartender.turntable(11)

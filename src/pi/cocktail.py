@@ -7,6 +7,7 @@ import threading
 
 pop_time_constant=10
 alcohol_time_constant=5
+rotation_constant = 2.88
 
 class cocktailcreate():
     def __init__(self):
@@ -86,6 +87,8 @@ class cocktailcreate():
         else:
             print("Fail cup is not present")
             #alert web app that cup is not present 
+
+        self.turntable(11)
         self.idle_state = True
     @staticmethod
     def pumpconfig():
@@ -99,7 +102,11 @@ class cocktailcreate():
         self.senseconfiguration=True
         return self.senseconfiguration  #output of ultra.py function  
 
-    #def turntable(self):
+    def turntable(self, motor_config):
+        io.output(motor_config, io.LOW)
+        time.sleep(rotation_constant)
+        io.output(motor_config, io.HIGH)
+
     
     def threads(self, ing):
         pump_thread=threading.Thread(target=self.pumprun, args=(ing,))

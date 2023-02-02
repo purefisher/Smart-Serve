@@ -1,5 +1,6 @@
 import RPi.GPIO as io
 from cocktail import cocktailcreate as cocktail 
+import time
 
 
 #initialize GPIO 
@@ -13,7 +14,8 @@ for i in range(0,len(pumpconfiguration)):
     io.setup(pumpconfiguration[i]['Pin'], io.OUT)
 
 #set up pin configuration for output for motor
-io.setup(5,io.OUT) 
+io.setup(11,io.OUT) 
+
 
 
 def offpumps(pump_config):
@@ -22,5 +24,5 @@ def offpumps(pump_config):
 
 #set up pin configuration for sensors 
 
-cocktail.offpumps(pumpconfiguration)
+offpumps(pumpconfiguration)
 
