@@ -10,27 +10,18 @@ alcohol_time_constant=5
 
 class cocktailcreate():
     def __init__(self):
-        #initialize GPIO 
-        io.setwarnings(False)
-        io.setmode(io.BOARD)
 
+        #assume GPIO is already set from startup.py file
         self.idle_state = True
 
         #relay is off when pin given a high 
         self.relay_off_state = 'High'
+        self.relay_on_state = 'Low'
+
+        self.pumpconfiguration = self.pumpconfig()
 
         self.senseconfiguration = False #assume that it is not ready to receive a drink 
-        #this will be the initial state of the machine
-        #load pump configuration from a file for each pump
-        self.pumpconfiguration=cocktailcreate.pumpconfig()
-        
-        #io.setup(5,io.OUT) #this is the turntable output
 
-        #setting up each pin to the appropriate pump 
-        for i in range(0,len(self.pumpconfiguration)):
-            io.setup(self.pumpconfiguration[i]['Pin'], io.OUT) 
-        #turn off pumps
-        self.offpumps()
 
     def pourdrink(self, ing1, ing2=None, ing3=None, ing4=None, ing5=None):
         pump_threads=[]
