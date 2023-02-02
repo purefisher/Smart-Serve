@@ -2,24 +2,14 @@ import RPi.GPIO as io
 import time
 import json
 import threading
+from constants import *
 
 
-
-pop_time_constant=10
-alcohol_time_constant=5
-rotation_constant = 2.88
 
 class cocktailcreate():
     def __init__(self):
-
         #assume GPIO is already set from startup.py file
-        self.idle_state = True
-
-        #relay is off when pin given a high 
-        self.relay_off_state = 'High'
-        self.relay_on_state = 'Low'
-
-        self.pumpconfiguration = self.pumpconfig()
+        self.motor_config = [motorconfiguration[0]['Pin']]
 
         self.senseconfiguration = False #assume that it is not ready to receive a drink 
 
@@ -87,12 +77,11 @@ class cocktailcreate():
         else:
             print("Fail cup is not present")
             #alert web app that cup is not present 
-
-        self.turntable(11)
+        self.turntable(self.motor_config)
         self.idle_state = True
     @staticmethod
-    def pumpconfig():
-        return json.load(open('drinks.json'))
+    def config(filename):
+        return json.load(open(filename))
 
         #this function returns a json list of pump configurations with it's appropriate drinks
 
@@ -135,8 +124,11 @@ class cocktailcreate():
         try :
             while True:
                 print("starting main loop")
-        except:
+        except KeyboardInterrupt:
             print("false")
+            io.cleanup()
+        io.cleanup()
+
 
 
 

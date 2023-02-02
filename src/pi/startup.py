@@ -1,20 +1,27 @@
 import RPi.GPIO as io
-from cocktail import cocktailcreate as cocktail 
 import time
+from constants import *
 
 
 #initialize GPIO 
 io.setwarnings(False)
 io.setmode(io.BOARD)
 
-pumpconfiguration = cocktail.pumpconfig()
+
 
 #setting up pin configuration for output of pumps
 for i in range(0,len(pumpconfiguration)):
     io.setup(pumpconfiguration[i]['Pin'], io.OUT)
 
+for i in range(0,len(motorconfiguration)):
+    io.setup(motorconfiguration[i]['Pin'], io.OUT)
 #set up pin configuration for output for motor
-io.setup(11,io.OUT) 
+
+for i in range(0,len(sensorconfiguration)):
+    if sensorconfiguration[i]['IO'] == 'input':
+        io.setup(sensorconfiguration[i]['Pin'], io.IN)
+    else:
+        io.setup(sensorconfiguration[i]['Pin'], io.OUT)
 
 
 
