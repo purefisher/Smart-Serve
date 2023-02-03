@@ -31,7 +31,7 @@ import {
   function GeneralButton(props: any){
     return(
         <Center>
-            <Button style={{width:150, height:50}} variant="outline" color='dark' onClick={() => props.event(true)}>
+            <Button style={{width:150, height:50}} variant="outline" color='dark' onClick={() => props.event()}>
                 <Text
                 size={23}
                 weight={'bold'}>

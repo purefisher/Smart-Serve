@@ -2,12 +2,12 @@ import { AppShell } from '@mantine/core';
 import Header from '../components/Header';
 import Drinks from '../components/Drinks';
 
-function Main() {
-  
+function Main(props: any) {
+  console.log(props.signedin)
   return (
     <AppShell
       fixed
-      header={<Header height={90} padding='md' />}
+      header={<Header height={90} padding='md' signedin={props.signedin}/>}
     >
       <Drinks />
     </AppShell>

@@ -30,6 +30,7 @@ const styles = createStyles(({
 type HeaderProps = {
   height: number;
   padding: MantineNumberSize;
+  signedin: any;
 };
 
 function Header({ ...hP }: HeaderProps) {
@@ -55,12 +56,13 @@ function Header({ ...hP }: HeaderProps) {
           </Text>
         </Group>
         </Center>
-        
+        {hP.signedin.admin?
         <Group position="right">
           <Button onClick={handleButton}>
             ADMIN PAGE
           </Button>
         </Group>
+        : null}
       </Container>
     </HD>
   );

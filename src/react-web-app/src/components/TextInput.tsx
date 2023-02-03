@@ -22,13 +22,14 @@ function InputField(props: any){
                 label="Password"
                 size='lg'
                 style={{width: 500}}
-                
+                onChange = {(event) => props.setInput(event.target.value)}    
               />
             :<Input.Wrapper label={props.name} size='lg'>
             <Input
                 placeholder={props.name}
                 size="lg"
                 style={{width: 500}}
+                onChange = {(event) => props.setInput(event.target.value)}
                 />
             </Input.Wrapper>
             }

@@ -31,26 +31,34 @@ db.connect((error) => {
 
 
 app.post("/login", function(req, res){
-        console.log(req.body.username)
-        console.log(req.body.password)
         db.query('SELECT * FROM smart_serve.login WHERE name = ? AND password = ?;', [req.body.username, req.body.password],  (error, result) => {
             if(result.length > 0){
-                res.send({login:true})
+                if(result[0].admin_credentials){
+                    res.send({admin:true})
+                }
+                else{
+                    res.send({login:true})
+                }
                 
             } 
             else{
                 res.send({login:false})
             }      
         });
-    console.log('Finished')
   });
 
 app.post("/user", (req, res) => {
-    db.query('INSERT * FROM smart_serve.login', async (error, res) => {
-        console.log(req.body)        
+    db.query('SELECT * FROM smart_serve.login WHERE name = ?;', [req.body.username],  (error, result) => {
+        if(result.length < 1 && req.body.username != '' && req.body.password != ''){
+            db.query('INSERT INTO smart_serve.login VALUES(?, ?, 0);', [req.body.username, req.body.password], (error, result_2) => {
+                console.log("Inserted Into Database")  
+                res.send({login:true})      
+            });
+            }  
+    } 
+    )
     });
-// res.json({ message: });
-});
+    
 
 app.listen(PORT, () => {
 console.log(`Server listening on ${PORT}`);

@@ -79,7 +79,7 @@ function Drinks() {
                 <Grid.Col xs={12} sm={6} lg={6} xl={4}>
                   
 
-                  <div onClick={() => {setOpened(true); addDrink(drink.name)}}>
+                  <div onClick={() => {setOpened(true); addDrink(drink.name); }}>
                     <Card withBorder p='lg' radius='md' className={classes.card}>
                       <Card.Section mb='md'>
                         <Image src={drink.image} alt={drink.name} height={200} />
