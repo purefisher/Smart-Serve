@@ -58,7 +58,11 @@ app.post("/user", (req, res) => {
     } 
     )
     });
-    
+app.post("/order", (req,res) => {
+    db.query('INSERT INTO smart_serve.orders VALUES(?, ?, NOW());', [req.body.drinkName, req.body.username], (error, result_2) => {
+        console.log('Drink Ordered') 
+    });
+})    
 
 app.listen(PORT, () => {
 console.log(`Server listening on ${PORT}`);

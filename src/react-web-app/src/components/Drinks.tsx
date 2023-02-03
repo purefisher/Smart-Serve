@@ -4,6 +4,7 @@ import CategoryTitle from './CategoryTitle';
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import { setSourceMapRange } from 'typescript';
+import axios from 'axios';
 
 
 const useStyles = createStyles((theme) => ({
@@ -46,6 +47,13 @@ function Drinks() {
     localStorage.setItem("arr", JSON.stringify(arr));
   }
 
+  const orderedDrink = (drinkName: any, username: string) => {
+    axios.post('order', {drinkName:drinkName, username:username}, {headers: { 'Content-Type': 'application/json' }})
+    .then((response) => {
+        console.log('Drink Ordered')
+    })
+}
+
   return (
 
     <>
@@ -79,7 +87,7 @@ function Drinks() {
                 <Grid.Col xs={12} sm={6} lg={6} xl={4}>
                   
 
-                  <div onClick={() => {setOpened(true); addDrink(drink.name); }}>
+                  <div onClick={() => {setOpened(true); addDrink(drink.name); orderedDrink(drink.name, 'Big_P')}}>
                     <Card withBorder p='lg' radius='md' className={classes.card}>
                       <Card.Section mb='md'>
                         <Image src={drink.image} alt={drink.name} height={200} />
