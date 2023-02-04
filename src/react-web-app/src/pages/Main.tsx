@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Drinks from '../components/Drinks';
 
 function Main(props: any) {
-  console.log(props.signedin)
+  console.log(props.ingredients)
   return (
     <AppShell
       fixed

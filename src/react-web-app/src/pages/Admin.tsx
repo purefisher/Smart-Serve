@@ -13,18 +13,21 @@ export const arrContext = createContext([
   "Bonjour"
 ]);
 
-function Admin() {
+function Admin(props: any) {
 
   const [goToMain, setgoToMain] = React.useState(false);
 
   var arr = [
-    "Hi",
-    "Hello",
-    "Bonjour"
+    "Drink 1",
+    "Drink 2",
+    "Drink 3"
   ];
   
   const [arr1, setArr] = useState(arr)
-
+  props.ingredients.pump1 = 'Vodka'
+  props.ingredients.pump2 = 'AppleSauce'
+  props.ingredients.pump3 = 'Ketchup'
+  props.ingredients.pump4 = 'Water'
   return (
     <AppShell
       fixed

@@ -21,7 +21,6 @@ function Drinks() {
       });
 
       return (
-
           <form onSubmit={form.onSubmit((values) => console.log(values))}>
             
             <Group spacing="xs">
@@ -60,6 +59,7 @@ function Drinks() {
                 ta="center"
                 fz="xl"
                 fw={700}
+                
               >
               Dispensor 3
             </Text>
@@ -68,6 +68,7 @@ function Drinks() {
                 label=""
                 placeholder="Ingredient 3"
                 data={ings}
+                
                 />
             </Group>
 

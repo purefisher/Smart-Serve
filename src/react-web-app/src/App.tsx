@@ -12,14 +12,7 @@ function App() {
     admin: false
   });
   const [data, setData] = React.useState(null);
-  // const [admin, setAdmin] = React.useState(false);
-
-  // React.useEffect(() => {
-  //   fetch("/api")
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data.message));
-  // }, []);
-  // console.log(data)
+  var ingedients = new Object();
   console.log(signedin)
   return (
     <div className="App">
@@ -27,8 +20,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to='Login'/>}/>
           <Route path='Login' element={<LoginPage setsignedin={setsignedin} signedin={signedin} />} />
-          <Route path='Main' element={<Main signedin={signedin}/>} />
-          <Route path='/admin' element={<Admin />} />
+          <Route path='Main' element={<Main signedin={signedin} ingredients={ingedients}/>} />
+          <Route path='/admin' element={<Admin ingredients={ingedients}/>} />
         </Routes>
 
       </BrowserRouter>
