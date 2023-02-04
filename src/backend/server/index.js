@@ -7,8 +7,6 @@ const bcrypt = require("bcryptjs");
 const {spawn} = require('child_process');
 
 
-dotenv.config({path: 'C:\Users\Pminb\Desktop\Smart-Serve\src\react-web-app\database.env'})
-
 app.use(express.urlencoded({extended: 'false'}))
 app.use(express.json())
 
@@ -17,7 +15,7 @@ const db = mysql.createConnection({
     user: 'root',
     password: '12345!',
     database: 'smart_serve',
-    port: 3001
+    port: 3306
 
 })
 
@@ -62,7 +60,7 @@ app.post("/user", (req, res) => {
     )
     });
 app.post("/order", (req,res) => {
-    const process = spawn('python', ['./main.py', "Vodka, 1"]);
+    const process = spawn('python', ['../../pi/main.py', "40,1"]);
     // collect data from script
     process.stdout.on('data', function(data) {
         console.log(data.toString())
