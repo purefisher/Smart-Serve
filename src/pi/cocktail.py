@@ -6,10 +6,11 @@ from constants import *
 
 
 
+
 class cocktailcreate():
     def __init__(self):
         #assume GPIO is already set from startup.py file
-        self.motor_config = [motorconfiguration[0]['Pin']]
+        self.motor_config = [11]
 
         self.senseconfiguration = False #assume that it is not ready to receive a drink 
 
@@ -128,9 +129,6 @@ class cocktailcreate():
             print("false")
             io.cleanup()
         io.cleanup()
-
-
-
 
 
 
