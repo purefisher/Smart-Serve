@@ -1,8 +1,11 @@
+
 const express = require('express');
 const app = express();
 var mysql = require('mysql2');
 const dotenv = require('dotenv');
 const bcrypt = require("bcryptjs");
+const {spawn} = require('child_process');
+
 
 dotenv.config({path: 'C:\Users\Pminb\Desktop\Smart-Serve\src\react-web-app\database.env'})
 
@@ -59,9 +62,16 @@ app.post("/user", (req, res) => {
     )
     });
 app.post("/order", (req,res) => {
+    const process = spawn('python', ['./main.py', "Vodka, 1"]);
+    // collect data from script
+    process.stdout.on('data', function(data) {
+        console.log(data.toString())
+    } )
     db.query('INSERT INTO smart_serve.orders VALUES(?, ?, NOW());', [req.body.drinkName, req.body.username], (error, result_2) => {
         console.log('Drink Ordered') 
     });
+
+
 })    
 
 app.listen(PORT, () => {
