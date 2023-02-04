@@ -13,7 +13,7 @@ app.use(express.json())
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '12345!',
+    password: 'password',
     database: 'smart_serve',
     port: 3306
 
@@ -60,7 +60,7 @@ app.post("/user", (req, res) => {
     )
     });
 app.post("/order", (req,res) => {
-    const process = spawn('python', ['../../pi/main.py', "40,1"]);
+    const process = spawn('python', ['main.py', "40,1","37,2"]);
     // collect data from script
     process.stdout.on('data', function(data) {
         console.log(data.toString())
