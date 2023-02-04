@@ -1,4 +1,4 @@
-from cocktail import cocktailcreate as cocktail 
+
 
 pop_time_constant=10
 alcohol_time_constant=5
@@ -11,6 +11,6 @@ motors_file = "motors.json"
 relay_on_state = "LOW"
 relay_off_state = "HIGH"
 
-pumpconfiguration = cocktail.config(drinks_file)
-motorconfiguration = cocktail.config(motors_file)
-sensorconfiguration = cocktail.config(sensors_file)
+#pumpconfiguration = cocktail.config(drinks_file)
+#motorconfiguration = cocktail.config(motors_file)
+#sensorconfiguration = cocktail.config(sensors_file)
