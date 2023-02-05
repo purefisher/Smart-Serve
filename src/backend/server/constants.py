@@ -1,7 +1,8 @@
 
 
 pop_time_constant=10
-alcohol_time_constant=5
+single_alc_time_constant=5
+double_alc_time_constant=10
 rotation_constant = 2.88
 
 drinks_file = "drinks.json"

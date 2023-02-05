@@ -2,13 +2,21 @@ from cocktail import cocktailcreate
 import startup
 import sys
 
-
 newinstance = cocktailcreate()
-newinstance.pourdrink(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])
+
+#verifying the number of arguments which is dependent on how many ingredients there are
+if len(sys.argv) == 2:
+  newinstance.pourdrink(sys.argv[1])
+elif len(sys.argv) == 3:
+  newinstance.pourdrink(sys.argv[1], sys.argv[2])
+elif len(sys.argv) == 4:
+  newinstance.pourdrink(sys.argv[1], sys.argv[2], sys.argv[3])
+elif len(sys.argv) == 5:
+  newinstance.pourdrink(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+elif len(sys.argv) == 6:
+  newinstance.pourdrink(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+else:
+  print("There was an error sending pin and type to the python script as arguments")
 
 
 
-#call this file from nodejs and figure out how to not make a new instance of a class 
-
-#setup nodejs terminal on windows
-    

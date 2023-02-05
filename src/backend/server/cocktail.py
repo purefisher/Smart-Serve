@@ -7,8 +7,8 @@ from constants import *
 class cocktailcreate():
     def __init__(self):
         #assume GPIO is already set from startup.py file
-        self.motor_config = [11]
-
+        self.motor_config = cocktailcreate.config("motors.json")
+        self.motor_pin = self.motor_config[0]['Pin']
         self.senseconfiguration = False #assume that it is not ready to receive a drink 
 
 
@@ -75,7 +75,7 @@ class cocktailcreate():
         else:
             print("Fail cup is not present")
             #alert web app that cup is not present 
-        #self.turntable(self.motor_config)
+        #self.turntable(self.motor_pin)
         self.idle_state = True
     @staticmethod
     def config(filename):
@@ -101,18 +101,24 @@ class cocktailcreate():
 
     def pumprun(self, ing): #this is the threading function
         result = [x.strip() for x in ing.split(',')]
-        if (int(result[1])==2):
+        if (int(result[1])==1):
             io.output(int(result[0]), io.LOW)
-            print("Pouring pop")
+            print("Pouring alcohol")
+            time.sleep(single_alc_time_constant)
+            io.output(int(result[0]), io.HIGH)
+            print("All done alcohol")
+        elif (int(result[1])==2):
+            io.output(int(result[0]), io.LOW)
+            #print("Pouring pop")
             time.sleep(pop_time_constant)
             io.output(int(result[0]), io.HIGH)
             print("All done pop")
-        elif (int(result[1])==1):
+        elif (int(result[1])==3):
             io.output(int(result[0]), io.LOW)
-            print("Pouring alcohol")
-            time.sleep(alcohol_time_constant)
-            io.output(int(result[0]), io.HIGH)
-            print("All done alcohol")      
+            #print("Pouring alcohol")
+            time.sleep(double_alc_time_constant)
+            io.output(int(result[0]), io.HIGH) 
+            #print("All done pouring alcohol")     
     
     def offpumps(self):
         for i in range(0,len(self.pumpconfiguration)):

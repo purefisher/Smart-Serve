@@ -60,7 +60,7 @@ app.post("/user", (req, res) => {
     )
     });
 app.post("/order", (req,res) => {
-    const process = spawn('python', ['main.py', "40,1","37,2"]);
+    const process = spawn('python', ['main.py', "40,1","37,2", "19,1", "15,2","13,2" ]);
     // collect data from script
     process.stdout.on('data', function(data) {
         console.log(data.toString())
