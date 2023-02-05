@@ -4,9 +4,6 @@ import json
 import threading
 from constants import *
 
-
-
-
 class cocktailcreate():
     def __init__(self):
         #assume GPIO is already set from startup.py file
@@ -78,7 +75,7 @@ class cocktailcreate():
         else:
             print("Fail cup is not present")
             #alert web app that cup is not present 
-        self.turntable(self.motor_config)
+        #self.turntable(self.motor_config)
         self.idle_state = True
     @staticmethod
     def config(filename):
