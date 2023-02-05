@@ -1,22 +1,22 @@
 from cocktail import cocktailcreate
-import json 
 import startup
 import sys
 
-
-
-# this is what will be called by the web app bartender.pourdrink(arg1, arg2), create a single object called "bartender" then use that object to access the methods of the class
-
-#ing1=json.load(open('test1ingredient.json'))
-#ing2=json.load(open('test2ingredient.json'))
 newinstance = cocktailcreate()
-newinstance.pourdrink(sys.argv[1],sys.argv[2])
+
+#verifying the number of arguments which is dependent on how many ingredients there are
+if len(sys.argv) == 2:
+  newinstance.pourdrink(sys.argv[1])
+elif len(sys.argv) == 3:
+  newinstance.pourdrink(sys.argv[1], sys.argv[2])
+elif len(sys.argv) == 4:
+  newinstance.pourdrink(sys.argv[1], sys.argv[2], sys.argv[3])
+elif len(sys.argv) == 5:
+  newinstance.pourdrink(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+elif len(sys.argv) == 6:
+  newinstance.pourdrink(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+else:
+  print("There was an error sending pin and type to the python script as arguments")
 
 
-print(sys.argv[1])
 
-
-#call this file from nodejs and figure out how to not make a new instance of a class 
-
-#setup nodejs terminal on windows
-    

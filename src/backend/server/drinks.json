@@ -1,31 +1,26 @@
 [
     {
         "Pump": 1,
-        "Ingredient": "Rum",
         "Pin": 40,
         "Type": 1
     },
     {
         "Pump": 2,
-        "Ingredient": "Cola",
         "Pin": 37,
         "Type": 2
     },
     {
         "Pump": 3,
-        "Ingredient": "Vodka",
         "Pin": 19,
         "Type": 1
     },
     {
         "Pump": 4,
-        "Ingredient": "OJ",
         "Pin": 15,
         "Type": 2
     },
     {
         "Pump": 5,
-        "Ingredient": "Sprite",
         "Pin": 13,
         "Type": 2
     }
