@@ -11,17 +11,17 @@ function App() {
     signedin:false,
     admin: false
   });
-  const [data, setData] = React.useState(null);
+  const [password, setPassword] = React.useState('');
+  const [username, setUsername] = React.useState('');
   var ingedients = new Object();
-  console.log(signedin)
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to='Login'/>}/>
-          <Route path='Login' element={<LoginPage setsignedin={setsignedin} signedin={signedin} />} />
-          <Route path='Main' element={<Main signedin={signedin} ingredients={ingedients}/>} />
-          <Route path='/admin' element={<Admin ingredients={ingedients}/>} />
+          <Route path='Login' element={<LoginPage setsignedin={setsignedin} signedin={signedin} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>} />
+          <Route path='Main' element={<Main signedin={signedin} ingredients={ingedients} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>} />
+          <Route path='/admin' element={<Admin ingredients={ingedients} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>} />
         </Routes>
 
       </BrowserRouter>

@@ -31,12 +31,10 @@ function Admin(props: any) {
   return (
     <AppShell
       fixed
-      header={<Header height={90} padding='md' signedin={{signedin: true, admin:true}} />}
+      header={<Header height={90} padding='md' signedin={{signedin: true, admin:true}} page='admin' />}
     >
     <Ingredients />
     <Orders arr={arr}/>
-    <GeneralButton event={() => setgoToMain(true)} name="Main"></GeneralButton>
-    {goToMain? <Navigate to="/Main" replace={true} />: null}
     </AppShell>
 
   );

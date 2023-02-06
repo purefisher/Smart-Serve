@@ -8,6 +8,7 @@ import axios from 'axios';
 
 
 const useStyles = createStyles((theme) => ({
+  
   container: {
     marginBottom: 100,
   },
@@ -35,28 +36,47 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function Drinks() {
+function Drinks(props:any) {
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
-
   var [arr, setArr] = useState([""]);
+  const [firstRequestSent, setfirstRequestSent] = React.useState(false)
+  const [drinkAvaiable, setdrinkAvaiable] = React.useState(['']);
 
+  
+  console.log('PETER')
   function addDrink(drink: string){
     arr.push(drink);
     setArr([...arr]);
     localStorage.setItem("arr", JSON.stringify(arr));
   }
 
-  const orderedDrink = (drinkName: any, username: string) => {
-    axios.post('order', {drinkName:drinkName, username:username}, {headers: { 'Content-Type': 'application/json' }})
+  const orderedDrink = (drink: any, username:string) => {
+    axios.post('order', {drink:drink, username:props.username}, {headers: { 'Content-Type': 'application/json' }})
     .then((response) => {
         console.log('Drink Ordered')
     })
 }
 
-  return (
+const checkAvailability = (drink: any) => {
 
+    axios.post('check', {drink:drink}, {headers: { 'Content-Type': 'application/json' }})
+    .then((response) => {
+      if(response.data.availability){
+        console.log(drink.name)
+        setdrinkAvaiable([...drinkAvaiable, drink.name])
+      }
+    })
+  
+}
+
+if(!firstRequestSent){
+  info.forEach(category => category.drinks.forEach(drink=>checkAvailability(drink)))
+  setfirstRequestSent(true)
+}
+  return (
     <>
+    {console.log(drinkAvaiable)}
         <Modal
         opened={opened}
         onClose={() => setOpened(false)}
@@ -64,30 +84,24 @@ function Drinks() {
         centered
     >
       Order Confirmed
+      
     </Modal>
     
-    <div>
-    <Title> List of Ordered Drinks </Title>
-    {arr.map((item) => 
-        <div>{item}</div>
-                           
-    )}
-    </div>
     <Container className={classes.container}>   
-
-      {info.map(({ category, drinks }) => (
+      
+      {info.map(({ category, drinks }) => ( 
         <>
-          
-
           <div id={category}>
+            
             <CategoryTitle>{category}</CategoryTitle>
           </div>
           <Grid>
-            {drinks.map((drink) => (
-                <Grid.Col xs={12} sm={6} lg={6} xl={4}>
-                  
-
-                  <div onClick={() => {setOpened(true); addDrink(drink.name); orderedDrink(drink.name, 'Big_P')}}>
+            {drinks.map((drink)=> {
+              console.log(drink.name in drinkAvaiable)
+              if(drinkAvaiable.includes(drink.name)){
+                return(
+                  <Grid.Col xs={12} sm={6} lg={6} xl={4}>
+                  <div onClick={() => {setOpened(true); addDrink(drink.name); orderedDrink(drink, props.username)}}>
                     <Card withBorder p='lg' radius='md' className={classes.card}>
                       <Card.Section mb='md'>
                         <Image src={drink.image} alt={drink.name} height={200} />
@@ -120,7 +134,9 @@ function Drinks() {
                   </div>
                 </Grid.Col>
 
-            ))}
+                )
+              }
+            })}
           </Grid>
         </>
       ))}

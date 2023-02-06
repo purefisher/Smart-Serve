@@ -9,7 +9,7 @@ import {
   Text,
 } from '@mantine/core';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRoutes } from "react-router-dom";
 
 const styles = createStyles(({
   spacing: {
@@ -31,6 +31,7 @@ type HeaderProps = {
   height: number;
   padding: MantineNumberSize;
   signedin: any;
+  page: string;
 };
 
 function Header({ ...hP }: HeaderProps) {
@@ -41,8 +42,8 @@ function Header({ ...hP }: HeaderProps) {
     navigate("/");
   }
 
-  function handleButton() {
-    navigate("/admin");
+  function handleButton(page:string) {
+    {(page=='Main'? navigate("/admin"): navigate("/main"))}
   }
 
   return (
@@ -58,8 +59,9 @@ function Header({ ...hP }: HeaderProps) {
         </Center>
         {hP.signedin.admin?
         <Group position="right">
-          <Button onClick={handleButton}>
-            ADMIN PAGE
+          <Button variant="outline" color='dark' onClick={()=>{handleButton(hP.page)}}>
+          {(hP.page=='Main'? <text>ADMIN PAGE</text>: <text>MAIN PAGE</text>)}
+            
           </Button>
         </Group>
         : null}
