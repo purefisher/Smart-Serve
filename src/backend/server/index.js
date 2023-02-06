@@ -14,7 +14,8 @@ const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'bartender',
     password: 'password',
-    database: 'smart_serve'
+    database: 'smart_serve',
+    port: 3001
 
 })
 
@@ -62,9 +63,11 @@ app.post("/order", (req,res) => {
     db.query('SELECT pump FROM ingredients WHERE ingredient_name IN(?,?,?);', [req.body.drink.ingredients.IG1.name, req.body.drink.ingredients.IG2.name, req.body.drink.ingredients.IG3.name], (error, result) => {
         const arr = ['main.py']
         for(i=0; i < result.length; i++){
+            str = (result[i].pump)
+            str = str.toString()
             arr.push(
-                JSON.stringify(result[i].pump) + ",1"
-                )
+                str+",1"
+            )
         }
         console.log(arr) 
 
