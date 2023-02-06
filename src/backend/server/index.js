@@ -11,11 +11,10 @@ app.use(express.urlencoded({extended: 'false'}))
 app.use(express.json())
 
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
+    host: '127.0.0.1',
+    user: 'bartender',
     password: 'password',
-    database: 'smart_serve',
-    port: 3306
+    database: 'smart_serve'
 
 })
 
