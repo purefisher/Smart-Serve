@@ -1,26 +1,27 @@
 #Libraries
 import RPi.GPIO as GPIO
 import time
+from constants import *
  
 #GPIO Mode (BOARD / BCM)
-GPIO.setmode(GPIO.BCM)
+#GPIO.setmode(GPIO.BCM)
  
 #set GPIO Pins
-ultra_1_TRIGGER = 23
-ultra_1_ECHO = 24
-ultra_2_TRIGGER = 25
-ultra_2_ECHO = 16
+#ultra_1_TRIGGER = 23
+#ultra_1_ECHO = 24
+#ultra_2_TRIGGER = 25
+#ultra_2_ECHO = 16
  
 #set GPIO direction (IN / OUT)
-GPIO.setup(ultra_1_TRIGGER, GPIO.OUT)
-GPIO.setup(ultra_1_ECHO, GPIO.IN)
-GPIO.setup(ultra_2_TRIGGER, GPIO.OUT)
-GPIO.setup(ultra_2_ECHO, GPIO.IN)
+#GPIO.setup(ultra_1_TRIGGER, GPIO.OUT)
+#GPIO.setup(ultra_1_ECHO, GPIO.IN)
+#GPIO.setup(ultra_2_TRIGGER, GPIO.OUT)
+#GPIO.setup(ultra_2_ECHO, GPIO.IN)
 
 #set distance limits for ultrasonic sensors
-cup_dist_limit = 10
-empty_cup_limit = 12
-full_cup_limit = 5
+#cup_dist_limit = 10
+#empty_cup_limit = 12
+#full_cup_limit = 5
  
  
 def distance(TRIG, ECHO):
@@ -78,19 +79,33 @@ def fillStatus(TRIG, ECHO, empty_cup_limit, full_cup_limit):
   return fill_status   
   
   
-def cupStatus(TRIG, ECHO, cup_dist_limit):
+def cupStatusTurn(TRIG, ECHO, cup_dist_limit):
   dist = distance(TRIG, ECHO)
-  print ("Cup distance limit = %.1f cm" % cup_dist_limit)
-  print ("Measured Distance of Cup = %.1f cm" % dist)
+  #print ("Cup distance limit = %.1f cm" % cup_dist_limit)
+  #print ("Measured Distance of Cup = %.1f cm" % dist)
   if compareDistance(dist, cup_dist_limit) == 0:
-    print ("Cup is NOT present.")
-    cup_status = 0
+    #print ("Cup is NOT present.")
+    cup_status_turn = False
   else:
+    #print ("Cup is present.")
+    cup_status_turn = True
+    
+  return cup_status_turn
+  
+def cupStatus(TRIG, ECHO, cup_dist_limit_lower, cup_dist_limit_upper):
+  dist = distance(TRIG, ECHO)
+  print ("Cup distance limit = %.1f cm" % dist)
+  print ("Measured Distance of Cup = %.1f cm" % dist)
+  #print(  if (compareDistance(dist, cup_distance_limit_lower) == False and compareDistance(dist, cup_distance_limit_lower) == True))
+  if ((compareDistance(dist, cup_distance_limit_lower) == False) and (compareDistance(dist, cup_distance_limit_upper) == True)):
     print ("Cup is present.")
-    cup_status = 1
+    cup_status = True
+  else:
+    print ("Cup is NOT present.")
+    cup_status = False
     
   return cup_status
-  
+
  
 
  

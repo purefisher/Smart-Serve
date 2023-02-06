@@ -3,13 +3,13 @@ import RPi.GPIO as GPIO
 import time
  
 #GPIO Mode (BOARD / BCM)
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
  
 #set GPIO Pins
-ultra_1_TRIGGER = 23
-ultra_1_ECHO = 24
-ultra_2_TRIGGER = 25
-ultra_2_ECHO = 16
+ultra_1_TRIGGER = 16
+ultra_1_ECHO = 18
+ultra_2_TRIGGER = 22
+ultra_2_ECHO = 36
  
 #set GPIO direction (IN / OUT)
 GPIO.setup(ultra_1_TRIGGER, GPIO.OUT)
@@ -84,10 +84,10 @@ def cupStatus(TRIG, ECHO, cup_dist_limit):
   print ("Measured Distance of Cup = %.1f cm" % dist)
   if compareDistance(dist, cup_dist_limit) == 0:
     print ("Cup is NOT present.")
-    cup_status = 0
+    cup_status = FALSE
   else:
     print ("Cup is present.")
-    cup_status = 1
+    cup_status = TRUE
     
   return cup_status
   
@@ -98,10 +98,10 @@ if __name__ == '__main__':
   try:
     while True:
     
-      #cupStatus(ultra_2_TRIGGER, ultra_2_ECHO, cup_dist_limit)
-      #time.sleep(2)
-      fillStatus(ultra_1_TRIGGER, ultra_1_ECHO, empty_cup_limit, full_cup_limit)
-      time.sleep(2)
+      cupStatus(ultra_1_TRIGGER, ultra_1_ECHO, cup_dist_limit)
+      time.sleep(4)
+      fillStatus(ultra_2_TRIGGER, ultra_2_ECHO, empty_cup_limit, full_cup_limit)
+      time.sleep(10)
     
       #dist = distance(ultra_1_TRIGGER, ultra_1_ECHO)
       #print ("Measured Distance of sensor 1 = %.1f cm" % dist)
