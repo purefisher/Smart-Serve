@@ -10,7 +10,7 @@ class cocktailcreate():
         self.motor_config = cocktailcreate.config("motors.json")
         self.motor_pin = self.motor_config[0]['Pin']
         self.senseconfiguration = False #assume that it is not ready to receive a drink 
-
+        self.pumpconfiguration = cocktailcreate.config("drinks.json")
 
     def pourdrink(self, ing1, ing2=None, ing3=None, ing4=None, ing5=None):
         pump_threads=[]
@@ -31,7 +31,7 @@ class cocktailcreate():
                     for threads in pump_threads:
                          threads.join()
                 except:
-                    print("Error: unable to start threads")
+                    print("3")
             elif ing4 == None:
                 try:
                     pump_threads.append(self.threads(ing1))
@@ -43,7 +43,7 @@ class cocktailcreate():
                     for threads in pump_threads:
                          threads.join()
                 except:
-                    print("Error: unable to start threads")
+                    print("3")
             elif ing5 == None:
                 try:
                     pump_threads.append(self.threads(ing1))
@@ -56,7 +56,7 @@ class cocktailcreate():
                     for threads in pump_threads:
                          threads.join()
                 except:
-                    print("Error: unable to start threads")
+                    print("3")
 
             else:
                 try:
@@ -71,9 +71,9 @@ class cocktailcreate():
                     for threading_t in pump_threads:
                          threading_t.join()
                 except:
-                    print("Error: unable to start threads") #use three different threads here
+                    print("3") #use three different threads here
         else:
-            print("Fail cup is not present")
+            print("1")
             #alert web app that cup is not present 
         #self.turntable(self.motor_pin)
         self.idle_state = True
@@ -83,16 +83,15 @@ class cocktailcreate():
 
         #this function returns a json list of pump configurations with it's appropriate drinks
 
-    #@staticmethod
     def senseconfig(self):
         #load sensor status into this function
         self.senseconfiguration=True
         return self.senseconfiguration  #output of ultra.py function  
 
-    def turntable(self, motor_config):
-        io.output(motor_config, io.LOW)
+    def turntable(self):
+        io.output(self.motor_pin, io.LOW)
         time.sleep(rotation_constant)
-        io.output(motor_config, io.HIGH)
+        io.output(self.motor_pin, io.HIGH)
 
     
     def threads(self, ing):
@@ -123,15 +122,36 @@ class cocktailcreate():
     def offpumps(self):
         for i in range(0,len(self.pumpconfiguration)):
             io.output(self.pumpconfiguration[i]['Pin'], io.HIGH)
+    
+    def onpumps(self):
+        for i in range(0,len(self.pumpconfiguration)):
+            io.output(self.pumpconfiguration[i]['Pin'], io.LOW)
 
-    def run(self):
-        try :
-            while True:
-                print("starting main loop")
-        except KeyboardInterrupt:
-            print("false")
-            io.cleanup()
-        io.cleanup()
+    def clean(self):
+        for i in range(0,len(self.pumpconfiguration)):
+            io.output(self.pumpconfiguration[i]['Pin'], io.LOW)
+        time.sleep(cleaning_constant)
+        for i in range(0,len(self.pumpconfiguration)):
+            io.output(self.pumpconfiguration[i]['Pin'], io.HIGH)
+
+    def run(self, pin, tim):
+        io.output(pin, io.LOW)
+        time.sleep(tim)
+        io.output(pin, io.HIGH)
+
+    def fill_line(self):
+        pump_threads = []
+        pump_threads.append(threading.Thread(target=self.run, args=(self.pumpconfiguration[0]['Pin'],pump_one_constant,)))
+        pump_threads.append(threading.Thread(target=self.run, args=(self.pumpconfiguration[1]['Pin'],pump_two_constant,)))
+        pump_threads.append(threading.Thread(target=self.run, args=(self.pumpconfiguration[2]['Pin'],pump_three_constant,)))
+        pump_threads.append(threading.Thread(target=self.run, args=(self.pumpconfiguration[3]['Pin'],pump_four_constant,)))
+        pump_threads.append(threading.Thread(target=self.run, args=(self.pumpconfiguration[4]['Pin'],pump_five_constant,)))
+        for threads in pump_threads:
+            threads.start()
+                    
+        for threads in pump_threads:
+            threads.join()
+
 
 
 

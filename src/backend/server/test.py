@@ -1,8 +1,7 @@
 
 import startup
 from cocktail import cocktailcreate
+import time
 
-bartender = cocktailcreate()
-
-
-bartender.pourdrink('40,1','37,1')
+newinstance = cocktailcreate()
+newinstance.fill_line()

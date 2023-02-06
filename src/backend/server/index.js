@@ -15,6 +15,7 @@ const db = mysql.createConnection({
     user: 'bartender',
     password: 'password',
     database: 'smart_serve'
+
 })
 
 const PORT = process.env.PORT || 3002;
