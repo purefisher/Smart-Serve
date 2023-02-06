@@ -3,13 +3,12 @@ import Header from '../components/Header';
 import Drinks from '../components/Drinks';
 
 function Main(props: any) {
-  console.log(props.ingredients)
   return (
     <AppShell
       fixed
-      header={<Header height={90} padding='md' signedin={props.signedin}/>}
+      header={<Header height={90} padding='md' signedin={props.signedin} page='Main'/>}
     >
-      <Drinks />
+      <Drinks username={props.username} setUsername={props.setUsername}/>
     </AppShell>
   );
 }
