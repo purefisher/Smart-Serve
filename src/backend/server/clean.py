@@ -1,7 +1,7 @@
-
-import startup
 from cocktail import cocktailcreate
+import startup
+import sys
 
 newinstance = cocktailcreate()
-newinstance.onpumps()
-newinstance.offpumps()
+
+newinstance.clean()

@@ -10,7 +10,7 @@ class cocktailcreate():
         self.motor_config = cocktailcreate.config("motors.json")
         self.motor_pin = self.motor_config[0]['Pin']
         self.senseconfiguration = False #assume that it is not ready to receive a drink 
-
+        self.pumpconfiguration = cocktailcreate.config("drinks.json")
 
     def pourdrink(self, ing1, ing2=None, ing3=None, ing4=None, ing5=None):
         pump_threads=[]
@@ -83,7 +83,6 @@ class cocktailcreate():
 
         #this function returns a json list of pump configurations with it's appropriate drinks
 
-    #@staticmethod
     def senseconfig(self):
         #load sensor status into this function
         self.senseconfiguration=True
@@ -123,6 +122,14 @@ class cocktailcreate():
     def offpumps(self):
         for i in range(0,len(self.pumpconfiguration)):
             io.output(self.pumpconfiguration[i]['Pin'], io.HIGH)
+    
+    def onpumps(self):
+        for i in range(0,len(self.pumpconfiguration)):
+            io.output(self.pumpconfiguration[i]['Pin'], io.LOW)
+    
+    def clean(self):
+        io.output(self.pumpconfiguration[i]['Pin'], io.LOW)
+        time.sleep
 
     def run(self):
         try :
