@@ -3,12 +3,19 @@ import time
 import json
 import threading
 from constants import *
+from ultra import *
 
 class cocktailcreate():
     def __init__(self):
         #assume GPIO is already set from startup.py file
         self.motor_config = cocktailcreate.config("motors.json")
         self.motor_pin = self.motor_config[0]['Pin']
+        self.sensors = cocktailcreate.config("sensors.json")
+        if self.sensors[0]["IO"] == "Output":
+            self.sensor_one_output_pin = self.sensors[0]['Pin']
+        else:
+            self.sensor_one_input_pin = self.sensors[1]['Pin']
+
         self.senseconfiguration = False #assume that it is not ready to receive a drink 
         self.pumpconfiguration = cocktailcreate.config("drinks.json")
 
@@ -75,7 +82,7 @@ class cocktailcreate():
         else:
             print("1")
             #alert web app that cup is not present 
-        #self.turntable(self.motor_pin)
+        self.turntable(self.motor_pin)
         self.idle_state = True
     @staticmethod
     def config(filename):
@@ -85,8 +92,9 @@ class cocktailcreate():
 
     def senseconfig(self):
         #load sensor status into this function
-        self.senseconfiguration=True
-        return self.senseconfiguration  #output of ultra.py function  
+        self.senseconfig = cupStatus(self.sensor_one_output_pin, self.sensor_one_input_pin, cup_distance_limit)
+        print(self.senseconfig)
+        return self.senseconfig  #output of ultra.py function  
 
     def turntable(self):
         io.output(self.motor_pin, io.LOW)
@@ -102,16 +110,16 @@ class cocktailcreate():
         result = [x.strip() for x in ing.split(',')]
         if (int(result[1])==1):
             io.output(int(result[0]), io.LOW)
-            print("Pouring alcohol")
+            #print("Pouring alcohol")
             time.sleep(single_alc_time_constant)
             io.output(int(result[0]), io.HIGH)
-            print("All done alcohol")
+            #print("All done alcohol")
         elif (int(result[1])==2):
             io.output(int(result[0]), io.LOW)
             #print("Pouring pop")
             time.sleep(pop_time_constant)
             io.output(int(result[0]), io.HIGH)
-            print("All done pop")
+            #print("All done pop")
         elif (int(result[1])==3):
             io.output(int(result[0]), io.LOW)
             #print("Pouring alcohol")

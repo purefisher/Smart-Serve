@@ -6,6 +6,8 @@ double_alc_time_constant=10
 rotation_constant = 2.88
 cleaning_constant = 10
 
+cup_distance_limit = 10 
+
 pump_one_constant = 5
 pump_two_constant = 5.5
 pump_three_constant = 6

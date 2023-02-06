@@ -16,7 +16,7 @@ elif len(sys.argv) == 5:
 elif len(sys.argv) == 6:
   newinstance.pourdrink(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
 else:
-  print("There was an error sending pin and type to the python script as arguments")
+  print("4")
 
 
 
