@@ -11,10 +11,10 @@ class cocktailcreate():
         self.motor_config = cocktailcreate.config("motors.json")
         self.motor_pin = self.motor_config[0]['Pin']
         self.sensors = cocktailcreate.config("sensors.json")
-        if self.sensors[0]["IO"] == "Output":
-            self.sensor_one_output_pin = self.sensors[0]['Pin']
-        else:
-            self.sensor_one_input_pin = self.sensors[1]['Pin']
+        self.sensor_one_output_pin = self.sensors[0]['Pin']
+        self.sensor_one_input_pin = self.sensors[1]['Pin']
+        self.sensor_two_output_pin = self.sensors[2]['Pin']
+        self.sensor_two_input_pin = self.sensors[3]['Pin']
 
         self.senseconfiguration = False #assume that it is not ready to receive a drink 
         self.pumpconfiguration = cocktailcreate.config("drinks.json")
@@ -25,7 +25,8 @@ class cocktailcreate():
         #each ing is a json object with pump, ingredient, pin, and type (similar to the drinks.json file)
         #this function is going to be called by the web app upon the ordering of a drink
         self.idle_state = False
-        if self.senseconfig():
+        print(self.sense_config())
+        if self.sense_config():
             if ing2 == None:
                 self.pumprun(ing1)
             elif ing3 == None:
@@ -82,7 +83,7 @@ class cocktailcreate():
         else:
             print("1")
             #alert web app that cup is not present 
-        self.turntable(self.motor_pin)
+        self.turntable()
         self.idle_state = True
     @staticmethod
     def config(filename):
@@ -90,17 +91,30 @@ class cocktailcreate():
 
         #this function returns a json list of pump configurations with it's appropriate drinks
 
-    def senseconfig(self):
+    def sense_config(self):
         #load sensor status into this function
-        self.senseconfig = cupStatus(self.sensor_one_output_pin, self.sensor_one_input_pin, cup_distance_limit)
-        print(self.senseconfig)
+        self.senseconfig = cupStatus(self.sensor_one_output_pin, self.sensor_one_input_pin, cup_distance_limit_lower, cup_distance_limit_upper)
         return self.senseconfig  #output of ultra.py function  
 
-    def turntable(self):
-        io.output(self.motor_pin, io.LOW)
-        time.sleep(rotation_constant)
-        io.output(self.motor_pin, io.HIGH)
+    def sense_config_turn(self):
+        #load sensor status into this function
+        self.senseconfig_turntable = cupStatusTurn(self.sensor_one_output_pin, self.sensor_one_input_pin, cup_distance_limit_turn)
+        return self.senseconfig_turntable  #output of ultra.py function
 
+    def turntable(self):
+        sense_count = 0
+        io.output(self.motor_pin, io.LOW)
+        time.sleep(0.5)
+        while(sense_count <= 100):
+            if (self.sense_config_turn() == False):
+               io.output(self.motor_pin, io.LOW)
+               sense_count = sense_count + 1
+            elif (self.sense_config_turn() == True):
+               io.output(self.motor_pin, io.LOW)
+               break
+            time.sleep(rotation_constant / 200)
+	
+        io.output(self.motor_pin, io.HIGH)
     
     def threads(self, ing):
         pump_thread=threading.Thread(target=self.pumprun, args=(ing,))

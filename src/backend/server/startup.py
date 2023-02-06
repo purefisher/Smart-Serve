@@ -23,11 +23,20 @@ def offpumps(pump_config):
 #setting up pin configuration for output of pumps
 for i in range(0,len(pumpconfiguration)):
     io.setup(pumpconfiguration[i]['Pin'], io.OUT)
+
 offpumps(pumpconfiguration)
 
 for i in range(0,len(motorconfiguration)):
     io.setup(motorconfiguration[i]['Pin'], io.OUT)
+
 io.output(motorconfiguration[i]['Pin'], io.HIGH)
+
+for i in range(0, len(sensorconfiguration)):
+    if sensorconfiguration[i]['IO'] == 'input':
+       io.setup(sensorconfiguration[i]['Pin'], io.IN)
+    else:
+       io.setup(sensorconfiguration[i]['Pin'], io.OUT)
+
 
 
 
