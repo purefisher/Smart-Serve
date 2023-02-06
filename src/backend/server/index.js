@@ -59,12 +59,23 @@ app.post("/user", (req, res) => {
     )
     });
 app.post("/order", (req,res) => {
-    console.log(req.body.drink)
-    const process = spawn('python', ['main.py', "40,1","37,2", "19,1", "15,2","13,2" ]);
-    // collect data from script
-    process.stdout.on('data', function(data) {
-        console.log(data.toString())
-    } )
+    db.query('SELECT pump FROM ingredients WHERE ingredient_name IN(?,?,?);', [req.body.drink.ingredients.IG1.name, req.body.drink.ingredients.IG2.name, req.body.drink.ingredients.IG3.name], (error, result) => {
+        const arr = ['main.py']
+        for(i=0; i < result.length; i++){
+            arr.push(
+                JSON.stringify(result[i].pump) + ",1"
+                )
+        }
+        console.log(arr) 
+
+        const process = spawn('python', arr);
+        // collect data from script
+        process.stdout.on('data', function(data) {
+            console.log(data.toString())
+        } )
+        
+    });
+
     db.query('INSERT INTO smart_serve.orders VALUES(?, ?, NOW());', [req.body.drink.name, req.body.username], (error, result_2) => {
         console.log('Drink Ordered') 
     });
@@ -91,6 +102,15 @@ app.post("/check", async function(req,res) {
         });
 
 });
+
+app.post("/ingredients", (req, res) => {
+    console.log(req.body)
+    db.query('DELETE FROM smart_serve.ingredients', [], (error, result) => {
+    });
+    db.query('INSERT INTO smart_serve.ingredients VALUES (?, ?, 15), (?, ?, 13), (?, ?, 19);',[req.body.ingredients.ing1, req.body.ingredients.vol1, req.body.ingredients.ing2, req.body.ingredients.vol2,req.body.ingredients.ing3, req.body.ingredients.vol3], (error, result) => {
+        res.send({done:true})
+     })
+})
 
 app.listen(PORT, () => {
 console.log(`Server listening on ${PORT}`);

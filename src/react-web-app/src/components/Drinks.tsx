@@ -44,7 +44,6 @@ function Drinks(props:any) {
   const [drinkAvaiable, setdrinkAvaiable] = React.useState(['']);
 
   
-  console.log('PETER')
   function addDrink(drink: string){
     arr.push(drink);
     setArr([...arr]);
@@ -58,13 +57,17 @@ function Drinks(props:any) {
     })
 }
 
-const checkAvailability = (drink: any) => {
+function checkAvailability (drink: any){
 
     axios.post('check', {drink:drink}, {headers: { 'Content-Type': 'application/json' }})
     .then((response) => {
       if(response.data.availability){
-        console.log(drink.name)
-        setdrinkAvaiable([...drinkAvaiable, drink.name])
+        drinkAvaiable.push(drink.name);
+        setdrinkAvaiable([...drinkAvaiable]);
+        localStorage.setItem("arr", JSON.stringify(drink.name));
+      }
+      else{
+        setdrinkAvaiable(drinkAvaiable)
       }
     })
   
@@ -97,7 +100,6 @@ if(!firstRequestSent){
           </div>
           <Grid>
             {drinks.map((drink)=> {
-              console.log(drink.name in drinkAvaiable)
               if(drinkAvaiable.includes(drink.name)){
                 return(
                   <Grid.Col xs={12} sm={6} lg={6} xl={4}>
