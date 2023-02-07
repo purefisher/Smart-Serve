@@ -14,9 +14,7 @@ const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'bartender',
     password: 'password',
-    database: 'smart_serve',
-    port: 3001
-
+    database: 'smart_serve'
 })
 
 const PORT = process.env.PORT || 3002;
@@ -81,7 +79,8 @@ app.post("/order", (req,res) => {
     });
 
     db.query('INSERT INTO smart_serve.orders VALUES(?, ?, NOW());', [req.body.drink.name, req.body.username], (error, result_2) => {
-        console.log('Drink Ordered') 
+        console.log(error)
+	console.log('Drink Ordered') 
     });
     for (var i=1; i < Object.keys(req.body.drink.ingredients).length+1; i++){
         ingredientName = req.body.drink.ingredients['IG'+i].name
@@ -111,7 +110,7 @@ app.post("/ingredients", (req, res) => {
     console.log(req.body)
     db.query('DELETE FROM smart_serve.ingredients', [], (error, result) => {
     });
-    db.query('INSERT INTO smart_serve.ingredients VALUES (?, ?, 15), (?, ?, 13), (?, ?, 19), (?, ?, 17), (?, ?, 21);',[req.body.ingredients.ing1, req.body.ingredients.vol1, req.body.ingredients.ing2, req.body.ingredients.vol2,req.body.ingredients.ing3, req.body.ingredients.vol3,req.body.ingredients.ing4, req.body.ingredients.vol4,req.body.ingredients.ing5, req.body.ingredients.vol5], (error, result) => {
+    db.query('INSERT INTO smart_serve.ingredients VALUES (?, ?, 13), (?, ?, 15), (?, ?, 19), (?, ?, 37), (?, ?, 40);',[req.body.ingredients.ing1, req.body.ingredients.vol1, req.body.ingredients.ing2, req.body.ingredients.vol2,req.body.ingredients.ing3, req.body.ingredients.vol3,req.body.ingredients.ing4, req.body.ingredients.vol4,req.body.ingredients.ing5, req.body.ingredients.vol5], (error, result) => {
         res.send({done:true})
      })
 })
