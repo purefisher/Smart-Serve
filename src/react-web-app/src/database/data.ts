@@ -18,7 +18,7 @@ const info = [
         ingredients: {
                       IG1: {name: 'whiskey', amount: 37.5},
                       IG2: {name: 'lemonade', amount: 75},
-                      IG3: {name: 'water', amount: 17.5},
+                      IG3: {name: null, amount: null},
                       IG4: {name: null, amount: null}
         }
       },
@@ -28,8 +28,8 @@ const info = [
         category: 'cocktails',
         ingredients: {
           IG1: {name: 'vodka', amount: 37.5},
-          IG2: {name: 'orange_juice', amount: 75},
-          IG3: {name: 'apple sauce', amount: 17.5},
+          IG2: {name: 'coke', amount: 15},
+          IG3: {name: null, amount: null},
           IG4: {name: null, amount: null}
 }
       },
@@ -38,10 +38,10 @@ const info = [
         image: Daiquiri,
         category: 'cocktails',
         ingredients: {
-          IG1: {name: 'whiskey', amount: 37.5},
+          IG1: {name: 'vodka', amount: 37.5},
           IG2: {name: 'lemonade', amount: 75},
-          IG3: {name: 'water', amount: 17.5},
-          IG4: {name: 'pom', amount: 15}
+          IG3: {name: null, amount: null},
+          IG4: {name: null, amount: null}
 }
       },
       {
@@ -61,9 +61,9 @@ const info = [
         category: 'cocktails',
         ingredients: {
           IG1: {name: 'whiskey', amount: 37.5},
-          IG2: {name: 'sprite', amount: 75},
-          IG3: {name: 'water', amount: 17.5},
-          IG4: {name: 'vodka', amount: 15}
+          IG2: {name: 'water', amount: 17.5},
+          IG3: {name: 'vodka', amount: 15},
+          IG4: {name: null, amount: null}
 }
       },
     ],

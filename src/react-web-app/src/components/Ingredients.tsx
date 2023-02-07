@@ -22,9 +22,13 @@ function Drinks() {
           ing1: '',
           ing2: '',
           ing3: '',
-          vol1: '',
-          vol2: '',
-          vol3: '',
+          ing4: '',
+          ing5: '',
+          vol1: 1000,
+          vol2: 1000,
+          vol3: 1000,
+          vol4: 1000,
+          vol5: 1000,
           
           termsOfService: false,
         },
@@ -49,8 +53,8 @@ function Drinks() {
                 {...form.getInputProps('ing1')}
                 />
                 <NumberInput
-                    defaultValue={1000}
                     label="Volume"
+                    defaultValue={1000}
                     placeholder="Volume 1"
                     {...form.getInputProps('vol1')}
                   hideControls
@@ -73,8 +77,8 @@ function Drinks() {
                 />
                 <NumberInput
                     label=""
-                    defaultValue={1000}
                     placeholder="Volume 2"
+                    defaultValue={1000}
                     {...form.getInputProps('vol2')}
                     hideControls
                     />
@@ -100,9 +104,63 @@ function Drinks() {
                 
                 <NumberInput
                     label=""
-                    defaultValue = {1000}
                     placeholder="Volume 3"
+                    defaultValue={1000}
                     {...form.getInputProps('vol3')}
+                    hideControls
+                    />
+            </Group>
+            <Group spacing="xs">
+            <Text
+                sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
+                ta="center"
+                fz="xl"
+                fw={700}
+                
+              >
+              Dispensor 4
+            </Text>
+            
+            <Select
+                label=""
+                placeholder="Ingredient 4"
+                data={ings}
+                {...form.getInputProps('ing4')}
+                
+                />
+                
+                <NumberInput
+                    label=""
+                    placeholder="Volume 4"
+                    defaultValue={1000}
+                    {...form.getInputProps('vol4')}
+                    hideControls
+                    />
+            </Group>
+            <Group spacing="xs">
+            <Text
+                sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
+                ta="center"
+                fz="xl"
+                fw={700}
+                
+              >
+              Dispensor 5
+            </Text>
+            
+            <Select
+                label=""
+                placeholder="Ingredient 5"
+                data={ings}
+                {...form.getInputProps('ing5')}
+                
+                />
+                
+                <NumberInput
+                    label=""
+                    placeholder="Volume 5"
+                    defaultValue={1000}
+                    {...form.getInputProps('vol5')}
                     hideControls
                     />
             </Group>

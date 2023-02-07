@@ -33,6 +33,7 @@ db.connect((error) => {
 
 app.post("/login", function(req, res){
         db.query('SELECT * FROM smart_serve.login WHERE name = ? AND password = ?;', [req.body.username, req.body.password],  (error, result) => {
+            console.log(result)
             if(result.length > 0){
                 if(result[0].admin_credentials){
                     res.send({admin:true})
@@ -60,7 +61,7 @@ app.post("/user", (req, res) => {
     )
     });
 app.post("/order", (req,res) => {
-    db.query('SELECT pump FROM ingredients WHERE ingredient_name IN(?,?,?);', [req.body.drink.ingredients.IG1.name, req.body.drink.ingredients.IG2.name, req.body.drink.ingredients.IG3.name], (error, result) => {
+    db.query('SELECT pump FROM ingredients WHERE ingredient_name IN(?,?,?,?);', [req.body.drink.ingredients.IG1.name, req.body.drink.ingredients.IG2.name, req.body.drink.ingredients.IG3.name, req.body.drink.ingredients.IG4.name], (error, result) => {
         const arr = ['main.py']
         for(i=0; i < result.length; i++){
             str = (result[i].pump)
@@ -110,7 +111,7 @@ app.post("/ingredients", (req, res) => {
     console.log(req.body)
     db.query('DELETE FROM smart_serve.ingredients', [], (error, result) => {
     });
-    db.query('INSERT INTO smart_serve.ingredients VALUES (?, ?, 15), (?, ?, 13), (?, ?, 19);',[req.body.ingredients.ing1, req.body.ingredients.vol1, req.body.ingredients.ing2, req.body.ingredients.vol2,req.body.ingredients.ing3, req.body.ingredients.vol3], (error, result) => {
+    db.query('INSERT INTO smart_serve.ingredients VALUES (?, ?, 15), (?, ?, 13), (?, ?, 19), (?, ?, 17), (?, ?, 21);',[req.body.ingredients.ing1, req.body.ingredients.vol1, req.body.ingredients.ing2, req.body.ingredients.vol2,req.body.ingredients.ing3, req.body.ingredients.vol3,req.body.ingredients.ing4, req.body.ingredients.vol4,req.body.ingredients.ing5, req.body.ingredients.vol5], (error, result) => {
         res.send({done:true})
      })
 })

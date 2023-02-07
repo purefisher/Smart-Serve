@@ -115,15 +115,23 @@ if(!firstRequestSent){
                         <Text lineClamp={2} mt={20} size='sm'>
                           {'Ingredients:'}
                         </Text>
-                        <Text c='dimmed' size='sm'>
-                          {'Tequila'}
+                        
+                        <Text lineClamp={2} mt={20} size='sm'>
+                            {drink.ingredients.IG1.name}
                         </Text>
-                        <Text c='dimmed' size='sm'>
-                          {'Oyster Juice'}
+                        <Text lineClamp={2} size='sm'>
+                            {drink.ingredients.IG2.name}
                         </Text>
-                        <Text c='dimmed' size='sm'>
-                          {'Applesauce'}
+                        <Text lineClamp={2}  size='sm'>
+                            {drink.ingredients.IG3.name}
                         </Text>
+                        <Text lineClamp={2}  size='sm'>
+                            {drink.ingredients.IG4.name}
+                        </Text>
+                        
+
+
+
                       </Container>
                       <Card.Section className={classes.footer}>
                         <Group position='apart'>
