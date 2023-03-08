@@ -3,25 +3,26 @@ import RPi.GPIO as GPIO
 import time
 from constants import *
  
-#GPIO Mode (BOARD / BCM)
+##GPIO Mode (BOARD / BCM)
 #GPIO.setmode(GPIO.BCM)
  
-#set GPIO Pins
+##set GPIO Pins
 #ultra_1_TRIGGER = 23
 #ultra_1_ECHO = 24
 #ultra_2_TRIGGER = 25
 #ultra_2_ECHO = 16
- 
-#set GPIO direction (IN / OUT)
+# 
+##set GPIO direction (IN / OUT)
 #GPIO.setup(ultra_1_TRIGGER, GPIO.OUT)
 #GPIO.setup(ultra_1_ECHO, GPIO.IN)
 #GPIO.setup(ultra_2_TRIGGER, GPIO.OUT)
 #GPIO.setup(ultra_2_ECHO, GPIO.IN)
-
-#set distance limits for ultrasonic sensors
-#cup_dist_limit = 10
-#empty_cup_limit = 12
-#full_cup_limit = 5
+#
+##set distance limits for ultrasonic sensors
+#cup_distance_limit_lower = 4.4
+#cup_distance_limit_upper = 7.5
+#cup_distance_limit_turn = 3.6
+#cup_liquid_limit = 10
  
  
 def distance(TRIG, ECHO):
@@ -51,7 +52,7 @@ def distance(TRIG, ECHO):
  
   return distance
   
-  
+#compareDistance returns True if the sensor distance measurement is less than the constant being compared to
 def compareDistance(dist, dist_limit):
   if dist <= dist_limit:
     in_limit = 1
@@ -61,29 +62,38 @@ def compareDistance(dist, dist_limit):
   return in_limit
   
   
-def fillStatus(TRIG, ECHO, empty_cup_limit, full_cup_limit):
+#fill_status is True when the cup is full  
+def fillStatus(TRIG, ECHO, cup_liquid_limit):
   dist = distance(TRIG, ECHO)
-  print ("Empty Cup limit = %.1f cm" % empty_cup_limit)
-  print ("Full Cup limit = %.1f cm" % full_cup_limit)
-  print ("Measured Distance of Cup = %.1f cm" % dist)
-  if compareDistance(dist, empty_cup_limit) == 0:
-    print ("The Cup is Empty!")
-    fill_status = 0
-  elif compareDistance(dist, full_cup_limit) == 0:
-    print ("The Cup is Filling!")
-    fill_status = 1
-  elif compareDistance(dist, full_cup_limit) == 1:
+  #print ("Empty Cup limit = %.1f cm" % empty_cup_limit)
+  #print ("Full Cup limit = %.1f cm" % full_cup_limit)
+  print ("Measured Distance of Cup Liquid Level = %.1f cm" % dist)
+  if compareDistance(dist, cup_liquid_limit) == 1:
+    fill_status = True
     print ("The Cup is Full STOP pouring!")
-    fill_status = 2
+  else:
+    fill_status = False
+    print ("The Cup is not full")
+   # print ("The Cup is Empty!")
+    #fill_status = 0
+  #if compareDistance(dist, empty_cup_limit) == 0:
+   # print ("The Cup is Empty!")
+    #fill_status = 0
+  #elif compareDistance(dist, full_cup_limit) == 0:
+   # print ("The Cup is Filling!")
+    #fill_status = 1
+  #elif compareDistance(dist, full_cup_limit) == 1:
+   # print ("The Cup is Full STOP pouring!")
+    #fill_status = 2
     
   return fill_status   
   
   
-def cupStatusTurn(TRIG, ECHO, cup_dist_limit):
+def cupStatusTurn(TRIG, ECHO, cup_distance_limit_turn):
   dist = distance(TRIG, ECHO)
   #print ("Cup distance limit = %.1f cm" % cup_dist_limit)
   #print ("Measured Distance of Cup = %.1f cm" % dist)
-  if compareDistance(dist, cup_dist_limit) == 0:
+  if compareDistance(dist, cup_distance_limit_turn) == 0:
     #print ("Cup is NOT present.")
     cup_status_turn = False
   else:
@@ -98,10 +108,10 @@ def cupStatus(TRIG, ECHO, cup_dist_limit_lower, cup_dist_limit_upper):
   print ("Measured Distance of Cup = %.1f cm" % dist)
   #print(  if (compareDistance(dist, cup_distance_limit_lower) == False and compareDistance(dist, cup_distance_limit_lower) == True))
   if ((compareDistance(dist, cup_distance_limit_lower) == False) and (compareDistance(dist, cup_distance_limit_upper) == True)):
-    print ("Cup is present.")
+    #print ("Cup is present.")
     cup_status = True
   else:
-    print ("Cup is NOT present.")
+    #print ("Cup is NOT present.")
     cup_status = False
     
   return cup_status
@@ -113,9 +123,9 @@ if __name__ == '__main__':
   try:
     while True:
     
-      #cupStatus(ultra_2_TRIGGER, ultra_2_ECHO, cup_dist_limit)
+      #cupStatus(ultra_1_TRIGGER, ultra_1_ECHO, cup_distance_limit_lower, cup_distance_limit_upper)
       #time.sleep(2)
-      fillStatus(ultra_1_TRIGGER, ultra_1_ECHO, empty_cup_limit, full_cup_limit)
+      fillStatus(ultra_2_TRIGGER, ultra_2_ECHO, cup_liquid_limit)
       time.sleep(2)
     
       #dist = distance(ultra_1_TRIGGER, ultra_1_ECHO)

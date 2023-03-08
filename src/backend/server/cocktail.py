@@ -25,72 +25,83 @@ class cocktailcreate():
         #each ing is a json object with pump, ingredient, pin, and type (similar to the drinks.json file)
         #this function is going to be called by the web app upon the ordering of a drink
         self.idle_state = False
-        print(self.sense_config())
-        if self.sense_config():
-            if ing2 == None:
-                self.pumprun(ing1)
-            elif ing3 == None:
-                try:
-                    pump_threads.append(self.threads(ing1))
-                    pump_threads.append(self.threads(ing2))
-                    for threads in pump_threads:
-                         threads.start()
-                    
-                    for threads in pump_threads:
-                         threads.join()
-                except:
-                    print("3")
-            elif ing4 == None:
-                try:
-                    pump_threads.append(self.threads(ing1))
-                    pump_threads.append(self.threads(ing2))
-                    pump_threads.append(self.threads(ing3))
-                    for threads in pump_threads:
-                         threads.start()
-                    
-                    for threads in pump_threads:
-                         threads.join()
-                except:
-                    print("3")
-            elif ing5 == None:
-                try:
-                    pump_threads.append(self.threads(ing1))
-                    pump_threads.append(self.threads(ing2))
-                    pump_threads.append(self.threads(ing3))
-                    pump_threads.append(self.threads(ing4))
-                    for threads in pump_threads:
-                         threads.start()
-                    
-                    for threads in pump_threads:
-                         threads.join()
-                except:
-                    print("3")
+        
+        #print(self.sense_config())
+        check = True
+        while(check):
+          self.turntable()
+          time.sleep(1)
+          if ((self.sense_config()) and not(self.sense_level_config())): #if (cup is present & cup is not full) end while
+             print(self.sense_level_config())
+             check = False
+             break
+          elif ((self.sense_config()) and self.sense_level_config()): #if (cup is present & cup is full) half turn! then wait so people can remove cup
+             self.turntable_finish()
+             time.sleep(3)
+          elif (not self.sense_config()): #if (cup is not present) wait!
+             time.sleep(5)
+          time.sleep(5)
+        if ing2 == None:
+            self.pumprun(ing1)
+        elif ing3 == None:
+            try:
+                pump_threads.append(self.threads(ing1))
+                pump_threads.append(self.threads(ing2))
+                for threads in pump_threads:
+                     threads.start()
+                
+                for threads in pump_threads:
+                     threads.join()
+            except:
+                print("3")
+        elif ing4 == None:
+            try:
+                pump_threads.append(self.threads(ing1))
+                pump_threads.append(self.threads(ing2))
+                pump_threads.append(self.threads(ing3))
+                for threads in pump_threads:
+                     threads.start()
+                
+                for threads in pump_threads:
+                     threads.join()
+            except:
+                print("3")
+        elif ing5 == None:
+            try:
+                pump_threads.append(self.threads(ing1))
+                pump_threads.append(self.threads(ing2))
+                pump_threads.append(self.threads(ing3))
+                pump_threads.append(self.threads(ing4))
+                for threads in pump_threads:
+                     threads.start()
+                
+                for threads in pump_threads:
+                     threads.join()
+            except:
+                print("3")
 
-            else:
-                try:
-                    pump_threads.append(self.threads(ing1))
-                    pump_threads.append(self.threads(ing2))
-                    pump_threads.append(self.threads(ing3))
-                    pump_threads.append(self.threads(ing4))
-                    pump_threads.append(self.threads(ing5))
-                    for threading_t in pump_threads:
-                         threading_t.start()
-                    
-                    for threading_t in pump_threads:
-                         threading_t.join()
-                except:
-                    print("3") #use three different threads here
         else:
-            print("1")
-            #alert web app that cup is not present 
-        self.turntable()
+            try:
+                pump_threads.append(self.threads(ing1))
+                pump_threads.append(self.threads(ing2))
+                pump_threads.append(self.threads(ing3))
+                pump_threads.append(self.threads(ing4))
+                pump_threads.append(self.threads(ing5))
+                for threading_t in pump_threads:
+                     threading_t.start()
+                
+                for threading_t in pump_threads:
+                     threading_t.join()
+            except:
+                print("3") #use three different threads here
+        self.turntable_finish()
         self.idle_state = True
     @staticmethod
     def config(filename):
         return json.load(open(filename))
 
         #this function returns a json list of pump configurations with it's appropriate drinks
-
+        
     def sense_config(self):
         #load sensor status into this function
         self.senseconfig = cupStatus(self.sensor_one_output_pin, self.sensor_one_input_pin, cup_distance_limit_lower, cup_distance_limit_upper)
@@ -100,20 +111,30 @@ class cocktailcreate():
         #load sensor status into this function
         self.senseconfig_turntable = cupStatusTurn(self.sensor_one_output_pin, self.sensor_one_input_pin, cup_distance_limit_turn)
         return self.senseconfig_turntable  #output of ultra.py function
+        
+    def sense_level_config(self):
+        #load sensor status into this function
+        self.senseLevelConfig = fillStatus(self.sensor_two_output_pin, self.sensor_two_input_pin, cup_liquid_limit)
+        return self.senseLevelConfig  #output of ultra.py function
 
     def turntable(self):
         sense_count = 0
         io.output(self.motor_pin, io.LOW)
         time.sleep(0.5)
-        while(sense_count <= 100):
+        while(sense_count <= 110):
             if (self.sense_config_turn() == False):
                io.output(self.motor_pin, io.LOW)
                sense_count = sense_count + 1
             elif (self.sense_config_turn() == True):
                io.output(self.motor_pin, io.LOW)
                break
-            time.sleep(rotation_constant / 200)
+            time.sleep(rotation_constant / 110)
 	
+        io.output(self.motor_pin, io.HIGH)
+    
+    def turntable_finish(self):
+        io.output(self.motor_pin, io.LOW)
+        time.sleep(1.5)
         io.output(self.motor_pin, io.HIGH)
     
     def threads(self, ing):

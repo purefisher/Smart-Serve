@@ -13,7 +13,7 @@ newinstance = cocktailcreate()
 newinstance.pourdrink('40,1')
 
 
-print(sys.argv[1])
+#print(sys.argv[1])
 
 
 #call this file from nodejs and figure out how to not make a new instance of a class 

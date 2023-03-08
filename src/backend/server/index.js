@@ -14,9 +14,9 @@ const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'bartender',
     password: 'password',
-    database: 'smart_serve',
+    database: 'smart_serve'
 
-})
+});
 
 const PORT = process.env.PORT || 3002;
 
@@ -82,7 +82,12 @@ app.post("/order", (req, res) => {
     });
 
     db.query('INSERT INTO smart_serve.orders VALUES(?, ?, NOW());', [req.body.drink.name, req.body.username], (error, result_2) => {
+<<<<<<< HEAD
+        console.log(error)
+	console.log('Drink Ordered') 
+=======
         console.log('Drink Ordered')
+>>>>>>> 120793d3940d4429d9025a287a2bdd55022f41b6
     });
     for (var i = 1; i < Object.keys(req.body.drink.ingredients).length + 1; i++) {
         ingredientName = req.body.drink.ingredients['IG' + i].name
@@ -115,9 +120,15 @@ app.post("/ingredients", (req, res) => {
     db.query('DELETE FROM smart_serve.ingredients', [], (error, result) => {
         console.log(error)
     });
+<<<<<<< HEAD
+    db.query('INSERT INTO smart_serve.ingredients VALUES (?, ?, 13), (?, ?, 15), (?, ?, 19), (?, ?, 37), (?, ?, 40);',[req.body.ingredients.ing1, req.body.ingredients.vol1, req.body.ingredients.ing2, req.body.ingredients.vol2,req.body.ingredients.ing3, req.body.ingredients.vol3,req.body.ingredients.ing4, req.body.ingredients.vol4,req.body.ingredients.ing5, req.body.ingredients.vol5], (error, result) => {
+        res.send({done:true})
+     })
+=======
     db.query('INSERT INTO smart_serve.ingredients VALUES (?, ?, 15), (?, ?, 13), (?, ?, 19), (?, ?, 17), (?, ?, 21);', [req.body.ingredients.ing1, req.body.ingredients.vol1, req.body.ingredients.ing2, req.body.ingredients.vol2, req.body.ingredients.ing3, req.body.ingredients.vol3, req.body.ingredients.ing4, req.body.ingredients.vol4, req.body.ingredients.ing5, req.body.ingredients.vol5], (error, result) => {
         res.send({ done: true })
     })
+>>>>>>> 120793d3940d4429d9025a287a2bdd55022f41b6
 })
 
 app.listen(PORT, () => {
