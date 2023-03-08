@@ -4,10 +4,11 @@ pop_time_constant=10 #33
 single_alc_time_constant=5 #12
 double_alc_time_constant=12 #24
 rotation_constant = 2.2#2.7 #2.9 was ok
+finished_rotation_constant = 0.6
 cleaning_constant = 10
 
-cup_distance_limit_lower = 5
-cup_distance_limit_upper = 7.5
+cup_distance_limit_lower = 4.6
+cup_distance_limit_upper = 8.0
 cup_distance_limit_turn = 3.6
 cup_liquid_limit = 10 #this goes up to the lines on a solo cup
 
