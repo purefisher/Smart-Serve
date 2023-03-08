@@ -20,20 +20,30 @@ class cocktailcreate():
         self.pumpconfiguration = cocktailcreate.config("drinks.json")
 
     def readytopour(self):
+        scan = True
+        if (self.sense_config() and not self.sense_level_config()):
+          scan = False
+          
         count = 0
-        while(True):
+        while(scan):
           cup_sensed = self.turntable()
           time.sleep(1)
-          if ((self.sense_config()) and not(self.sense_level_config())): #if (cup is present & cup is not full) end while
+          cup_present = self.sense_config()
+          cup_full = self.sense_level_config()
+          if (cup_present and not cup_full):
+             #end while
              print(self.sense_level_config())
              break
-          elif ((self.sense_config()) and self.sense_level_config()): #if (cup is present & cup is full) half turn! then wait so people can remove cup
+          elif (cup_present and cup_full):
+             #half turn! then wait so people can remove cup
              self.turntable_finish()
              time.sleep(3)
-          elif (not self.sense_config() and not cup_sensed): #if (cup is not present) wait!
-             count += 1
-             if count == 2 :
+          elif (not cup_present and not cup_sensed):
+             #wait 10s, try again once more, if there is still no cup, exit program so a message can be sent to user
+             #I assume that we will need to add a flag here so the correct message can be sent to user????
+             if count == 1 :
                exit()
+             count += 1
              time.sleep(5)
           time.sleep(5)
         return True
