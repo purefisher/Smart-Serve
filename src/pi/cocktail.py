@@ -128,7 +128,7 @@ class cocktailcreate():
         except KeyboardInterrupt:
             print("false")
             io.cleanup()
-        io.cleanup()x	
+        io.cleanup()	
 
 
 

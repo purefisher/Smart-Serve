@@ -1,14 +1,15 @@
 
 
-pop_time_constant=10
-single_alc_time_constant=5
-double_alc_time_constant=10
-rotation_constant = 2.7
+pop_time_constant=10 #33
+single_alc_time_constant=5 #12
+double_alc_time_constant=12 #24
+rotation_constant = 2.2#2.7 #2.9 was ok
 cleaning_constant = 10
 
-cup_distance_limit_lower = 4.2
-cup_distance_limit_upper = 6
-cup_distance_limit_turn = 4 
+cup_distance_limit_lower = 5
+cup_distance_limit_upper = 7.5
+cup_distance_limit_turn = 3.6
+cup_liquid_limit = 10 #this goes up to the lines on a solo cup
 
 pump_one_constant = 5
 pump_two_constant = 5.5

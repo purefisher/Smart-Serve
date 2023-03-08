@@ -101,6 +101,7 @@ if(!firstRequestSent){
           <Grid>
             {drinks.map((drink)=> {
               if(drinkAvaiable.includes(drink.name)){
+		console.log(drinkAvaiable)
                 return(
                   <Grid.Col xs={12} sm={6} lg={6} xl={4}>
                   <div onClick={() => {setOpened(true); addDrink(drink.name); orderedDrink(drink, props.username)}}>
