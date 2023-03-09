@@ -46,6 +46,8 @@
         11/02/22 & Ryan Were & Initial Draft\\
         & Peter Minbasian & \\
         & David Bednar & \\
+        \midrule
+        03/08/23 & Ryan Were & Revised Test Cases During VnV Report\\
         \bottomrule
         \hline
         \end{tabularx}
@@ -373,12 +375,12 @@ Initial State: System is powered and ready. Operator has ordered a drink on a us
 					
 Input: System is dispensing a drink.
 					
-Output: \wss{Completed drink made with the correct proportions. The operator receives a "cup is full" notification. The correct user account receives a drink is done notification. The green light that an order has been completed is lit up.}
+Output: \wss{Completed drink made with the correct proportions. The operator receives a "cup is full" notification. The correct user account receives a drink is done notification.}
 %do we want the cup is full notification to only occur for the operator after 30 seconds so they are not spammed every time? If so I will make another test case for this
 
 Test Case Derivation: \wss{If the system is ready, this is the only scenario that a notification about a full cup being present in the pouring area will occur. Likewise it is the only scenario when a user will receive an order completed notification.}
 					
-How test will be performed: After completion of test ST-FR-CPT-01 the ordered drink will begin to pour. Once this process has completed, the operator will check that the green LED on the system is lit. Next, they will check their account to see if they have received a notification that there is full cup present at the pouring area. Then they will then check the user account that placed the order to see if an order completed notification has been received on that users account. They will also check another user account that did not place the order to make sure they have not received this notification. The operator will check if the proportions dispensed for the drink are correct, using a calibration apparatus. Lastly, the operator will also check the Web App statistics to ensure that these have been updated to include this completed order in the statistics.
+How test will be performed: After completion of test ST-FR-CPT-01 the ordered drink will begin to pour. Once this process has completed, the operator will check their account to see if they have received a notification that there is full cup present at the pouring area. Then they will then check the user account that placed the order to see if an order completed notification has been received on that users account. They will also check another user account that did not place the order to make sure they have not received this notification. The operator will check if the proportions dispensed for the drink are correct, using a calibration apparatus. Lastly, the operator will also check the Web App statistics to ensure that these have been updated to include this completed order in the statistics.
 %apparatus will divide the pouring of each ingredient into separate areas
 
 \item{ST-FR-DMT-02\\}
@@ -390,12 +392,12 @@ Initial State: Initial State: System is powered and ready, cup is full in the po
 
 Input: Operator orders a drink on a user account.
 
-Output: \wss{The full cup present notification on the operators account remains. The correct users account will continue to have an order completed notification. The user who has just placed an order will not have an order done notification, unless it is the user account that placed the initial order. The green LED remains lit. The next drink that has been ordered does not start pouring.}
+Output: \wss{The full cup present notification on the operators account remains. The correct users account will continue to have an order completed notification. The user who has just placed an order will not have an order done notification, unless it is the user account that placed the initial order. The next drink that has been ordered does not start pouring.}
 %Could add a test where the next order is placed using the same user account, make sure they still have their order completed notification from the first drinks, and still have order info for their next one.
 
 Test Case Derivation: \wss{From requirement MDR9 and MDR10 in the SRS, the expected behaviour of our system when there is a completed drink in the pouring area and other drinks in queue, is to not pour the next drink until the completed one is removed.}
 
-How test will be performed: After completion of test ST-FR-DMT-01, the operator will order another drink with a different user account. They will then check the green LED to ensure it has not shut off. Next, they will note whether the system is dispensing another drink or not, as it should not be. Then they will check their operator account to see if the full cup present notification remains. Next they will check the user account that placed the initial order to see if the order completed notification remains on that account. They will also check the users account who placed the new order, looking to see that they have their own order status information, but no drink complete notification. Lastly, they will check another user account that did not place the order to make sure they still have not received any notifications.
+How test will be performed: After completion of test ST-FR-DMT-01, the operator will order another drink with a different user account. They will note whether the system is dispensing another drink or not, as it should not be. Then they will check their operator account to see if the full cup present notification remains. Next they will check the user account that placed the initial order to see if the order completed notification remains on that account. They will also check the users account who placed the new order, looking to see that they have their own order status information, but no drink complete notification. Lastly, they will check another user account that did not place the order to make sure they still have not received any notifications.
 
 \item{ST-FR-DMT-03\\}
 %Test for MDR4, MDR5, MDR7, MDR8, and ODR11 this is right
@@ -404,13 +406,13 @@ Control: Manual
 
 Initial State: Initial State: System is powered and ready, cup is full in the pouring area. Another user order is in the queue.
 
-Input: Operator removes cup from the pouring area.
+Input: Operator adds a cup to the pouring area while scanning from previous test is still occurring.
 
-Output: \wss{The full cup present notification on the operators account has been removed. The correct users account will have an order completed notification removed. The green LED on the system is no longer lit. The operator gets a no cup present notification again.}
+Output: \wss{Order complete notification is still present for the first users order. The system successfully scans the cups for the empty cup. It then pours the drink into the empty cup.}
 
-Test Case Derivation: \wss{The cup is full notification for the operator and the order is done notification for the user will only occur when there is a completed drink in the pouring area. By adding a cup, this notification is no longer expected.}
+Test Case Derivation: \wss{Full cups should never have another drink poured into them. Because a full cup is still present, the user should still have a notification that their order is complete. The system should scan until it finds an empty cup and then pour it into that.  }
 
-How test will be performed: After completion of test ST-FR-DMT-02, the operator will remove the full cup from the pouring area. They will then check the green LED to ensure it has now shut off. Next, they will check their operator account to see if the full cup present notification has been removed. Then they will check the user account that placed the order to see if the order completed notification has been removed from that users account. They will also check another user account that did not place the order to make sure they still have not received any notifications. The operator will make sure that they still receive a no cup present notification.
+How test will be performed: After completion of test ST-FR-DMT-02, the operator will add an empty cup to the pouring area. Next, they will check their operator account to see if the full cup present notification is still there. Then they will check the user account that placed the first order to see if the order completed notification is still there. They will also check another user account that did not place the order to make sure they still have not received any notifications. The operator will make that the new users order is only being poured into the empty cup, and that the full cup is scanned and skipped.
 
 \end{enumerate}
 
@@ -464,7 +466,7 @@ Input: Operator orders a drink on a user account
 
 Output: The drink is made and ready within 45 seconds of input
 
-How the test will be performed: The operator will have already gone through the process of logging into the user account. The operator will order any drink on the menu and begin a timer at the same time of the order. The order will then be sent to and made by Smart Serve. The operator will wait until the green LED is lit up and will stop the timer. The test will pass if the timer has recorded less than 45 seconds.
+How the test will be performed: The operator will have already gone through the process of logging into the user account. The operator will order any drink on the menu and begin a timer at the same time of the order. The order will then be sent to and made by Smart Serve. The operator will wait until the user account receives a drink is done message and will stop the timer. The test will pass if the timer has recorded less than 45 seconds.
 					
 \item{ST-NFR-PR-02\\}
 
@@ -480,15 +482,15 @@ How the test will be performed: A test group of individuals who are of legal dri
 
 \item{ST-NFR-PR-03\\}
 
-Control: Automated
+Control: Manual
 
 Initial State: System is powered and ready with an empty cup present
 
-Input: Operator initiates test case
+Input: User orders a drink
 
-Output: The order is added to Smart Serves internal queue within 20 seconds of input
+Output: The order is added to Smart Serves internal database within 20 seconds of input
 
-How the test will be performed: The administrator will initiate the automated test case. The test case will use administrative privileges to send an order to Smart Serve with a timestamp. Smart Serve will receive the order into the queue and return an acknowledgement to the administrator with a timestamp. The test case will compare these two timestamps and it will pass if they are within 20 seconds of each other.
+How the test will be performed: The test case has a user send an order to Smart Serve. Smart Serve will record the order details into a database. An administrative user will manually check the database to verify that each order has been recorded. The  test will pass if the order is added to Smart Serves internal database within 20 seconds of input
 
 \item{ST-NFR-PR-04\\}
 
