@@ -10,15 +10,20 @@ const { spawn } = require('child_process');
 app.use(express.urlencoded({ extended: 'false' }))
 app.use(express.json())
 
+
+
 const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'bartender',
     password: 'password',
-    database: 'smart_serve'
+    database: 'smart_serve',
+    port: 3001
 
 });
 
 const PORT = process.env.PORT || 3002;
+const queue = [];
+let isMaking = false
 
 db.connect((error) => {
     if (error) {
@@ -27,7 +32,6 @@ db.connect((error) => {
         console.log("MySQL connected!")
     }
 });
-
 
 
 app.post("/login", function (req, res) {
@@ -59,46 +63,49 @@ app.post("/user", (req, res) => {
     }
     )
 });
+
 app.post("/order", (req, res) => {
-    db.query('SELECT pump FROM ingredients WHERE ingredient_name IN(?,?,?,?);', [req.body.drink.ingredients.IG1.name, req.body.drink.ingredients.IG2.name, req.body.drink.ingredients.IG3.name, req.body.drink.ingredients.IG4.name], (error, result) => {
-        const arr = ['main.py']
-        for (i = 0; i < result.length; i++) {
-            str = (result[i].pump)
-            str = str.toString()
-            arr.push(
-                str + ",1"
-            )
-        }
-        console.log(arr)
+    // Add the request object to the queue
+    queue.push(req);
+    // Send a response to the client
+    res.send({ ordered: true });
+  });
 
-        const process = spawn('python', arr);
-        process.stderr.on('data', (data) => {
-            console.error(`stderr: ${data}`);
-        });
-        // collect data from script
-        process.stdout.on('data', function (data) {
-            console.log(data.toString())
-        })
-    });
+// app.post("/order", (req, res) => {
+//     db.query('SELECT pump FROM ingredients WHERE ingredient_name IN(?,?,?,?);', [req.body.drink.ingredients.IG1.name, req.body.drink.ingredients.IG2.name, req.body.drink.ingredients.IG3.name, req.body.drink.ingredients.IG4.name], (error, result) => {
+//         const arr = ['main.py']
+//         for (i = 0; i < result.length; i++) {
+//             str = (result[i].pump)
+//             str = str.toString()
+//             arr.push(
+//                 str + ",1"
+//             )
+//         }
+//         console.log(arr)
 
-    db.query('INSERT INTO smart_serve.orders VALUES(?, ?, NOW());', [req.body.drink.name, req.body.username], (error, result_2) => {
-<<<<<<< HEAD
-        console.log(error)
-	console.log('Drink Ordered') 
-=======
-        console.log('Drink Ordered')
->>>>>>> 120793d3940d4429d9025a287a2bdd55022f41b6
-    });
-    for (var i = 1; i < Object.keys(req.body.drink.ingredients).length + 1; i++) {
-        ingredientName = req.body.drink.ingredients['IG' + i].name
-        ingredientAmount = req.body.drink.ingredients['IG' + i].amount
-        if (ingredientName != null) {
-            db.query('UPDATE smart_serve.ingredients SET amount=amount-? WHERE ingredient_name=?;', [ingredientAmount, ingredientName], (error, result) => {
-            });
-        }
-    }
-    res.send({ ordered: true })
-});
+//         const process = spawn('python', arr);
+//         process.stderr.on('data', (data) => {
+//             console.error(`stderr: ${data}`);
+//         });
+//         // collect data from script
+//         process.stdout.on('data', function (data) {
+//             console.log(data.toString())
+//         })
+//     });
+// 
+//     db.query('INSERT INTO smart_serve.orders VALUES(?, ?, NOW());', [req.body.drink.name, req.body.username], (error, result_2) => {
+//         console.log('Drink Ordered')
+//     });
+//     for (var i = 1; i < Object.keys(req.body.drink.ingredients).length + 1; i++) {
+//         ingredientName = req.body.drink.ingredients['IG' + i].name
+//         ingredientAmount = req.body.drink.ingredients['IG' + i].amount
+//         if (ingredientName != null) {
+//             db.query('UPDATE smart_serve.ingredients SET amount=amount-? WHERE ingredient_name=?;', [ingredientAmount, ingredientName], (error, result) => {
+//             });
+//         }
+//     }
+//     res.send({ ordered: true })
+// });
 
 app.post("/check", async function (req, res) {
     var count = Object.keys(req.body.drink.ingredients).filter(drink => req.body.drink.ingredients[drink].name != null).length
@@ -120,15 +127,9 @@ app.post("/ingredients", (req, res) => {
     db.query('DELETE FROM smart_serve.ingredients', [], (error, result) => {
         console.log(error)
     });
-<<<<<<< HEAD
     db.query('INSERT INTO smart_serve.ingredients VALUES (?, ?, 13), (?, ?, 15), (?, ?, 19), (?, ?, 37), (?, ?, 40);',[req.body.ingredients.ing1, req.body.ingredients.vol1, req.body.ingredients.ing2, req.body.ingredients.vol2,req.body.ingredients.ing3, req.body.ingredients.vol3,req.body.ingredients.ing4, req.body.ingredients.vol4,req.body.ingredients.ing5, req.body.ingredients.vol5], (error, result) => {
         res.send({done:true})
      })
-=======
-    db.query('INSERT INTO smart_serve.ingredients VALUES (?, ?, 15), (?, ?, 13), (?, ?, 19), (?, ?, 17), (?, ?, 21);', [req.body.ingredients.ing1, req.body.ingredients.vol1, req.body.ingredients.ing2, req.body.ingredients.vol2, req.body.ingredients.ing3, req.body.ingredients.vol3, req.body.ingredients.ing4, req.body.ingredients.vol4, req.body.ingredients.ing5, req.body.ingredients.vol5], (error, result) => {
-        res.send({ done: true })
-    })
->>>>>>> 120793d3940d4429d9025a287a2bdd55022f41b6
 })
 
 app.listen(PORT, () => {
@@ -137,3 +138,81 @@ app.listen(PORT, () => {
 // app.listen(PORT, () => {
 //   console.log(`Server listening on ${PORT}`);
 // });
+
+
+
+function processRequest(req) {
+    isMaking = true
+    db.query(
+      "SELECT pump FROM ingredients WHERE ingredient_name IN(?,?,?,?);",
+      [
+        req.body.drink.ingredients.IG1.name,
+        req.body.drink.ingredients.IG2.name,
+        req.body.drink.ingredients.IG3.name,
+        req.body.drink.ingredients.IG4.name,
+      ],
+      (error, result) => {
+        const arr = ["main.py"];
+        for (i = 0; i < result.length; i++) {
+          str = result[i].pump;
+          str = str.toString();
+          arr.push(str + ",1");
+        }
+        console.log(arr);
+  
+        const process = spawn("python", arr);
+        process.stderr.on("data", (data) => {
+          console.error(`stderr: ${data}`);
+        });
+        // collect data from script
+        process.stdout.on("data", function (data) {
+            while(data.toString().length === 0){
+              console.log(data.toString())
+            }
+          console.log(data.toString());
+          isMaking = false
+        });
+
+      }
+    );
+  
+    db.query(
+      "INSERT INTO smart_serve.orders VALUES(?, ?, NOW());",
+      [req.body.drink.name, req.body.username],
+      (error, result_2) => {
+        console.log(error);
+        console.log("Drink Ordered");
+      }
+    );
+  
+    for (
+      var i = 1;
+      i < Object.keys(req.body.drink.ingredients).length + 1;
+      i++
+    ) {
+      ingredientName = req.body.drink.ingredients["IG" + i].name;
+      ingredientAmount = req.body.drink.ingredients["IG" + i].amount;
+      if (ingredientName != null) {
+        db.query(
+          "UPDATE smart_serve.ingredients SET amount=amount-? WHERE ingredient_name=?;",
+          [ingredientAmount, ingredientName],
+          (error, result) => {}
+        );
+      }
+    }
+    
+  }
+
+const interval = setInterval(() => {
+    if (queue.length > 0 && !isMaking) {
+        console.log('MAKING')
+        processRequest(queue[0]);
+        // Remove the processed request from the queue
+        queue.shift();
+    }
+}, 500);
+
+process.on("SIGINT", () => {
+    clearInterval(interval);
+    process.exit();
+});
