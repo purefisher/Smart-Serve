@@ -36,7 +36,6 @@ db.connect((error) => {
 
 app.post("/login", function (req, res) {
     db.query('SELECT * FROM smart_serve.login WHERE name = ? AND password = ?;', [req.body.username, req.body.password], (error, result) => {
-        console.log(result)
         if (result.length > 0) {
             if (result[0].admin_credentials) {
                 res.send({ admin: true })
@@ -71,47 +70,19 @@ app.post("/order", (req, res) => {
     res.send({ ordered: true });
   });
 
-// app.post("/order", (req, res) => {
-//     db.query('SELECT pump FROM ingredients WHERE ingredient_name IN(?,?,?,?);', [req.body.drink.ingredients.IG1.name, req.body.drink.ingredients.IG2.name, req.body.drink.ingredients.IG3.name, req.body.drink.ingredients.IG4.name], (error, result) => {
-//         const arr = ['main.py']
-//         for (i = 0; i < result.length; i++) {
-//             str = (result[i].pump)
-//             str = str.toString()
-//             arr.push(
-//                 str + ",1"
-//             )
-//         }
-//         console.log(arr)
-
-//         const process = spawn('python', arr);
-//         process.stderr.on('data', (data) => {
-//             console.error(`stderr: ${data}`);
-//         });
-//         // collect data from script
-//         process.stdout.on('data', function (data) {
-//             console.log(data.toString())
-//         })
-//     });
-// 
-//     db.query('INSERT INTO smart_serve.orders VALUES(?, ?, NOW());', [req.body.drink.name, req.body.username], (error, result_2) => {
-//         console.log('Drink Ordered')
-//     });
-//     for (var i = 1; i < Object.keys(req.body.drink.ingredients).length + 1; i++) {
-//         ingredientName = req.body.drink.ingredients['IG' + i].name
-//         ingredientAmount = req.body.drink.ingredients['IG' + i].amount
-//         if (ingredientName != null) {
-//             db.query('UPDATE smart_serve.ingredients SET amount=amount-? WHERE ingredient_name=?;', [ingredientAmount, ingredientName], (error, result) => {
-//             });
-//         }
-//     }
-//     res.send({ ordered: true })
-// });
+app.post("/placement", (req, res) => {
+  if((queue.length > 1) && (queue[1].body.username == req.body.username)){
+    res.send('Second')
+  }
+  else{
+    res.send('')
+  }
+});
 
 app.post("/check", async function (req, res) {
     var count = Object.keys(req.body.drink.ingredients).filter(drink => req.body.drink.ingredients[drink].name != null).length
     db.query('SELECT * FROM smart_serve.ingredients WHERE (ingredient_name=? AND amount>?) OR (ingredient_name=? AND amount>?) OR (ingredient_name=? AND amount>?) OR (ingredient_name=? AND amount>?);', [req.body.drink.ingredients.IG1.name, req.body.drink.ingredients.IG1.amount, req.body.drink.ingredients.IG2.name, req.body.drink.ingredients.IG2.amount, req.body.drink.ingredients.IG3.name, req.body.drink.ingredients.IG3.amount, req.body.drink.ingredients.IG4.name, req.body.drink.ingredients.IG4.amount], (error, result) => {
         if (result.length == count) {
-            console.log(req.body.drink)
             res.send({ availability: true })
         }
         else {
@@ -140,7 +111,6 @@ app.listen(PORT, () => {
 // });
 
 
-
 function processRequest(req) {
     isMaking = true
     db.query(
@@ -158,7 +128,6 @@ function processRequest(req) {
           str = str.toString();
           arr.push(str + ",1");
         }
-        console.log(arr);
   
         const process = spawn("python", arr);
         process.stderr.on("data", (data) => {
@@ -167,10 +136,10 @@ function processRequest(req) {
         // collect data from script
         process.stdout.on("data", function (data) {
             while(data.toString().length === 0){
-              console.log(data.toString())
+              console.log('Here')
             }
-          console.log(data.toString());
           isMaking = false
+          queue.shift();
         });
 
       }
@@ -180,7 +149,6 @@ function processRequest(req) {
       "INSERT INTO smart_serve.orders VALUES(?, ?, NOW());",
       [req.body.drink.name, req.body.username],
       (error, result_2) => {
-        console.log(error);
         console.log("Drink Ordered");
       }
     );
@@ -205,10 +173,9 @@ function processRequest(req) {
 
 const interval = setInterval(() => {
     if (queue.length > 0 && !isMaking) {
-        console.log('MAKING')
+      console.log(queue.length)
         processRequest(queue[0]);
         // Remove the processed request from the queue
-        queue.shift();
     }
 }, 500);
 

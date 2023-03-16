@@ -1,5 +1,6 @@
-import { Button, createStyles, Group, Select, Text, NumberInput } from '@mantine/core';
+import { Button, createStyles, Group, Select, Text, NumberInput, Modal, Center, Stack } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ings from '../database/ings';
 
@@ -9,6 +10,7 @@ const useStyles = createStyles(() => ({
   },
 }));
 
+
 function HandelSubmit(ingredients:any){
   axios.post('ingredients', {ingredients:ingredients}, {headers: { 'Content-Type': 'application/json' }})
   .then((response) => {
@@ -16,7 +18,8 @@ function HandelSubmit(ingredients:any){
   })
 }
 
-function Drinks() {
+function Drinks(props:any) {
+    const [opened, setOpened] = useState(false);
     const form = useForm({
         initialValues: {
           ing1: '',
@@ -33,11 +36,25 @@ function Drinks() {
           termsOfService: false,
         },
       });
-
       return (
-          <form onSubmit={form.onSubmit((values) => HandelSubmit(values))}>
+        <>
+            <Modal
+            opened={opened}
+            onClose={() => setOpened(false)}
+            withCloseButton={false}
+            centered
+        >
+          Ingredients Updated
+          
+        </Modal>
+        <Center>
+          <form onSubmit={form.onSubmit((values) => 
+                                                    {HandelSubmit(values);
+                                                    setOpened(true);})}>
             
             <Group spacing="xs">
+              
+            <Stack>
             <Text
                 sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
                 ta="center"
@@ -46,19 +63,26 @@ function Drinks() {
               >
               Dispensor 1
             </Text>
+            </Stack>
+            <Stack>
+              Ingredients
             <Select
-                label="Ingredients"
+                label=""
                 placeholder="Ingredient 1"
                 data={ings}
                 {...form.getInputProps('ing1')}
                 />
+            </Stack>
+            <Stack>
+            Volume
                 <NumberInput
-                    label="Volume"
+                    label=""
                     defaultValue={1000}
                     placeholder="Volume 1"
                     {...form.getInputProps('vol1')}
                   hideControls
                     />
+            </Stack>
             </Group>
             <Group spacing="xs">
             <Text
@@ -169,6 +193,8 @@ function Drinks() {
               <Button type="submit">Submit</Button>
             </Group>
           </form>
+          </Center>
+          </>
       );
 }
 

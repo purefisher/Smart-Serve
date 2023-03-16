@@ -7,7 +7,6 @@ import React from "react"
 function Admin(props: any) {
 
   const [goToMain, setgoToMain] = React.useState(false);
-
   return (
     <AppShell
       fixed
