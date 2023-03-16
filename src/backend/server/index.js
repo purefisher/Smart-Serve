@@ -16,8 +16,7 @@ const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'bartender',
     password: 'password',
-    database: 'smart_serve',
-    port: 3001
+    database: 'smart_serve'
 
 });
 
