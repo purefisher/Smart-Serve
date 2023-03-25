@@ -13,14 +13,17 @@ function Main(props: any) {
       if(response.data == 'Second'){
         setOpened(true)
       }
+      else{
+        setOpened(false)
+      }
     })
-}, 3000);
+}, 500);
 
   return (
     <>
     <Modal
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={() => setOpened(true)}
         withCloseButton={false}
         centered
     >

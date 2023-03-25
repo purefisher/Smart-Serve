@@ -5,6 +5,7 @@ import Main from './pages/Main';
 import LoginPage from './pages/Login';
 import { useState } from 'react';
 import Admin from './pages/Admin';
+import Queue from './pages/Queue';
 
 function App() {
   const [signedin, setsignedin] = useState({
@@ -21,7 +22,8 @@ function App() {
           <Route path="/" element={<Navigate to='Login'/>}/>
           <Route path='Login' element={<LoginPage setsignedin={setsignedin} signedin={signedin} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>} />
           <Route path='Main' element={<Main signedin={signedin} ingredients={ingedients} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>} />
-          <Route path='/admin' element={<Admin ingredients={ingedients} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>} />
+          <Route path='/Admin' element={<Admin ingredients={ingedients} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>} />
+          <Route path='/Queue' element={<Queue signedin={signedin}/>} />
         </Routes>
 
       </BrowserRouter>

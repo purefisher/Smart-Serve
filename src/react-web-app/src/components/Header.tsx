@@ -46,25 +46,33 @@ function Header({ ...hP }: HeaderProps) {
     {(page=='Main'? navigate("/admin"): navigate("/main"))}
   }
 
+  function handleQButton(page:string){
+    {(page=='Main'? navigate("/queue"): (page=='admin'?navigate("/queue"): navigate("/main")))}
+  }
+
   return (
     <HD className={classes.blur} {...hP}>
       <Container className={classes.spacing} fluid>
         
-        <Center style={{ width: 1500, height: 200 }}>
+        <Center style={{ width: 1000, height: 200, paddingLeft:450 }}>
         <Group position="center">
           <Text size={50} weight={'bold'} onClick={handleHeading}>
             SMART - SERVE
           </Text>
         </Group>
         </Center>
+        {hP.page=='Login'?null
+        :<Group position="right">
+        <Button variant="outline" color='dark' onClick={()=>{handleQButton(hP.page)}}>
+        {(hP.page=='queue'? <text>MAIN PAGE</text>: <text>QUEUE PAGE</text>)}
+        </Button>
         {hP.signedin.admin?
-        <Group position="right">
           <Button variant="outline" color='dark' onClick={()=>{handleButton(hP.page)}}>
           {(hP.page=='Main'? <text>ADMIN PAGE</text>: <text>MAIN PAGE</text>)}
-            
           </Button>
-        </Group>
         : null}
+        </Group>}
+
       </Container>
     </HD>
   );

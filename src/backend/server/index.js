@@ -16,7 +16,7 @@ const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'bartender',
     password: 'password',
-    database: 'smart_serve'
+    database: 'smart_serve',
 
 });
 
@@ -102,12 +102,17 @@ app.post("/ingredients", (req, res) => {
      })
 })
 
+app.post('/drinkPopularity', (req,res) => {
+    db.query('SELECT drink, COUNT(drink) AS Amount FROM smart_serve.orders GROUP BY drink ORDER BY Amount DESC, drink DESC;', [], (error, result) => {
+      console.log(result)
+      res.send(result)
+  });
+})
+
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
-// app.listen(PORT, () => {
-//   console.log(`Server listening on ${PORT}`);
-// });
+
 
 
 function processRequest(req) {
