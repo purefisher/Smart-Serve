@@ -15,6 +15,11 @@ class cocktailcreate():
         self.sensor_one_input_pin = self.sensors[1]['Pin']
         self.sensor_two_output_pin = self.sensors[2]['Pin']
         self.sensor_two_input_pin = self.sensors[3]['Pin']
+        
+        
+        
+        self.popPourTime = 0
+
 
         self.senseconfiguration = False #assume that it is not ready to receive a drink 
         self.pumpconfiguration = cocktailcreate.config("drinks.json")
@@ -58,9 +63,11 @@ class cocktailcreate():
         #print(self.sense_config())
         if self.readytopour():
             if ing2 == None:
+                self.popPourTime = self.Volume(ing1)
                 self.pumprun(ing1)
             elif ing3 == None:
                 try:
+                    self.popPourTime = self.Volume(ing1, ing2)
                     pump_threads.append(self.threads(ing1))
                     pump_threads.append(self.threads(ing2))
                     for threads in pump_threads:
@@ -72,6 +79,7 @@ class cocktailcreate():
                     print("3")
             elif ing4 == None:
                 try:
+                    self.popPourTime = self.Volume(ing1, ing2, ing3)
                     pump_threads.append(self.threads(ing1))
                     pump_threads.append(self.threads(ing2))
                     pump_threads.append(self.threads(ing3))
@@ -84,6 +92,7 @@ class cocktailcreate():
                     print("3")
             elif ing5 == None:
                 try:
+                    self.popPourTime = self.Volume(ing1, ing2, ing3, ing4)
                     pump_threads.append(self.threads(ing1))
                     pump_threads.append(self.threads(ing2))
                     pump_threads.append(self.threads(ing3))
@@ -98,6 +107,7 @@ class cocktailcreate():
 
             else:
                 try:
+                    self.popPourTime = self.Volume(ing1, ing2, ing3, ing4, ing5)
                     pump_threads.append(self.threads(ing1))
                     pump_threads.append(self.threads(ing2))
                     pump_threads.append(self.threads(ing3))
@@ -185,23 +195,39 @@ class cocktailcreate():
 
     def pumprun(self, ing): #this is the threading function
         result = [x.strip() for x in ing.split(',')]
+        single_alc_time_constant = 0
+        pop_time_constant = 0
         if (int(result[1])==1):
-            io.output(int(result[0]), io.LOW)
-            #print("Pouring alcohol")
-            time.sleep(single_alc_time_constant)
-            io.output(int(result[0]), io.HIGH)
-            #print("All done alcohol")
+          i = 0
+          while i < 5:
+            if(pump_constants[i][0] == int(result[0])):
+              single_alc_time_constant = pump_constants[i][1]
+              print(single_alc_time_constant)
+              break
+            i+=1
+            
+          io.output(int(result[0]), io.LOW)
+          #print("Pouring alcohol")
+          time.sleep(single_alc_time_constant)
+          io.output(int(result[0]), io.HIGH)
+          #print("All done alcohol")
         elif (int(result[1])==2):
-            io.output(int(result[0]), io.LOW)
-            #print("Pouring pop")
-            time.sleep(pop_time_constant)
-            io.output(int(result[0]), io.HIGH)
+          i = 0
+          while i < 5:
+            if(pump_constants[i][0] == int(result[0])):
+              pop_time_constant = pump_constants[i][1]
+              break
+            i+=1
+          io.output(int(result[0]), io.LOW)
+          #print("Pouring pop")
+          time.sleep(pop_time_constant * self.popPourTime)
+          io.output(int(result[0]), io.HIGH)
             #print("All done pop")
-        elif (int(result[1])==3):
-            io.output(int(result[0]), io.LOW)
+        #elif (int(result[1])==3):
+         #   io.output(int(result[0]), io.LOW)
             #print("Pouring alcohol")
-            time.sleep(double_alc_time_constant)
-            io.output(int(result[0]), io.HIGH) 
+          #  time.sleep(double_alc_time_constant)
+           # io.output(int(result[0]), io.HIGH) 
             #print("All done pouring alcohol")     
     
 
@@ -247,7 +273,7 @@ class cocktailcreate():
         for threads in pump_threads:
             threads.join()
 
-    def Volume(self, ing1, ing2=None, ing3=None, ing4=None, ing5=None):
+    def Volume(self,ing1, ing2=None, ing3=None, ing4=None, ing5=None):
         result = [[0,0],[0,0],[0,0],[0,0],[0,0]]
         if ing2 == None:
             result[0] = [x.strip() for x in ing1.split(',')]
@@ -282,12 +308,12 @@ class cocktailcreate():
             elif(result[i][1] == '2'):
                 numPops +=1
             i+=1
-
+    
         popRemaining = 4 - numShots
         if(numPops > 0):
             popPourTime = popRemaining / numPops
-
-        return popPourTime
         
+        print(popPourTime)
+        return popPourTime
 
 
