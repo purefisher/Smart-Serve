@@ -2,7 +2,6 @@ import { Button, createStyles, Group, Select, Text, NumberInput, Modal, Center, 
 import { useForm } from '@mantine/form';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ings from '../database/ings';
 
 const useStyles = createStyles(() => ({
   container: {
@@ -19,6 +18,7 @@ function HandelSubmit(ingredients:any){
 }
 
 function Drinks(props:any) {
+    const [fillOpened, setFillOpened] = useState(false);
     const [opened, setOpened] = useState(false);
     const form = useForm({
         initialValues: {
@@ -36,161 +36,105 @@ function Drinks(props:any) {
           termsOfService: false,
         },
       });
+
+      const options = ["whiskey", "water", "lemonade", "vodka", "tequila", "coke", "rum"];
+      const uniqueOptions = Array.from(new Set(options));
+    
+      const [selectedOptions, setSelectedOptions] = useState(
+        new Array(5).fill(uniqueOptions[0])
+      );
+    
+      const handleSelect = (index: number, value: string) => {
+        setSelectedOptions((prev) => {
+          const newSelectedOptions = [...prev];
+          newSelectedOptions[index] = value;
+          return newSelectedOptions;
+        });
+      };
+
       return (
         <>
-            <Modal
+
+          <Modal
+            opened={fillOpened}
+            onClose={() => setFillOpened(false)}
+            withCloseButton={false}
+            centered
+          >
+            Dispensors filled, please press the confirm button to confirm the changes
+          </Modal>
+
+          <Modal
             opened={opened}
             onClose={() => setOpened(false)}
             withCloseButton={false}
             centered
-        >
-          Ingredients Updated
+          >
+            Ingredients Updated
+          </Modal>
+
+          <Center>
+            <form
+              onSubmit={form.onSubmit((values) => {
+                for (let i = 0; i < selectedOptions.length; i++) {
+                  const ingredient = `ing${i + 1}` as keyof typeof values;
+                  const volume = `vol${i + 1}` as keyof typeof values;
+                  form.setValues({ [ingredient]: selectedOptions[i], [volume]: values[volume] });
+                }
+                HandelSubmit(values);
+                setOpened(true);
+              })}
+            >
+
           
-        </Modal>
-        <Center>
-          <form onSubmit={form.onSubmit((values) => 
-                                                    {HandelSubmit(values);
-                                                    setOpened(true);})}>
-            
-            <Group spacing="xs">
+              {selectedOptions.map((selectedOption, index) => {
+                const otherSelectedOptions = selectedOptions.filter(
+                  (option) => option !== selectedOption
+                );
+                const availableOptions = uniqueOptions.filter(
+                  (option) => !otherSelectedOptions.includes(option)
+                );
+
+                return (
+                  <Group spacing="xs">
               
-            <Stack>
-            <Text
-                sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
-                ta="center"
-                fz="xl"
-                fw={700}
-              >
-              Dispensor 1
-            </Text>
-            </Stack>
-            <Stack>
-              Ingredients
-            <Select
-                label=""
-                placeholder="Ingredient 1"
-                data={ings}
-                {...form.getInputProps('ing1')}
-                />
-            </Stack>
-            <Stack>
-            Volume
-                <NumberInput
-                    label=""
-                    defaultValue={1000}
-                    placeholder="Volume 1"
-                    {...form.getInputProps('vol1')}
-                  hideControls
-                    />
-            </Stack>
-            </Group>
-            <Group spacing="xs">
-            <Text
-                sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
-                ta="center"
-                fz="xl"
-                fw={700}
-              >
-              Dispensor 2
-            </Text>
-            <Select
-                label=""
-                placeholder="Ingredient 2"
-                data={ings}
-                {...form.getInputProps('ing2')}
-                />
-                <NumberInput
-                    label=""
-                    placeholder="Volume 2"
-                    defaultValue={1000}
-                    {...form.getInputProps('vol2')}
-                    hideControls
-                    />
-            </Group>
-            <Group spacing="xs">
-            <Text
-                sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
-                ta="center"
-                fz="xl"
-                fw={700}
-                
-              >
-              Dispensor 3
-            </Text>
-            
-            <Select
-                label=""
-                placeholder="Ingredient 3"
-                data={ings}
-                {...form.getInputProps('ing3')}
-                
-                />
-                
-                <NumberInput
-                    label=""
-                    placeholder="Volume 3"
-                    defaultValue={1000}
-                    {...form.getInputProps('vol3')}
-                    hideControls
-                    />
-            </Group>
-            <Group spacing="xs">
-            <Text
-                sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
-                ta="center"
-                fz="xl"
-                fw={700}
-                
-              >
-              Dispensor 4
-            </Text>
-            
-            <Select
-                label=""
-                placeholder="Ingredient 4"
-                data={ings}
-                {...form.getInputProps('ing4')}
-                
-                />
-                
-                <NumberInput
-                    label=""
-                    placeholder="Volume 4"
-                    defaultValue={1000}
-                    {...form.getInputProps('vol4')}
-                    hideControls
-                    />
-            </Group>
-            <Group spacing="xs">
-            <Text
-                sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
-                ta="center"
-                fz="xl"
-                fw={700}
-                
-              >
-              Dispensor 5
-            </Text>
-            
-            <Select
-                label=""
-                placeholder="Ingredient 5"
-                data={ings}
-                {...form.getInputProps('ing5')}
-                
-                />
-                
-                <NumberInput
-                    label=""
-                    placeholder="Volume 5"
-                    defaultValue={1000}
-                    {...form.getInputProps('vol5')}
-                    hideControls
-                    />
-            </Group>
+                  <Stack>
+                  <Text
+                      sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
+                      ta="center"
+                      fz="xl"
+                      fw={700}
+                    >
+                    {`Dispensor ${index + 1}`}
+                  </Text>
+                  </Stack>
+                  <Stack>
+                  <Select
+                    key={index}
+                    label={`Ingredient ${index + 1}`}
+                    placeholder="Select an option"
+                    data={availableOptions}
+                    value={selectedOption}
+                    onChange={(value) => value && handleSelect(index, value)}
+                  />
+                  </Stack>
+                  <Stack>
+                      <NumberInput
+                          label={`Volume ${index + 1}`}
+                          defaultValue={1000}
+                         {...form.getInputProps(`vol${index + 1}`)}
+                        hideControls
+                          />
+                  </Stack>
+                  </Group>
+
+                  
+                );
+              })}
 
             <Group position="right" mt="md">
-              <Button type="submit">Submit</Button>
+              <Button onClick={() => setFillOpened(true)} type="submit">Fill</Button>
+              <Button type="submit">Confirm</Button>
             </Group>
           </form>
           </Center>
