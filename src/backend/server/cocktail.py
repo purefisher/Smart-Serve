@@ -206,10 +206,10 @@ class cocktailcreate():
     
 
 
-    def offpumps(self):
+    def off(self):
         for i in range(0,len(self.pumpconfiguration)):
             io.output(self.pumpconfiguration[i]['Pin'], io.HIGH)
-    
+        io.output(self.motor_pin, io.HIGH) 
 
 
     def onpumps(self):
