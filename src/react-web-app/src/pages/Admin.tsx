@@ -1,4 +1,4 @@
-import { AppShell, Card } from '@mantine/core';
+import { AppShell, Button, Card } from '@mantine/core';
 import Header from '../components/Header';
 import Ingredients from '../components/Ingredients';
 import { createContext, useState } from 'react';
@@ -34,6 +34,8 @@ function Admin(props: any) {
     <Ingredients />
     <BarChart series={{ data: data }}/>
     <PieChart series={{data: data}}/>
+    <Button type="submit">line fill</Button>
+    <Button type="submit">line clean</Button>
     </AppShell>
 
   );
