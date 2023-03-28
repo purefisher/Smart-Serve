@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Drinks from '../components/Drinks';
 import axios from 'axios';
 import { response } from 'express';
-import React from "react"
+import React, { useState, useEffect } from 'react';
 
 function Main(props: any) {
   const [opened, setOpened] = React.useState(false);

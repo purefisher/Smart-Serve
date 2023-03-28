@@ -1,23 +1,27 @@
 import { AppShell, Card, createStyles, Text, Group } from '@mantine/core';
 import Header from '../components/Header';
+import axios from 'axios'
+import React, { useState, useEffect } from 'react';
 
-const users = [
-    {
-      id: 1,
-      name: 'John Doe',
-      drink: 'Vodka Sode',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      drink: 'Gin and Tonic',
-    },
-    {
-      id: 3,
-      name: 'Bob Smith',
-      drink: 'Moscow Muel',
-    },
-  ];
+// const users = [
+//     {
+//       id: 1,
+//       name: 'John Doe',
+//       drink: 'Vodka Sode',
+//     },
+//     {
+//       id: 2,
+//       name: 'Jane Doe',
+//       drink: 'Gin and Tonic',
+//     },
+//     {
+//       id: 3,
+//       name: 'Bob Smith',
+//       drink: 'Moscow Muel',
+//     },
+//   ];
+  
+
 
   const useStyles = createStyles((theme) => ({
     card: {
@@ -36,12 +40,39 @@ const users = [
         alignItems: 'center',
         justifyContent: 'flex-start',
         marginTop: -500,
+        overflowY: 'auto'
       },
   }));
+
+
   
 function Queue(props:any){
+    const [users, setUsers] = React.useState<{ drinkName: string, username: string }[]>([]);
     const { classes } = useStyles();
+
+    const opened = async () => {
+        const response = await axios.post('queue', {}, { headers: { 'Content-Type': 'application/json' }});
+        const orderedJSON: { drinkName: string, username: string }[] = response.data.map((item: { drink: { name: string }, username: string }) => {
+          return { 
+            drinkName: item.drink.name, 
+            username: item.username 
+          };
+        });
+        return orderedJSON;
+      };
+      
+      useEffect(() => {
+        const interval = setInterval(() => {
+          opened().then(result => {
+            setUsers(result);
+            console.log(result);
+          });
+        }, 1000);
+        return () => clearInterval(interval);
+      }, []);
+
     return(
+        
         <AppShell
             fixed
             header={<Header height={90} padding='md' signedin={props.signedin} page='queue'/>}
@@ -59,16 +90,16 @@ function Queue(props:any){
                             </Text>      
                         </Group>
                     {users.map((user, index) => (
-                    <div key={user.id} style={{ marginBottom: 20 }}>
+                    <div key={user.username} style={{ marginBottom: 20 }}>
                         <Group position='left'>
                         <Text size={24} weight={500} style={{width:100, textAlign: 'left'}}>
                         {index + 1}.  
                         </Text>
                         <Text size={24} weight={500} style={{width:200, textAlign: 'left'}}>
-                            {user.name}
+                            {user.username}
                         </Text>
                         <Text size={24} weight={500} style={{width:200, textAlign: 'left'}}>
-                            {user.drink}
+                            {user.drinkName}
                         </Text>
                         </Group>
                         

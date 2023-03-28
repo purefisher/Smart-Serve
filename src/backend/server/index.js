@@ -63,20 +63,26 @@ app.post("/user", (req, res) => {
 });
 
 app.post("/order", (req, res) => {
+    console.log(req.body)
     // Add the request object to the queue
-    queue.push(req);
+    queue.push(req.body);
     // Send a response to the client
     res.send({ ordered: true });
   });
 
 app.post("/placement", (req, res) => {
-  if((queue.length > 1) && (queue[1].body.username == req.body.username)){
+  // console.log("Placement ", queue[1].username, req.body.username)
+  if((queue.length > 1) && (queue[1].username == req.body.username)){
     res.send('Second')
   }
   else{
     res.send('')
   }
 });
+
+app.post("/queue", (req, res) => {
+  res.send(queue)
+})
 
 app.post("/check", async function (req, res) {
     var count = Object.keys(req.body.drink.ingredients).filter(drink => req.body.drink.ingredients[drink].name != null).length
@@ -93,7 +99,7 @@ app.post("/check", async function (req, res) {
 });
 
 app.post("/ingredients", (req, res) => {
-    console.log(req.body)
+
     db.query('DELETE FROM smart_serve.ingredients', [], (error, result) => {
         console.log(error)
     });
@@ -104,7 +110,7 @@ app.post("/ingredients", (req, res) => {
 
 app.post('/drinkPopularity', (req,res) => {
     db.query('SELECT drink, COUNT(drink) AS Amount FROM smart_serve.orders GROUP BY drink ORDER BY Amount DESC, drink DESC;', [], (error, result) => {
-      console.log(result)
+      // console.log(result)
       res.send(result)
   });
 })
@@ -117,13 +123,37 @@ app.listen(PORT, () => {
 
 function processRequest(req) {
     isMaking = true
+    console.log('Inputted From Queue -> ', req.drink)
+    if(req.drink == 'fill' || req.drink == 'clean'){
+      if(req.drink=='fill'){
+        arr = ['fill.py']
+      }
+      else{
+        arr = ['clean.py']
+      }
+      const process = spawn("python", arr);
+      process.stderr.on("data", (data) => {
+        console.error(`stderr: ${data}`);
+      });
+
+      process.stdout.on("data", function (data) {
+        while(data.toString().length === 0){
+          console.log('Here')
+        }
+        console.log(data.toString())
+        isMaking = false
+        queue.shift();
+      });
+      
+      return
+    }
     db.query(
       "SELECT pump FROM ingredients WHERE ingredient_name IN(?,?,?,?);",
       [
-        req.body.drink.ingredients.IG1.name,
-        req.body.drink.ingredients.IG2.name,
-        req.body.drink.ingredients.IG3.name,
-        req.body.drink.ingredients.IG4.name,
+        req.drink.ingredients.IG1.name,
+        req.drink.ingredients.IG2.name,
+        req.drink.ingredients.IG3.name,
+        req.drink.ingredients.IG4.name,
       ],
       (error, result) => {
         const arr = ["main.py"];
@@ -132,7 +162,6 @@ function processRequest(req) {
           str = str.toString();
           arr.push(str + ",1");
         }
-  
         const process = spawn("python", arr);
         process.stderr.on("data", (data) => {
           console.error(`stderr: ${data}`);
@@ -151,7 +180,7 @@ function processRequest(req) {
   
     db.query(
       "INSERT INTO smart_serve.orders VALUES(?, ?, NOW());",
-      [req.body.drink.name, req.body.username],
+      [req.drink.name, req.username],
       (error, result_2) => {
         console.log("Drink Ordered");
       }
@@ -159,11 +188,11 @@ function processRequest(req) {
   
     for (
       var i = 1;
-      i < Object.keys(req.body.drink.ingredients).length + 1;
+      i < Object.keys(req.drink.ingredients).length + 1;
       i++
     ) {
-      ingredientName = req.body.drink.ingredients["IG" + i].name;
-      ingredientAmount = req.body.drink.ingredients["IG" + i].amount;
+      ingredientName = req.drink.ingredients["IG" + i].name;
+      ingredientAmount = req.drink.ingredients["IG" + i].amount;
       if (ingredientName != null) {
         db.query(
           "UPDATE smart_serve.ingredients SET amount=amount-? WHERE ingredient_name=?;",
@@ -177,7 +206,6 @@ function processRequest(req) {
 
 const interval = setInterval(() => {
     if (queue.length > 0 && !isMaking) {
-      console.log(queue.length)
         processRequest(queue[0]);
         // Remove the processed request from the queue
     }

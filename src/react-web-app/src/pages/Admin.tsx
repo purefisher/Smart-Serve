@@ -34,8 +34,8 @@ function Admin(props: any) {
     <Ingredients />
     <BarChart series={{ data: data }}/>
     <PieChart series={{data: data}}/>
-    <Button type="submit">line fill</Button>
-    <Button type="submit">line clean</Button>
+    <Button type="submit" onClick={() => {axios.post('order', {drink:'fill', username:'Admin'}, {headers: { 'Content-Type': 'application/json' }})}}>line fill</Button>
+    <Button type="submit" onClick={() => {axios.post('order', {drink:'clean', username:'Admin'}, {headers: { 'Content-Type': 'application/json' }})}}>line clean</Button>
     </AppShell>
 
   );
