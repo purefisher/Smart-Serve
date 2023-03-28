@@ -1,4 +1,4 @@
-import {  Card, Container, createStyles, Grid, Group, Image, Modal, Text, Title } from '@mantine/core';
+import {  Button, Card, Container, createStyles, Grid, Group, Image, Modal, Text, Title } from '@mantine/core';
 import info from '../database/data';
 import CategoryTitle from './CategoryTitle';
 import React, { useState, useEffect } from 'react';
@@ -9,14 +9,7 @@ import axios from 'axios';
 
 const useStyles = createStyles((theme) => ({
   
-  container: {
-    marginBottom: 100,
-  },
-  card: {
-    backgroundColor: theme.colors.gray[0],
-    transition: 'top ease 0.2s',
-    position: 'relative',
-    top: 0,
+  button: {
     '&:hover': {
       top: -5,
     },
@@ -25,8 +18,17 @@ const useStyles = createStyles((theme) => ({
     boxShadow: '0 4px 40px rgba(0, 0, 0, 0.1)',
   },
 
-  title: {
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+  card: {
+    backgroundColor: theme.colors.gray[0],
+    transition: 'top ease 0.2s',
+    position: 'relative',
+    top: 0,
+    cursor: 'context-menu',
+    '&:hover': {
+      top: -2,
+    },
+    borderWidth: 2,
+    boxShadow: '0 4px 40px rgba(0, 0, 0, 0.1)',
   },
 
   footer: {
@@ -90,7 +92,7 @@ if(!firstRequestSent){
       
     </Modal>
     
-    <Container className={classes.container}>   
+    <Container>   
       
       {info.map(({ category, drinks }) => ( 
         <>
@@ -103,21 +105,27 @@ if(!firstRequestSent){
               if(drinkAvaiable.includes(drink.name)){
 		// console.log(drinkAvaiable)
                 return(
-                  <Grid.Col xs={12} sm={6} lg={6} xl={4}>
-                  <div onClick={() => {setOpened(true); addDrink(drink.name); orderedDrink(drink, props.username)}}>
-                    <Card withBorder p='lg' radius='md' className={classes.card}>
-                      <Card.Section mb='md'>
-                        <Image src={drink.image} alt={drink.name} height={200} />
-                      </Card.Section>
-                      <Text weight={200} size={40} className={classes.title}>
+                  <Grid.Col xl={5}>
+                  <div>
+                    <Card shadow="sm" radius="md" className={classes.card} withBorder>
+                    <Card.Section>
+                      <Image
+                        src={drink.image}
+                        height={220}
+                        alt={drink.name}
+                      />
+                    </Card.Section>
+
+
+                      <Text weight={200} size={40}>
                         {drink.name}
                       </Text>
                       <Container p={0}>
-                        <Text lineClamp={2} mt={20} size='sm'>
+                        <Text mt={20} size='md'>
                           {'Ingredients:'}
                         </Text>
                         
-                        <Text lineClamp={2} mt={20} size='sm'>
+                        <Text   size='sm'>
                             {drink.ingredients.IG1.name}
                         </Text>
                         <Text lineClamp={2} size='sm'>
@@ -136,9 +144,11 @@ if(!firstRequestSent){
                       </Container>
                       <Card.Section className={classes.footer}>
                         <Group position='apart'>
-                          <Text size='xl' weight={900}>
-                            ORDER NOW
-                          </Text>
+                        <Button className={classes.button} variant="light" color="blue" fullWidth mt="md" radius="md"
+                          onClick={() => {setOpened(true); addDrink(drink.name); orderedDrink(drink, props.username)}}
+                        >
+                          Order Now
+                        </Button>
                         </Group>
                       </Card.Section>
                     </Card>
