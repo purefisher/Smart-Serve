@@ -1,7 +1,5 @@
-
-import startup
 from cocktail import cocktailcreate
-import time
+import startup
 
 newinstance = cocktailcreate()
-newinstance.off()
+newinstance.fill_line()

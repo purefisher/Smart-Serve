@@ -6,6 +6,13 @@ import OldFashioned from '../images/old_fashioned.jpg';
 import RumAndCoke from '../images/rc.jpg';
 import WhiskeySour from '../images/ws.jpg';
 import Tequila from '../images/tequila.jpg';
+import OrangeRum from '../images/OrangeFizz.jpg';
+import RumPunch from '../images/RumPunch.jpg';
+import LJ from '../images/LemonJuice.png';
+import OJ from '../images/OJ.jpg';
+import PJ from '../images/PJ.jpeg';
+import Syrup from '../images/syrup.jpg';
+import CS from '../images/CS.jpg';
 
 const info = [
   {
@@ -17,8 +24,8 @@ const info = [
         category: 'cocktails',
         ingredients: {
                       IG1: {name: 'whiskey', amount: 37.5},
-                      IG2: {name: 'lemonade', amount: 75},
-                      IG3: {name: null, amount: null},
+                      IG2: {name: 'lemon juice', amount: 75},
+                      IG3: {name: 'syrup', amount: 75},
                       IG4: {name: null, amount: null}
         }
       },
@@ -39,7 +46,7 @@ const info = [
         category: 'cocktails',
         ingredients: {
           IG1: {name: 'vodka', amount: 37.5},
-          IG2: {name: 'lemonade', amount: 75},
+          IG2: {name: 'lemon juice', amount: 75},
           IG3: {name: null, amount: null},
           IG4: {name: null, amount: null}
 }
@@ -61,9 +68,31 @@ const info = [
         category: 'cocktails',
         ingredients: {
           IG1: {name: 'whiskey', amount: 37.5},
-          IG2: {name: 'water', amount: 17.5},
-          IG3: {name: 'vodka', amount: 15},
+          IG2: {name: 'vodka', amount: 15},
+          IG3: {name: null, amount: null},
           IG4: {name: null, amount: null}
+}
+      },
+      {
+        name: 'Orange Rum Fizz',
+        image: OrangeRum,
+        category: 'cocktails',
+        ingredients: {
+          IG1: {name: 'rum', amount: 37.5},
+          IG2: {name: 'orange juice', amount: 37.5},
+          IG3: {name: 'club soda', amount: 37.5},
+          IG4: {name: null, amount: null}
+}
+      },
+      {
+        name: 'Rum Punch',
+        image: RumPunch,
+        category: 'cocktails',
+        ingredients: {
+          IG1: {name: 'rum', amount: 37.5},
+          IG2: {name: 'orange juice', amount: 37.5},
+          IG3: {name: 'lemonade', amount: 37.5},
+          IG4: {name: 'pineapple juice', amount: 37.5}
 }
       },
     ],
@@ -99,6 +128,66 @@ const info = [
         category: 'spirits',
         ingredients: {
           IG1: {name: 'tequila', amount: 37.5},
+          IG2: {name: null, amount: null},
+          IG3: {name: null, amount: null},
+          IG4: {name: null, amount: null}
+        }
+      },
+    ],
+  },
+  {
+    category: 'juice',
+    drinks: [
+      {
+        name: 'Lemon Juice',
+        image: LJ,
+        category: 'juice',
+        ingredients: {
+          IG1: {name: 'lemon juice', amount: 37.5},
+          IG2: {name: null, amount: null},
+          IG3: {name: null, amount: null},
+          IG4: {name: null, amount: null}
+        }
+      },
+      {
+        name: 'Orange Juice',
+        image: OJ,
+        category: 'juice',
+        ingredients: {
+          IG1: {name: 'orange juice', amount: 37.5},
+          IG2: {name: null, amount: null},
+          IG3: {name: null, amount: null},
+          IG4: {name: null, amount: null}
+        }
+      },
+      {
+        name: 'Pineapple Juice',
+        image: PJ,
+        category: 'juice',
+        ingredients: {
+          IG1: {name: 'pineapple juice', amount: 37.5},
+          IG2: {name: null, amount: null},
+          IG3: {name: null, amount: null},
+          IG4: {name: null, amount: null}
+        }
+      },
+      {
+        name: 'Syrup',
+        image: Syrup,
+        category: 'juice',
+        ingredients: {
+          IG1: {name: 'syrup', amount: 37.5},
+          IG2: {name: null, amount: null},
+          IG3: {name: null, amount: null},
+          IG4: {name: null, amount: null}
+        }
+      },
+      {
+        name: 'Club Soda',
+        image: CS,
+        category: 'juice',
+        ingredients: {
+          IG1: {name: 'club soda', amount: 37.5},
           IG2: {name: null, amount: null},
           IG3: {name: null, amount: null},
           IG4: {name: null, amount: null}
