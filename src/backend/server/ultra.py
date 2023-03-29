@@ -5,6 +5,9 @@ from constants import *
  
 ##GPIO Mode (BOARD / BCM)
 #GPIO.setmode(GPIO.BCM)
+
+#echo is input
+#trigger is output
  
 ##set GPIO Pins
 #ultra_1_TRIGGER = 23
@@ -35,14 +38,21 @@ def distance(TRIG, ECHO):
  
   StartTime = time.time()
   StopTime = time.time()
- 
+  TimeoutStart = time.time()
+  TimeoutEnd = 0
+
   # save StartTime
-  while GPIO.input(ECHO) == 0:
+  while ((GPIO.input(ECHO) == 0) and (TimeoutEnd - TimeoutStart > (rotation_constant / 110)))):
     StartTime = time.time()
+    TimeoutEnd = time.time()
  
   # save time of arrival
-  while GPIO.input(ECHO) == 1:
+  TimeoutStart = time.time()
+  TimeoutEnd = 0
+  while ((GPIO.input(ECHO) == 1) and (TimeoutEnd - TimeoutStart > (rotation_constant / 110)))):
     StopTime = time.time()
+    TimeoutEnd = time.time()
+ 
  
     # time difference between start and arrival
     TimeElapsed = StopTime - StartTime

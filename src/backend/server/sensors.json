@@ -2,7 +2,7 @@
     {
         "Sensor": 1,
         "Pin": 16,
-        "IO": "output"
+        "IO": "output"  
     },
     {
         "Sensor": 1,
