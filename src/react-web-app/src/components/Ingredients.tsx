@@ -18,7 +18,6 @@ function HandelSubmit(ingredients:any){
 }
 
 function Drinks(props:any) {
-    const [fillOpened, setFillOpened] = useState(false);
     const [opened, setOpened] = useState(false);
     const form = useForm({
         initialValues: {
@@ -41,28 +40,21 @@ function Drinks(props:any) {
       const uniqueOptions = Array.from(new Set(options));
     
       const [selectedOptions, setSelectedOptions] = useState(
-        new Array(5).fill(uniqueOptions[0])
+        new Array(5).fill('Select an option')
       );
-    
+
       const handleSelect = (index: number, value: string) => {
         setSelectedOptions((prev) => {
           const newSelectedOptions = [...prev];
           newSelectedOptions[index] = value;
           return newSelectedOptions;
         });
+        const ingredient = `ing${index + 1}` as keyof typeof form.values;
+        form.setValues({ [ingredient]: value });
       };
 
       return (
         <>
-
-          <Modal
-            opened={fillOpened}
-            onClose={() => setFillOpened(false)}
-            withCloseButton={false}
-            centered
-          >
-            Dispensors filled, please press the confirm button to confirm the changes
-          </Modal>
 
           <Modal
             opened={opened}
@@ -74,15 +66,10 @@ function Drinks(props:any) {
           </Modal>
 
           <Center>
-            <form
+          <form
               onSubmit={form.onSubmit((values) => {
-                for (let i = 0; i < selectedOptions.length; i++) {
-                  const ingredient = `ing${i + 1}` as keyof typeof values;
-                  const volume = `vol${i + 1}` as keyof typeof values;
-                  form.setValues({ [ingredient]: selectedOptions[i], [volume]: values[volume] });
-                }
-                HandelSubmit(values);
                 setOpened(true);
+                HandelSubmit(values);
               })}
             >
 
@@ -112,7 +99,7 @@ function Drinks(props:any) {
                   <Select
                     key={index}
                     label={`Ingredient ${index + 1}`}
-                    placeholder="Select an option"
+                    placeholder={selectedOption}
                     data={availableOptions}
                     value={selectedOption}
                     onChange={(value) => value && handleSelect(index, value)}
@@ -133,7 +120,6 @@ function Drinks(props:any) {
               })}
 
             <Group position="right" mt="md">
-              <Button onClick={() => setFillOpened(true)} type="submit">Fill</Button>
               <Button type="submit">Confirm</Button>
             </Group>
           </form>
