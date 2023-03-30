@@ -3,6 +3,7 @@ import React from "react"
 import { BrowserRouter, HashRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Main from './pages/Main';
 import LoginPage from './pages/Login';
+import SignUp from './pages/SignUp';
 import { useState } from 'react';
 import Admin from './pages/Admin';
 import Queue from './pages/Queue';
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to='Login'/>}/>
           <Route path='Login' element={<LoginPage setsignedin={setsignedin} signedin={signedin} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>} />
+          <Route path='SignUp' element={<SignUp setsignedin={setsignedin} signedin={signedin} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>} />
           <Route path='Main' element={<Main signedin={signedin} ingredients={ingedients} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>} />
           <Route path='/Admin' element={<Admin ingredients={ingedients} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>} />
           <Route path='/Queue' element={<Queue signedin={signedin}/>} />

@@ -54,12 +54,10 @@ function Header({ ...hP }: HeaderProps) {
     <HD className={classes.blur} {...hP}>
       <Container className={classes.spacing} fluid>
         
-        <Center style={{ width: '100%', height: 200, paddingLeft: 100 }}>
-          <Group position="center">
-            <Text size={50} weight={'bold'} onClick={handleHeading}>
+        <Center style={{ width: '100%', height: 200 }}>
+            <Text size={50} weight={'bold'} onClick={handleHeading} style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
               SMART - SERVE
             </Text>
-          </Group>
         </Center>
         {hP.page=='Login'?null
         :<Group position="right">
