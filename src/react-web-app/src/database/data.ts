@@ -16,12 +16,12 @@ import CS from '../images/CS.jpg';
 
 const info = [
   {
-    category: 'cocktails',
+    category: 'Drinks',
     drinks: [
       {
         name: 'Whiskey Sour',
         image: WhiskeySour,
-        category: 'cocktails',
+        category: 'Drinks',
         ingredients: {
                       IG1: {name: 'whiskey', amount: 37.5},
                       IG2: {name: 'lemon juice', amount: 75},
@@ -32,7 +32,7 @@ const info = [
       {
         name: 'Old Fashioned',
         image: OldFashioned,
-        category: 'cocktails',
+        category: 'Drinks',
         ingredients: {
           IG1: {name: 'vodka', amount: 37.5},
           IG2: {name: 'coke', amount: 15},
@@ -43,7 +43,7 @@ const info = [
       {
         name: 'Daiquiri',
         image: Daiquiri,
-        category: 'cocktails',
+        category: 'Drinks',
         ingredients: {
           IG1: {name: 'vodka', amount: 37.5},
           IG2: {name: 'lemon juice', amount: 75},
@@ -54,7 +54,7 @@ const info = [
       {
         name: 'Rum and Coke',
         image: RumAndCoke,
-        category: 'cocktails',
+        category: 'Drinks',
         ingredients: {
           IG1: {name: 'rum', amount: 37.5},
           IG2: {name: 'coke', amount: 37.5},
@@ -65,7 +65,7 @@ const info = [
       {
         name: 'Moscow Mule',
         image: MoscowMule,
-        category: 'cocktails',
+        category: 'Drinks',
         ingredients: {
           IG1: {name: 'whiskey', amount: 37.5},
           IG2: {name: 'vodka', amount: 15},
@@ -76,7 +76,7 @@ const info = [
       {
         name: 'Orange Rum Fizz',
         image: OrangeRum,
-        category: 'cocktails',
+        category: 'Drinks',
         ingredients: {
           IG1: {name: 'rum', amount: 37.5},
           IG2: {name: 'orange juice', amount: 37.5},
@@ -87,7 +87,7 @@ const info = [
       {
         name: 'Rum Punch',
         image: RumPunch,
-        category: 'cocktails',
+        category: 'Drinks',
         ingredients: {
           IG1: {name: 'rum', amount: 37.5},
           IG2: {name: 'orange juice', amount: 37.5},
@@ -98,12 +98,12 @@ const info = [
     ],
   },
   {
-    category: 'spirits',
+    category: 'Liquor',
     drinks: [
       {
         name: 'Vodka',
         image: GreyGoose,
-        category: 'spirits',
+        category: 'Liquor',
         ingredients: {
           IG1: {name: 'vodka', amount: 37.5},
           IG2: {name: null, amount: null},
@@ -114,7 +114,7 @@ const info = [
       {
         name: 'Rum',
         image: Bacardi,
-        category: 'spirits',
+        category: 'Liquor',
         ingredients: {
           IG1: {name: 'rum', amount: 37.5},
           IG2: {name: null, amount: null},
@@ -125,7 +125,7 @@ const info = [
       {
         name: 'Tequila',
         image: Tequila,
-        category: 'spirits',
+        category: 'Liquor',
         ingredients: {
           IG1: {name: 'tequila', amount: 37.5},
           IG2: {name: null, amount: null},
@@ -136,12 +136,12 @@ const info = [
     ],
   },
   {
-    category: 'juice',
+    category: 'Juice',
     drinks: [
       {
         name: 'Lemon Juice',
         image: LJ,
-        category: 'juice',
+        category: 'Juice',
         ingredients: {
           IG1: {name: 'lemon juice', amount: 37.5},
           IG2: {name: null, amount: null},
@@ -152,7 +152,7 @@ const info = [
       {
         name: 'Orange Juice',
         image: OJ,
-        category: 'juice',
+        category: 'Juice',
         ingredients: {
           IG1: {name: 'orange juice', amount: 37.5},
           IG2: {name: null, amount: null},
@@ -163,7 +163,7 @@ const info = [
       {
         name: 'Pineapple Juice',
         image: PJ,
-        category: 'juice',
+        category: 'Juice',
         ingredients: {
           IG1: {name: 'pineapple juice', amount: 37.5},
           IG2: {name: null, amount: null},
@@ -174,7 +174,7 @@ const info = [
       {
         name: 'Syrup',
         image: Syrup,
-        category: 'juice',
+        category: 'Juice',
         ingredients: {
           IG1: {name: 'syrup', amount: 37.5},
           IG2: {name: null, amount: null},
@@ -185,7 +185,7 @@ const info = [
       {
         name: 'Club Soda',
         image: CS,
-        category: 'juice',
+        category: 'Juice',
         ingredients: {
           IG1: {name: 'club soda', amount: 37.5},
           IG2: {name: null, amount: null},
