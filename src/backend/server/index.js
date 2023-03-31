@@ -10,14 +10,13 @@ const { spawn } = require('child_process');
 app.use(express.urlencoded({ extended: 'false' }))
 app.use(express.json())
 
-
+console.log("starting")
 
 const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'bartender',
     password: 'password',
-    database: 'smart_serve',
-    port: 3001
+    database: 'smart_serve'
 
 });
 
@@ -124,6 +123,7 @@ app.listen(PORT, () => {
 
 function processRequest(req) {
     isMaking = true
+    console.log("started")
     console.log('Inputted From Queue -> ', req.drink)
     if(req.drink == 'fill' || req.drink == 'clean'){
       if(req.drink=='fill'){
@@ -139,7 +139,7 @@ function processRequest(req) {
 
       process.stdout.on("data", function (data) {
         while(data.toString().length === 0){
-          console.log('Here')
+//          console.log('Here')
         }
         console.log(data.toString())
         isMaking = false
@@ -169,9 +169,10 @@ function processRequest(req) {
         });
         // collect data from script
         process.stdout.on("data", function (data) {
-            while(data.toString().length === 0){
+            while(data.toString().length ===0){
               console.log('Here')
             }
+          console.log('Done1234')
           isMaking = false
           queue.shift();
         });
@@ -202,7 +203,6 @@ function processRequest(req) {
         );
       }
     }
-    
   }
 
 const interval = setInterval(() => {

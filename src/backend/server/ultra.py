@@ -42,24 +42,23 @@ def distance(TRIG, ECHO):
   TimeoutEnd = 0
 
   # save StartTime
-  while ((GPIO.input(ECHO) == 0) and (TimeoutEnd - TimeoutStart > (rotation_constant / 110)))):
+  while (GPIO.input(ECHO) == 0):
     StartTime = time.time()
     TimeoutEnd = time.time()
  
   # save time of arrival
   TimeoutStart = time.time()
   TimeoutEnd = 0
-  while ((GPIO.input(ECHO) == 1) and (TimeoutEnd - TimeoutStart > (rotation_constant / 110)))):
+  while (GPIO.input(ECHO) == 1):
     StopTime = time.time()
-    TimeoutEnd = time.time()
+    TimeoutEnd = time.time() 
  
- 
-    # time difference between start and arrival
+  # time difference between start and arrival
     TimeElapsed = StopTime - StartTime
-    # multiply with the sonic speed (34300 cm/s)
-    # and divide by 2, because there and back
+  # multiply with the sonic speed (34300 cm/s)
+  # and divide by 2, because there and back
     distance = (TimeElapsed * 34000) / 2
- 
+
   return distance
   
 #compareDistance returns True if the sensor distance measurement is less than the constant being compared to
@@ -74,16 +73,17 @@ def compareDistance(dist, dist_limit):
   
 #fill_status is True when the cup is full  
 def fillStatus(TRIG, ECHO, cup_liquid_limit):
+  #print ("I'm abolsutely shitting the bed in fillStatus")
   dist = distance(TRIG, ECHO)
   #print ("Empty Cup limit = %.1f cm" % empty_cup_limit)
   #print ("Full Cup limit = %.1f cm" % full_cup_limit)
-  print ("Measured Distance of Cup Liquid Level = %.1f cm" % dist)
+  #print ("Measured Distance of Cup Liquid Level = %.1f cm" % dist)
   if compareDistance(dist, cup_liquid_limit) == 1:
     fill_status = True
-    print ("The Cup is Full STOP pouring!")
+    #print ("The Cup is Full STOP pouring!")
   else:
     fill_status = False
-    print ("The Cup is not full")
+    #print ("The Cup is not full")
    # print ("The Cup is Empty!")
     #fill_status = 0
   #if compareDistance(dist, empty_cup_limit) == 0:
@@ -100,6 +100,7 @@ def fillStatus(TRIG, ECHO, cup_liquid_limit):
   
   
 def cupStatusTurn(TRIG, ECHO, cup_distance_limit_turn):
+  #print ("I'm abolsutely shitting the bed in cupStatusTurn")
   dist = distance(TRIG, ECHO)
   #print ("Cup distance limit = %.1f cm" % cup_dist_limit)
   #print ("Measured Distance of Cup = %.1f cm" % dist)
@@ -113,9 +114,10 @@ def cupStatusTurn(TRIG, ECHO, cup_distance_limit_turn):
   return cup_status_turn
   
 def cupStatus(TRIG, ECHO, cup_dist_limit_lower, cup_dist_limit_upper):
+  #print ("I'm abolsutely shitting the bed in cupStatus")
   dist = distance(TRIG, ECHO)
-  print ("Cup distance limit = %.1f cm" % dist)
-  print ("Measured Distance of Cup = %.1f cm" % dist)
+  #print ("Cup distance limit = %.1f cm" % dist)
+  #print ("Measured Distance of Cup = %.1f cm" % dist)
   #print(  if (compareDistance(dist, cup_distance_limit_lower) == False and compareDistance(dist, cup_distance_limit_lower) == True))
   if ((compareDistance(dist, cup_distance_limit_lower) == False) and (compareDistance(dist, cup_distance_limit_upper) == True)):
     #print ("Cup is present.")

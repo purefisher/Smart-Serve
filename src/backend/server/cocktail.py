@@ -31,19 +31,24 @@ class cocktailcreate():
           
         count = 0
         while(scan):
+          #print("B4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensed")
           cup_sensed = self.turntable()
+          #print("Aftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensed")
           time.sleep(1)
           cup_present = self.sense_config()
           cup_full = self.sense_level_config()
           if (cup_present and not cup_full):
              #end while
-             print(self.sense_level_config())
+             #print("sense_level_configsense_level_configsense_level_configsense_level_configsense_level_config")
+             #print(self.sense_level_config())
              break
           elif (cup_present and cup_full):
              #half turn! then wait so people can remove cup
+             #print("turntable_finishturntable_finishturntable_finishturntable_finishturntable_finishturntable_finish")
              self.turntable_finish()
              time.sleep(3)
           elif (not cup_present and not cup_sensed):
+             #print("NoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCup")
              #wait 10s, try again once more, if there is still no cup, exit program so a message can be sent to user
              #I assume that we will need to add a flag here so the correct message can be sent to user????
              if count == 1 :
@@ -157,13 +162,13 @@ class cocktailcreate():
         time.sleep(0.5)
         cup_sensed = False
 
-        while(sense_count <= 110):
+        while(sense_count <= 100):
             if (self.sense_config_turn() == False):
                sense_count = sense_count + 1
             else:
                cup_sensed = True
                break
-            time.sleep(rotation_constant / 110)
+            time.sleep(rotation_constant / 100)
 	
         io.output(self.motor_pin, io.HIGH)
 
@@ -174,15 +179,16 @@ class cocktailcreate():
     def turntable_finish(self):
         sense_count = 0
         io.output(self.motor_pin, io.LOW)
-        time.sleep(0.5)
+        #time.sleep(0.5)
+        time.sleep(2*finished_rotation_constant)
 
-        while(sense_count <= 100):
-            if (self.sense_config_turn() == False):
-               sense_count = sense_count + 1
-            else:
-               break
-            time.sleep(finished_rotation_constant / 100)
-	
+#        while(sense_count <= 110):
+#            if (self.sense_config_turn() == False):
+#               sense_count = sense_count + 1
+#            else:
+#               break
+#            time.sleep(finished_rotation_constant / 110)
+
         io.output(self.motor_pin, io.HIGH)
   
 
@@ -202,7 +208,6 @@ class cocktailcreate():
           while i < 5:
             if(pump_constants[i][0] == int(result[0])):
               single_alc_time_constant = pump_constants[i][1]
-              print(single_alc_time_constant)
               break
             i+=1
             
@@ -313,7 +318,6 @@ class cocktailcreate():
         if(numPops > 0):
             popPourTime = popRemaining / numPops
         
-        print(popPourTime)
         return popPourTime
 
 
