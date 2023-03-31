@@ -63,7 +63,7 @@ app.post("/user", (req, res) => {
 });
 
 app.post("/order", (req, res) => {
-    console.log(req.body)
+    //console.log(req.body)
     // Add the request object to the queue
     queue.push(req.body);
     // Send a response to the client
@@ -103,7 +103,7 @@ app.post("/ingredients", (req, res) => {
     db.query('DELETE FROM smart_serve.ingredients', [], (error, result) => {
         console.log(error)
     });
-    db.query('INSERT INTO smart_serve.ingredients VALUES (?, ?, 13), (?, ?, 15), (?, ?, 19), (?, ?, 37), (?, ?, 40);',[req.body.ingredients.ing1, req.body.ingredients.vol1, req.body.ingredients.ing2, req.body.ingredients.vol2,req.body.ingredients.ing3, req.body.ingredients.vol3,req.body.ingredients.ing4, req.body.ingredients.vol4,req.body.ingredients.ing5, req.body.ingredients.vol5], (error, result) => {
+    db.query('INSERT INTO smart_serve.ingredients VALUES (?, ?, 15), (?, ?, 13), (?, ?, 19), (?, ?, 37), (?, ?, 40);',[req.body.ingredients.ing1, req.body.ingredients.vol1, req.body.ingredients.ing2, req.body.ingredients.vol2,req.body.ingredients.ing3, req.body.ingredients.vol3,req.body.ingredients.ing4, req.body.ingredients.vol4,req.body.ingredients.ing5, req.body.ingredients.vol5], (error, result) => {
         res.send({done:true})
      })
 })
@@ -124,7 +124,7 @@ app.listen(PORT, () => {
 function processRequest(req) {
     isMaking = true
     console.log("started")
-    console.log('Inputted From Queue -> ', req.drink)
+    //console.log('Inputted From Queue -> ', req.drink)
     if(req.drink == 'fill' || req.drink == 'clean'){
       if(req.drink=='fill'){
         arr = ['fill.py']
@@ -161,7 +161,7 @@ function processRequest(req) {
         for (i = 0; i < result.length; i++) {
           str = result[i].pump;
           str = str.toString();
-          arr.push(str + ",1");
+          arr.push(str + ",1"); // SELECT shotAmount FROM Menu,ingredients WHERE 
         }
         const process = spawn("python", arr);
         process.stderr.on("data", (data) => {

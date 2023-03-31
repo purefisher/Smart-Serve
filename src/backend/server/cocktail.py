@@ -52,7 +52,7 @@ class cocktailcreate():
              #print("NoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCupNoCup")
              #wait 10s, try again once more, if there is still no cup, exit program so a message can be sent to user
              #I assume that we will need to add a flag here so the correct message can be sent to user????
-             if count == 1 :
+             if count == 2 :
                exit()
              count += 1
              time.sleep(5)

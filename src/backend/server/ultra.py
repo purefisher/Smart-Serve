@@ -27,7 +27,7 @@ from constants import *
 #cup_distance_limit_turn = 3.6
 #cup_liquid_limit = 10
  
- 
+distance = 0 
 def distance(TRIG, ECHO):
   # set Trigger to HIGH
   GPIO.output(TRIG, True)
@@ -45,8 +45,9 @@ def distance(TRIG, ECHO):
   # save StartTime
   while (GPIO.input(ECHO) == 0):
     endtime = time.time()
-    if (endtime - starttime) > 5:
+    if (endtime - starttime) > 3:
        print("yees")
+       GPIO.output(11,GPIO.HIGH)
        exit()
     StartTime = time.time()
     TimeoutEnd = time.time()
@@ -57,8 +58,9 @@ def distance(TRIG, ECHO):
   starttime = time.time()
   while (GPIO.input(ECHO) == 1):
     endtime = time.time()
-    if(endtime - starttime) > 5:
+    if(endtime - starttime) > 3:
       print("sir")
+      GPIO.output(11,GPIO.HIGH)
       exit()
     StopTime = time.time()
     TimeoutEnd = time.time() 

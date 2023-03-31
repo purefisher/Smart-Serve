@@ -19,8 +19,8 @@ pump_three_constant = 6
 pump_four_constant = 6.5
 pump_five_constant = 7
 
-pump_one_shot_constant = 30
-pump_two_shot_constant = 14
+pump_one_shot_constant = 14
+pump_two_shot_constant = 20
 pump_three_shot_constant = 15
 pump_four_shot_constant = 14
 pump_five_shot_constant = 9.25

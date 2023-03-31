@@ -5,3 +5,4 @@ import sys
 newinstance = cocktailcreate()
 
 newinstance.clean()
+print("Done")

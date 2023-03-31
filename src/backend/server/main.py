@@ -30,5 +30,5 @@ else:
 
 #fcntl.flock(lock_file, fcntl.LOCK_UN)
 #lock_file.close()
-time.sleep(1)
+time.sleep(3)
 print('Done')
