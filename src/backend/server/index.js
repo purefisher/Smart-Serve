@@ -16,7 +16,7 @@ const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'bartender',
     password: 'password',
-    database: 'smart_serve'
+    database: 'smart_serve',
 
 });
 
@@ -158,10 +158,14 @@ function processRequest(req) {
       ],
       (error, result) => {
         const arr = ["main.py"];
+        const shotType = [req.drink.ingredients.IG1.shot,
+                          req.drink.ingredients.IG2.shot,
+                          req.drink.ingredients.IG3.shot,
+                          req.drink.ingredients.IG4.shot]
         for (i = 0; i < result.length; i++) {
           str = result[i].pump;
           str = str.toString();
-          arr.push(str + ",1"); // SELECT shotAmount FROM Menu,ingredients WHERE 
+          arr.push(str + shotType[i]); // SELECT shotAmount FROM Menu,ingredients WHERE 
         }
         const process = spawn("python", arr);
         process.stderr.on("data", (data) => {
