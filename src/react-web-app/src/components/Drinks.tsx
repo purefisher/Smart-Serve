@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import { setSourceMapRange } from 'typescript';
 import axios from 'axios';
 
+let isMaking = false
 
 const useStyles = createStyles((theme) => ({
   
@@ -56,6 +57,7 @@ function Drinks(props:any) {
     axios.post('order', {drink:drink, username:props.username}, {headers: { 'Content-Type': 'application/json' }})
     .then((response) => {
         console.log('Drink Ordered')
+        console.log(isMaking)
     })
 }
 
@@ -145,7 +147,7 @@ if(!firstRequestSent){
                       <Card.Section className={classes.footer}>
                         <Group position='apart'>
                         <Button className={classes.button} variant="light" color="blue" fullWidth mt="md" radius="md"
-                          onClick={() => {setOpened(true); addDrink(drink.name); orderedDrink(drink, props.username)}}
+                          onClick={() => {setOpened(true); addDrink(drink.name); orderedDrink(drink, props.username); isMaking = true}}
                         >
                           Order Now
                         </Button>
