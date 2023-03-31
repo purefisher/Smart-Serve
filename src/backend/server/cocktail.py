@@ -31,6 +31,7 @@ class cocktailcreate():
           
         count = 0
         while(scan):
+          print("yessirski")
           #print("B4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensed")
           cup_sensed = self.turntable()
           #print("Aftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensed")
@@ -161,14 +162,20 @@ class cocktailcreate():
         io.output(self.motor_pin, io.LOW)
         time.sleep(0.5)
         cup_sensed = False
-
+        
+        starttime = time.time()
         while(sense_count <= 100):
-            if (self.sense_config_turn() == False):
-               sense_count = sense_count + 1
-            else:
-               cup_sensed = True
-               break
-            time.sleep(rotation_constant / 100)
+            endtime = time.time()
+            if (endtime - starttime > 5):
+              exit()
+            else :
+           
+              if (self.sense_config_turn() == False):
+                 sense_count = sense_count + 1
+              else:
+                 cup_sensed = True
+                 break
+              time.sleep(rotation_constant / 100)
 	
         io.output(self.motor_pin, io.HIGH)
 

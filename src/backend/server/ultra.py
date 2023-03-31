@@ -41,15 +41,25 @@ def distance(TRIG, ECHO):
   TimeoutStart = time.time()
   TimeoutEnd = 0
 
+  starttime = time.time()
   # save StartTime
   while (GPIO.input(ECHO) == 0):
+    endtime = time.time()
+    if (endtime - starttime) > 5:
+       print("yees")
+       exit()
     StartTime = time.time()
     TimeoutEnd = time.time()
  
   # save time of arrival
   TimeoutStart = time.time()
   TimeoutEnd = 0
+  starttime = time.time()
   while (GPIO.input(ECHO) == 1):
+    endtime = time.time()
+    if(endtime - starttime) > 5:
+      print("sir")
+      exit()
     StopTime = time.time()
     TimeoutEnd = time.time() 
  
@@ -128,27 +138,4 @@ def cupStatus(TRIG, ECHO, cup_dist_limit_lower, cup_dist_limit_upper):
     
   return cup_status
 
- 
 
- 
-if __name__ == '__main__':
-  try:
-    while True:
-    
-      #cupStatus(ultra_1_TRIGGER, ultra_1_ECHO, cup_distance_limit_lower, cup_distance_limit_upper)
-      #time.sleep(2)
-      fillStatus(ultra_2_TRIGGER, ultra_2_ECHO, cup_liquid_limit)
-      time.sleep(2)
-    
-      #dist = distance(ultra_1_TRIGGER, ultra_1_ECHO)
-      #print ("Measured Distance of sensor 1 = %.1f cm" % dist)
-      #time.sleep(1)
-      
-      #dist = distance(ultra_2_TRIGGER, ultra_2_ECHO)
-      #print ("Measured Distance of sensor 2 = %.1f cm" % dist)
-      #time.sleep(1)
- 
-      # Reset by pressing CTRL + C
-  except KeyboardInterrupt:
-    print("Measurement stopped by User")
-    GPIO.cleanup()
