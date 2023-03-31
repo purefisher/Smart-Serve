@@ -69,11 +69,11 @@ class cocktailcreate():
         #print(self.sense_config())
         if self.readytopour():
             if ing2 == None:
-                self.popPourTime = self.Volume(ing1)
+                #self.popPourTime = self.Volume(ing1)
                 self.pumprun(ing1)
             elif ing3 == None:
                 try:
-                    self.popPourTime = self.Volume(ing1, ing2)
+                   #self.popPourTime = self.Volume(ing1, ing2)
                     pump_threads.append(self.threads(ing1))
                     pump_threads.append(self.threads(ing2))
                     for threads in pump_threads:
@@ -85,7 +85,7 @@ class cocktailcreate():
                     print("3")
             elif ing4 == None:
                 try:
-                    self.popPourTime = self.Volume(ing1, ing2, ing3)
+                    #self.popPourTime = self.Volume(ing1, ing2, ing3)
                     pump_threads.append(self.threads(ing1))
                     pump_threads.append(self.threads(ing2))
                     pump_threads.append(self.threads(ing3))
@@ -98,7 +98,7 @@ class cocktailcreate():
                     print("3")
             elif ing5 == None:
                 try:
-                    self.popPourTime = self.Volume(ing1, ing2, ing3, ing4)
+                    #self.popPourTime = self.Volume(ing1, ing2, ing3, ing4)
                     pump_threads.append(self.threads(ing1))
                     pump_threads.append(self.threads(ing2))
                     pump_threads.append(self.threads(ing3))
@@ -113,7 +113,7 @@ class cocktailcreate():
 
             else:
                 try:
-                    self.popPourTime = self.Volume(ing1, ing2, ing3, ing4, ing5)
+                    #self.popPourTime = self.Volume(ing1, ing2, ing3, ing4, ing5)
                     pump_threads.append(self.threads(ing1))
                     pump_threads.append(self.threads(ing2))
                     pump_threads.append(self.threads(ing3))
@@ -209,15 +209,13 @@ class cocktailcreate():
     def pumprun(self, ing): #this is the threading function
         result = [x.strip() for x in ing.split(',')]
         single_alc_time_constant = 0
-        pop_time_constant = 0
         if (int(result[1])==1):
           i = 0
           while i < 5:
             if(pump_constants[i][0] == int(result[0])):
               single_alc_time_constant = pump_constants[i][1]
               break
-            i+=1
-            
+            i+=1  
           io.output(int(result[0]), io.LOW)
           #print("Pouring alcohol")
           time.sleep(single_alc_time_constant)
@@ -227,20 +225,33 @@ class cocktailcreate():
           i = 0
           while i < 5:
             if(pump_constants[i][0] == int(result[0])):
-              pop_time_constant = pump_constants[i][1]
+              single_alc_time_constant = pump_constants[i][1]
               break
             i+=1
           io.output(int(result[0]), io.LOW)
-          #print("Pouring pop")
-          time.sleep(pop_time_constant * self.popPourTime)
+          time.sleep(single_alc_time_constant*2)
           io.output(int(result[0]), io.HIGH)
-            #print("All done pop")
-        #elif (int(result[1])==3):
-         #   io.output(int(result[0]), io.LOW)
-            #print("Pouring alcohol")
-          #  time.sleep(double_alc_time_constant)
-           # io.output(int(result[0]), io.HIGH) 
-            #print("All done pouring alcohol")     
+        elif (int(result[1])==3):
+          i = 0
+          while i < 5:
+            if(pump_constants[i][0] == int(result[0])):
+              single_alc_time_constant = pump_constants[i][1]
+              break
+            i+=1
+          io.output(int(result[0]), io.LOW)
+          time.sleep(single_alc_time_constant*3)
+          io.output(int(result[0]), io.HIGH)
+        elif (int(result[1])==4):
+          i = 0
+          while i < 5:
+            if(pump_constants[i][0] == int(result[0])):
+              single_alc_time_constant = pump_constants[i][1]
+              break
+            i+=1
+          io.output(int(result[0]), io.LOW)
+          time.sleep(single_alc_time_constant*4)
+          io.output(int(result[0]), io.HIGH)
+   
     
 
 
