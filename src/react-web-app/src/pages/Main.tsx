@@ -15,7 +15,7 @@ function Main(props: any) {
       }
       else{
         setOpened(false)
-      }
+     }
     })
 }, 500);
 
