@@ -1,75 +1,59 @@
 import { AppShell, Card, createStyles, Text, Group } from '@mantine/core';
 import Header from '../components/Header';
-import axios from 'axios'
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import {io} from 'socket.io-client';
 
-// const users = [
-//     {
-//       id: 1,
-//       name: 'John Doe',
-//       drink: 'Vodka Sode',
-//     },
-//     {
-//       id: 2,
-//       name: 'Jane Doe',
-//       drink: 'Gin and Tonic',
-//     },
-//     {
-//       id: 3,
-//       name: 'Bob Smith',
-//       drink: 'Moscow Muel',
-//     },
-//   ];
+const socket = io('http://localhost:8080')
+// const [users, setUsers] = React.useState<{ drinkName: string, username: string }[]>([]);
+
+
+
+const useStyles = createStyles((theme) => ({
+  card: {
+    backgroundColor: theme.colors.gray[0],
+    position: 'relative',
+    top: 0,
+    borderWidth: 2,
+    boxShadow: '0 4px 40px rgba(0, 0, 0, 0.1)',
+    width: '70%',
+    maxWidth: 600,
+    minHeight:400,
+    height: 'auto',
+    borderRadius: theme.radius.lg,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginTop: -500,
+    overflowY: 'auto'
+  },
+}));
+
+function Queue(props: any) {
+  const [users, setUsers] = React.useState<{ drinkName: string, username: string }[]>([]);
+  const { classes } = useStyles();
   
 
+  useEffect(() => {
+    
+    socket.connect()
+    socket.emit('Request-Data')
+    socket.on('queue-updated', (data: any[]) => {
 
-  const useStyles = createStyles((theme) => ({
-    card: {
-        backgroundColor: theme.colors.gray[0],
-        position: 'relative',
-        top: 0,
-        borderWidth: 2,
-        boxShadow: '0 4px 40px rgba(0, 0, 0, 0.1)',
-        width: '70%',
-        maxWidth: 600,
-        minHeight:400,
-        height: 'auto',
-        borderRadius: theme.radius.lg,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        marginTop: -500,
-        overflowY: 'auto'
-      },
-  }));
+      sessionStorage.setItem('queue', data.length>1?data[1].username:null);
+      console.log("Queue")
+      const orderedJSON: { drinkName: string, username: string }[] = data.map((item: { drink: { name: string }, username: string }) => {
+        return { 
+          drinkName: item.drink.name, 
+          username: item.username 
+        };
+      });
+      setUsers(orderedJSON);
+    });
+    
 
-
-  
-function Queue(props:any){
-    const [users, setUsers] = React.useState<{ drinkName: string, username: string }[]>([]);
-    const { classes } = useStyles();
-
-    const opened = async () => {
-        const response = await axios.post('queue', {}, { headers: { 'Content-Type': 'application/json' }});
-        const orderedJSON: { drinkName: string, username: string }[] = response.data.map((item: { drink: { name: string }, username: string }) => {
-          return { 
-            drinkName: item.drink.name, 
-            username: item.username 
-          };
-        });
-        return orderedJSON;
-      };
-      
-      useEffect(() => {
-        const interval = setInterval(() => {
-          opened().then(result => {
-            setUsers(result);
-            console.log(result);
-          });
-        }, 1000);
-        return () => clearInterval(interval);
-      }, []);
+  }, []);
 
     return(
         

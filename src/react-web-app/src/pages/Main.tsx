@@ -4,26 +4,36 @@ import Drinks from '../components/Drinks';
 import axios from 'axios';
 import { response } from 'express';
 import React, { useState, useEffect } from 'react';
+import Queue from './Queue';
+import {io} from 'socket.io-client';
+
+const socket = io('http://localhost:8080')
 
 function Main(props: any) {
   const [opened, setOpened] = React.useState(false);
-  const interval = setInterval(() => {
-    axios.post('placement', {username:props.username}, {headers: { 'Content-Type': 'application/json' }})
-    .then((response)=>{
-      if(response.data == 'Second'){
-        setOpened(true)
-      }
-      else{
-        setOpened(false)
-     }
-    })
-}, 500);
+
+useEffect(() => {
+  
+  socket.connect()
+  socket.emit('Request-Data')
+  socket.on('secondQueue', (data: any[]) => {
+    console.log("Second Person in Line -> ", data)
+    if(data == props.username){
+      setOpened(true)
+    }
+    else{
+      setOpened(false)
+    }
+  });
+  
+
+}, []);
 
   return (
     <>
     <Modal
         opened={opened}
-        onClose={() => setOpened(true)}
+        onClose={() => setOpened(false)}
         withCloseButton={false}
         centered
     >

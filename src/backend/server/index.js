@@ -5,18 +5,26 @@ var mysql = require('mysql2');
 const dotenv = require('dotenv');
 const bcrypt = require("bcryptjs");
 const { spawn } = require('child_process');
+const cors = require('cors')
+
+const http = require('http').createServer(app);
+const io = require('socket.io')(http)
+const allClients = []
 
 
 app.use(express.urlencoded({ extended: 'false' }))
 app.use(express.json())
+app.use(cors())
 
 console.log("starting")
+
 
 const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'bartender',
     password: 'password',
     database: 'smart_serve',
+    port: 3001
 
 });
 
@@ -63,9 +71,10 @@ app.post("/user", (req, res) => {
 });
 
 app.post("/order", (req, res) => {
-    //console.log(req.body)
+
     // Add the request object to the queue
     queue.push(req.body);
+    sendQueueToClients();
     // Send a response to the client
     res.send({ ordered: true });
   });
@@ -176,9 +185,10 @@ function processRequest(req) {
             while(data.toString().length ===0){
               console.log('Here')
             }
-          console.log('Done1234')
+          console.log(data.toString())
           isMaking = false
           queue.shift();
+          sendQueueToClients();
         });
 
       }
@@ -215,6 +225,29 @@ const interval = setInterval(() => {
         // Remove the processed request from the queue
     }
 }, 500);
+
+function sendQueueToClients() {
+  console.log(queue)
+  io.sockets.emit('queue-updated', queue);
+  io.sockets.emit('secondQueue', queue.length > 1?queue[1].username:'null')
+}
+
+io.on('connection', (socket) => {
+  allClients.push(socket)
+  console.log('New client connected');
+
+  
+  socket.emit('queue-updated',queue);
+  socket.on('Request-Data', () => {
+    sendQueueToClients();
+  })
+
+  socket.emit('secondQueue', queue.length > 1?queue[1].username:'null')
+});
+
+http.listen(8080, () => {
+  console.log('Listening on port 8080');
+});
 
 process.on("SIGINT", () => {
     clearInterval(interval);
