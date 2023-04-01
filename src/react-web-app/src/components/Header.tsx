@@ -66,7 +66,7 @@ function Header({ ...hP }: HeaderProps) {
         </Button>
         {hP.signedin.admin?
           <Button variant="outline" color='dark' onClick={()=>{handleButton(hP.page)}}>
-          {(hP.page=='Main'? <text>ADMIN PAGE</text>: <text>MAIN PAGE</text>)}
+          {(hP.page=='Main'? <text>ADMIN PAGE</text>: hP.page=='queue'?<text>ADMIN PAGE</text>:<text>MAIN PAGE</text>)}
           </Button>
         : null}
         </Group>}

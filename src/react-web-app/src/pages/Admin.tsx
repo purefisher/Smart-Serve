@@ -14,8 +14,8 @@ function Admin(props: any) {
   React.useEffect(() => {
   axios.post('drinkPopularity', {headers: { 'Content-Type': 'application/json' }})
     .then(response => {
-      const transformedData = response.data.map((item: { drink: string, Amount: number }) => ({
-        x: item.drink,
+      const transformedData = response.data.map((item: { drinkName: string, Amount: number }) => ({
+        x: item.drinkName,
         y: item.Amount
       }));
       setData(transformedData);

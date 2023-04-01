@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import {io} from 'socket.io-client';
 
-const socket = io('http://localhost:8080')
+const socket = io('http://192.168.2.203:8080')
 // const [users, setUsers] = React.useState<{ drinkName: string, username: string }[]>([]);
 
 

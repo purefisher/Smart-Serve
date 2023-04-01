@@ -6,7 +6,7 @@ import GeneralButton from '../components/Buttons';
 import InputField from '../components/TextInput';
 import axios from 'axios';
 import { useNavigate, useRoutes } from "react-router-dom";
-
+import Logo from '../images/Logo.jpg';
 
     
 
@@ -73,8 +73,22 @@ const LoginPage = (props: any) => {
                 fixed
                 header={<Header height={90} padding='md' signedin = {props.signedin} page='Login'/>}
             >
-            <Center style={{height: 600}} inline={true}>
-                <Stack>                  
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
+                width: '100%',
+                height: '33%',
+                backgroundImage: `url(${Logo})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: '10%'
+              }}
+            />
+            <Center style={{height: 400}} inline={true}>
+                <Stack>      
                 <Text size={50} weight={'bold'}>
                 Login Page
                 </Text>
@@ -92,7 +106,6 @@ const LoginPage = (props: any) => {
                 </Card>
                 </Stack> 
             </Center>
-            
                 {(props.signedin.admin? <Navigate to="/Admin" replace={true} />: 
                                 (props.signedin.signedin? <Navigate to="/Main" replace={true} />: null))} 
                 {/* {(props.signedin? <Navigate to="/Main" replace={true} />: null)}  */}

@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import Queue from './Queue';
 import {io} from 'socket.io-client';
 
-const socket = io('http://localhost:8080')
+const socket = io('http://192.168.2.203:8080')
 
 function Main(props: any) {
   const [opened, setOpened] = React.useState(false);

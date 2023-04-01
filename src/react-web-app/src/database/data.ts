@@ -28,8 +28,8 @@ const info = [
         ingredients: {
                       IG1: {name: 'whiskey', amount: 43, shot: ",1"},
                       IG2: {name: 'lemonade', amount: 129, shot: ",3"},
-                      IG3: {name: null, amount: null, shot: ",1"},
-                      IG4: {name: null, amount: null, shot: ",1"}
+                      IG3: {name: null, amount: null, shot: null},
+                      IG4: {name: null, amount: null, shot: null}
         }
       },
       {
@@ -38,9 +38,9 @@ const info = [
         category: 'Drinks',
         ingredients: {
           IG1: {name: 'vodka', amount: 43, shot: ",1"},
-          IG2: {name: 'coke', amount: 129, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG2: {name: 'coke', amount: 129, shot: ",3"},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
 }
       },
       {
@@ -49,9 +49,9 @@ const info = [
         category: 'Drinks',
         ingredients: {
           IG1: {name: 'vodka', amount: 43, shot: ",1"},
-          IG2: {name: 'lemon juice', amount: 129, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG2: {name: 'lemon juice', amount: 129, shot: ",3"},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
 }
       },
       {
@@ -60,9 +60,9 @@ const info = [
         category: 'Drinks',
         ingredients: {
           IG1: {name: 'rum', amount: 43, shot: ",1"},
-          IG2: {name: 'coke', amount: 129, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG2: {name: 'coke', amount: 129, shot: ",3"},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
 }
       },
       {
@@ -72,8 +72,8 @@ const info = [
         ingredients: {
           IG1: {name: 'whiskey', amount: 43, shot: ",1"},
           IG2: {name: 'vodka', amount: 43, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
 }
       },
       {
@@ -82,9 +82,9 @@ const info = [
         category: 'Drinks',
         ingredients: {
           IG1: {name: 'rum', amount: 43, shot: ",1"},
-          IG2: {name: 'orange juice', amount: 129, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG2: {name: 'orange juice', amount: 129, shot: ",3"},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
 }
       },
       {
@@ -93,9 +93,9 @@ const info = [
         category: 'Drinks',
         ingredients: {
           IG1: {name: 'rum', amount: 43, shot: ",1"},
-          IG2: {name: 'orange juice', amount: 64.5, shot: ",1"},
-          IG3: {name: 'lemonade', amount: 64.5, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG2: {name: 'orange juice', amount: 64.5, shot: ",1.5"},
+          IG3: {name: 'lemonade', amount: 64.5, shot: ",1.5"},
+          IG4: {name: null, amount: null, shot: null}
 }
       },
     ],
@@ -109,9 +109,9 @@ const info = [
         category: 'Liquor',
         ingredients: {
           IG1: {name: 'vodka', amount: 43, shot: ",1"},
-          IG2: {name: null, amount: null, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
         }
       },
       {
@@ -120,9 +120,9 @@ const info = [
         category: 'Liquor',
         ingredients: {
           IG1: {name: 'rum', amount: 43, shot: ",1"},
-          IG2: {name: null, amount: null, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
         }
       },
       {
@@ -131,9 +131,9 @@ const info = [
         category: 'Liquor',
         ingredients: {
           IG1: {name: 'tequila', amount: 43, shot: ",1"},
-          IG2: {name: null, amount: null, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
         }
       },
       {
@@ -142,9 +142,9 @@ const info = [
         category: 'Liquor',
         ingredients: {
           IG1: {name: 'whiskey', amount: 43, shot: ",1"},
-          IG2: {name: null, amount: null, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
         }
       },
     ],
@@ -158,9 +158,9 @@ const info = [
         category: 'Juice',
         ingredients: {
           IG1: {name: 'lemon juice', amount: 43, shot: ",1"},
-          IG2: {name: null, amount: null, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
         }
       },
       {
@@ -168,10 +168,10 @@ const info = [
         image: OJ,
         category: 'Juice',
         ingredients: {
-          IG1: {name: 'orange juice', amount: 172, shot: ",1"},
-          IG2: {name: null, amount: null, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG1: {name: 'orange juice', amount: 172, shot: ",4"},
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
         }
       },
       {
@@ -179,10 +179,10 @@ const info = [
         image: PJ,
         category: 'Juice',
         ingredients: {
-          IG1: {name: 'pineapple juice', amount: 172, shot: ",1"},
-          IG2: {name: null, amount: null, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG1: {name: 'pineapple juice', amount: 172, shot: ",4"},
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
         }
       },
       {
@@ -191,9 +191,9 @@ const info = [
         category: 'Juice',
         ingredients: {
           IG1: {name: 'syrup', amount: 43, shot: ",1"},
-          IG2: {name: null, amount: null, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
         }
       },
       {
@@ -201,10 +201,10 @@ const info = [
         image: CS,
         category: 'Juice',
         ingredients: {
-          IG1: {name: 'club soda', amount: 172, shot: ",1"},
-          IG2: {name: null, amount: null, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG1: {name: 'club soda', amount: 172, shot: ",4"},
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
         }
       },
       {
@@ -212,10 +212,10 @@ const info = [
         image: Lemonade,
         category: 'Juice',
         ingredients: {
-          IG1: {name: 'lemonade', amount: 172, shot: ",1"},
-          IG2: {name: null, amount: null, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG1: {name: 'lemonade', amount: 172, shot: ",4"},
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
         }
       },
       {
@@ -223,10 +223,10 @@ const info = [
         image: Coke,
         category: 'Juice',
         ingredients: {
-          IG1: {name: 'coke', amount: 172, shot: ",1"},
-          IG2: {name: null, amount: null, shot: ",1"},
-          IG3: {name: null, amount: null, shot: ",1"},
-          IG4: {name: null, amount: null, shot: ",1"}
+          IG1: {name: 'coke', amount: 172, shot: ",4"},
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
         }
       },
     ],
