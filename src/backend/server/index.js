@@ -8,7 +8,12 @@ const { spawn } = require('child_process');
 const cors = require('cors')
 
 const http = require('http').createServer(app);
-const io = require('socket.io')(http)
+const io = require('socket.io')(http , {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+})
 const allClients = []
 
 
@@ -23,8 +28,7 @@ const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'bartender',
     password: 'password',
-    database: 'smart_serve',
-    port: 3001
+    database: 'smart_serve'
 
 });
 
@@ -118,7 +122,7 @@ app.post("/ingredients", (req, res) => {
 })
 
 app.post('/drinkPopularity', (req,res) => {
-    db.query('SELECT drink, COUNT(drink) AS Amount FROM smart_serve.orders GROUP BY drink ORDER BY Amount DESC, drink DESC;', [], (error, result) => {
+    db.query('SELECT drinkName, COUNT(drinkName) AS Amount FROM smart_serve.orders GROUP BY drinkName ORDER BY Amount DESC, drinkName DESC;', [], (error, result) => {
       // console.log(result)
       res.send(result)
   });
@@ -158,7 +162,7 @@ function processRequest(req) {
       return
     }
     db.query(
-      "SELECT pump FROM ingredients WHERE ingredient_name IN(?,?,?,?);",
+      "SELECT pump, ingredient_name FROM ingredients WHERE ingredient_name IN(?,?,?,?);",
       [
         req.drink.ingredients.IG1.name,
         req.drink.ingredients.IG2.name,
@@ -167,15 +171,35 @@ function processRequest(req) {
       ],
       (error, result) => {
         const arr = ["main.py"];
-        const shotType = [req.drink.ingredients.IG1.shot,
-                          req.drink.ingredients.IG2.shot,
-                          req.drink.ingredients.IG3.shot,
-                          req.drink.ingredients.IG4.shot]
+//        const shotType = [req.drink.ingredients.IG1.shot,
+//                          req.drink.ingredients.IG2.shot,
+//                          req.drink.ingredients.IG3.shot,
+//                          req.drink.ingredients.IG4.shot]
+        
         for (i = 0; i < result.length; i++) {
           str = result[i].pump;
           str = str.toString();
-          arr.push(str + shotType[i]); // SELECT shotAmount FROM Menu,ingredients WHERE 
+          
+          if (result[i].ingredient_name == req.drink.ingredients.IG1.name) {
+            shotType = req.drink.ingredients.IG1.shot;
+          }
+          else if (result[i].ingredient_name == req.drink.ingredients.IG2.name) {
+            shotType = req.drink.ingredients.IG2.shot;
+          }
+          else if (result[i].ingredient_name == req.drink.ingredients.IG3.name) {
+            shotType = req.drink.ingredients.IG3.shot;
+          }
+          else if (result[i].ingredient_name == req.drink.ingredients.IG4.name) {
+            shotType = req.drink.ingredients.IG4.shot;
+          }          
+          else {
+            shotType = null;
+          }
+          
+          //console.log(shotType)
+          arr.push(str + shotType); // SELECT shotAmount FROM Menu,ingredients WHERE   
         }
+        console.log(arr)
         const process = spawn("python", arr);
         process.stderr.on("data", (data) => {
           console.error(`stderr: ${data}`);

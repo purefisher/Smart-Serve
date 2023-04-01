@@ -31,7 +31,7 @@ class cocktailcreate():
           
         count = 0
         while(scan):
-          print("yessirski")
+          #print("yessirski")
           #print("B4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensedB4cup_sensed")
           cup_sensed = self.turntable()
           #print("Aftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensedAftercup_sensed")
@@ -53,9 +53,10 @@ class cocktailcreate():
              #wait 10s, try again once more, if there is still no cup, exit program so a message can be sent to user
              #I assume that we will need to add a flag here so the correct message can be sent to user????
              if count == 2 :
+               print('Done')
                exit()
              count += 1
-             time.sleep(5)
+             time.sleep(3)
           time.sleep(5)
         return True
 
@@ -209,48 +210,19 @@ class cocktailcreate():
     def pumprun(self, ing): #this is the threading function
         result = [x.strip() for x in ing.split(',')]
         single_alc_time_constant = 0
-        if (int(result[1])==1):
-          i = 0
-          while i < 5:
-            if(pump_constants[i][0] == int(result[0])):
-              single_alc_time_constant = pump_constants[i][1]
-              break
-            i+=1  
-          io.output(int(result[0]), io.LOW)
-          #print("Pouring alcohol")
-          time.sleep(single_alc_time_constant)
-          io.output(int(result[0]), io.HIGH)
-          #print("All done alcohol")
-        elif (int(result[1])==2):
-          i = 0
-          while i < 5:
-            if(pump_constants[i][0] == int(result[0])):
-              single_alc_time_constant = pump_constants[i][1]
-              break
-            i+=1
-          io.output(int(result[0]), io.LOW)
-          time.sleep(single_alc_time_constant*2)
-          io.output(int(result[0]), io.HIGH)
-        elif (int(result[1])==3):
-          i = 0
-          while i < 5:
-            if(pump_constants[i][0] == int(result[0])):
-              single_alc_time_constant = pump_constants[i][1]
-              break
-            i+=1
-          io.output(int(result[0]), io.LOW)
-          time.sleep(single_alc_time_constant*3)
-          io.output(int(result[0]), io.HIGH)
-        elif (int(result[1])==4):
-          i = 0
-          while i < 5:
-            if(pump_constants[i][0] == int(result[0])):
-              single_alc_time_constant = pump_constants[i][1]
-              break
-            i+=1
-          io.output(int(result[0]), io.LOW)
-          time.sleep(single_alc_time_constant*4)
-          io.output(int(result[0]), io.HIGH)
+        i = 0
+        while i < 5:
+          if(pump_constants[i][0] == int(result[0])):
+            single_alc_time_constant = pump_constants[i][1]
+            break
+          i+=1  
+        io.output(int(result[0]), io.LOW)
+        #print("Pouring alcohol")
+        #print(float(result[1]))
+        time.sleep(single_alc_time_constant*float(result[1]))
+        io.output(int(result[0]), io.HIGH)
+        #print("All done alcohol")
+        
    
     
 
