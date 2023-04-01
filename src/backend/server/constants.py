@@ -5,7 +5,7 @@ cleaning_constant = 10
 cup_distance_limit_lower = 4.6
 cup_distance_limit_upper = 8.0
 cup_distance_limit_turn = 3.6
-cup_liquid_limit = 13 #this goes up to the lines on a solo cup was 10
+cup_liquid_limit = 11 #10 goes up to the top of the lines on a solo cup. 13 goes almost to our current volume for 6 ounces but just misses it
 
 pump_one_pin = 15
 pump_two_pin = 13

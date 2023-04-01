@@ -187,15 +187,15 @@ class cocktailcreate():
     def turntable_finish(self):
         sense_count = 0
         io.output(self.motor_pin, io.LOW)
-        #time.sleep(0.5)
-        time.sleep(2*finished_rotation_constant)
+        time.sleep(0.5)
+        #time.sleep(2*finished_rotation_constant)
 
-#        while(sense_count <= 110):
-#            if (self.sense_config_turn() == False):
-#               sense_count = sense_count + 1
-#            else:
-#               break
-#            time.sleep(finished_rotation_constant / 110)
+        while(sense_count <= 110):
+            if (self.sense_config_turn() == False):
+               sense_count = sense_count + 1
+            else:
+               break
+            time.sleep(finished_rotation_constant / 110)
 
         io.output(self.motor_pin, io.HIGH)
   
