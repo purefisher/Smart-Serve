@@ -73,6 +73,9 @@
         \midrule
         01/04/23 & Max Turek & Updated document to reflect issues from other teams. Removed ODR7, edited PR7 \&\ PR8, rationale added for QR1 and citation added for HSR3. Added rationale to some requirements, added list of tables and figures and added value range for monitored variables\\
         \bottomrule
+        \hline
+         03/31/23 & Ryan Were & Revised Functional Requirement numbers so they are sequential. Removed functional requirements that are no longer relevant\\
+        \hline
         \end{tabularx}
     \end{table}
 
@@ -139,9 +142,9 @@
         \hline
         Consistency & Smart Serve continues to pour a consistent drink after 100 pours. \\  
         \hline
-        Accuracy & Smart Serve pours drinks with accurate proportions. This would be measured by checking if the individual ingredients of a drink follow the appropriate proportion (i.e. 100 millilitres of rum and 300 millilitres of coke). \\  
+        Accuracy & Smart Serve pours drinks with accurate proportions. This would be measured by checking if the individual ingredients of a drink follow the appropriate proportion (i.e. 1.5 liquid ounces of rum and 4.5 liquid ounces of coke). \\  
         \hline
-        Fast Service & Drinks are served to users quickly. One drink is served within 45 seconds. \\  
+        Fast Service & Drinks are served to users quickly. One drink is served within 60 seconds. \\  
         \hline
         Operator & The operator had access to the operator controls in the web app. These controls allow the operator to manage ingredients in the web app. \\  
         \hline
@@ -248,6 +251,7 @@
     \begin{itemize}
         \item Ingredient flow rate
         \item Cup size
+        \item Turntable rotation speed
         \item Location of cup
         \item Ingredient vat volume
     \end{itemize}
@@ -302,69 +306,62 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
 
 \section{Function Requirements}
 \subsection{Ordering Drink}
-    \noindent\textbf{ODR1:} User can scan QR code launching smart-serve web app \\\\ 
-    \textbf{ODR2:} User can access the menu and select drinks to order\\\\ 
-    \textbf{ODR3:} User can cancel or change order while waiting for drink to be made \\\\ 
-    \textbf{ODR4:} User can view place/time remaining for the drink to be made \\\\ 
-    \textbf{ODR5:} User is notified if drink ingredients are out of inventory\\\\ 
-    \textbf{ODR6:} User is notified when drink is done\\
+    \noindent\textbf{ODR1.} User can scan QR code launching smart-serve web app \\\\ 
+    \textbf{ODR2.} User can access the menu and select drinks to order\\\\
+    \textbf{ODR3.} Users can view the placement of their order in the queue \\\\ 
+    \textbf{ODR4.} User is notified if drink ingredients are out of inventory\\\\ 
+    \textbf{ODR5.} User is notified when their drink is done\\
 
-    \textbf{Rationale:} This is done so drink does not stay idle while other customers are waiting\\\\
-    \textbf{ODR8:} Operator is notified if drink ingredients are out of inventory\\\\
-    \textbf{ODR9:} Operator inputs all ingredients available for drinks into the web app\\\\
-    \textbf{ODR10:} Operator inputs dispenser location of each ingredient into web app\\
+    \textbf{Rationale:} This is done so the drink does not stay idle while other customers are waiting\\\\
+    \textbf{ODR6.} Operator is notified if drink ingredients are out of inventory\\\\
+    \textbf{ODR7.} Operator inputs all ingredients available for drinks into the web app\\\\
+    \textbf{ODR8.} Operator inputs dispenser location of each ingredient into web app\\
     
-    \textbf{Rationale:} This is done to allow for more flexibility with drink mixing and make the system more universal.\\\\
-    \textbf{ODR11:} User gets notified when the drink is ready via web app\\\\
-    \textbf{ODR12:} Web app keeps track of drinks made\\
+    \textbf{Rationale:} This allows for more flexibility with drink mixing and makes the system more universal.\\\\
+    \textbf{ODR9.} User gets notified when the drink is ready via web app\\\\
+    \textbf{ODR10.} Web app keeps track of drinks made\\
 
-    \textbf{Rationale:} Data used for analytics to track popular drinks/ingredients or for inventory check\\\\
-    \textbf{ODR13:} Server decrypts drink name and gathers ingredients\\\\
-    \textbf{ODR14:} User's drink is the same drink they ordered on the app \\\\
-    \textbf{ODR15:} User can login successfully into the app \\\\
-    \textbf{ODR16:} User has user permissions  \\\\
-    \textbf{ODR17:} Electrical components of high exposure to liquids have waterproof covering\\\\
-    \textbf{ODR18:} Have a robust and durable architecture/components\\\\
-    \indent\textbf{Rationale:} Bars and pubs can be high traffic areas resulting in spills and collisions\\
+    \textbf{Rationale:} Data is used for analytics to track popular drinks/ingredients or for inventory check\\\\
+    \textbf{ODR11.} Server decrypts drink name and gathers ingredients\\\\
+    \textbf{ODR12.} User's drink is the same drink they ordered on the app \\\\
+    \textbf{ODR13.} User can log in successfully into the app \\\\
+    \textbf{ODR14.} User has user permissions  \\\\
+    \textbf{ODR15.} Electrical components of high exposure to liquids have waterproof covering\\\\
+    \textbf{ODR16.} Have a robust and durable architecture/components\\\\
+    \indent\textbf{Rationale:} Bars and pubs can be high-traffic areas resulting in spills and collisions\\
 
 \subsection{Making Drink}
     \noindent\textbf{MDR1.} Hardware receives ingredients from server \\\\
     \textbf{MDR2.} Hardware dispenses the appropriate amount of liquid from respective bottle \\\\
-    \textbf{MDR3.} Hardware can detect if cup is present \\\\
-    \textbf{MDR4.} Hardware can detect if cup is empty or full \\\\
-    \textbf{MDR5.} Hardware sends a notification to the operator that the drink is done \\\\
-    \textbf{MDR6.} Hardware can detect whether an ingredient is out of inventory \\\\
-    \textbf{MDR7.} Hardware communicates with the operator on order status (i.e. cup not present, a cup full, out of ingredients, order ready) \\\\
-    \textbf{MDR8.} Hardware displays that an order is ready so the user can remove it \\\\
-    \textbf{MDR9.} Hardware will not start the next order until the completed drink is removed, and new empty cup is placed in dispensing area \\\\
+    \textbf{MDR3.} Hardware can detect if a cup is present \\\\
+    \textbf{MDR4.} Hardware can detect if the cup is empty or full \\\\
+    \textbf{MDR8.} Web app displays that an order is ready so the user can remove it \\\\
+    \textbf{MDR9.} Hardware will not start the next order until the completed drink is removed, and a new empty cup is placed in dispensing area \\\\
     \textbf{MDR10.} Hardware does not begin a new drink until the previous drink is removed \\\\
-    \textbf{MDR11.} Hardware sends error messaging to the web app (Operator Side) when the system is malfunctioning\\\\
-    \textbf{MDR12.} Hardware must restart drink and resume queue if power is lost \\
 
 \section{Non-Functional Requirements}
 \subsection{Quality requirements of the entire system}
     \noindent\textbf{QR1.} Smart Serve must be robust\\ 
     
-    \textbf{Rationale:} During steady state operation, smart serve will satisfy all it's functional requirements.\\
+    \textbf{Rationale:} During steady state operation, smart serve will satisfy all its functional requirements.\\
 \subsection{Look and Feel Requirements}
     \noindent\textbf{LFR1.} The web app must be intuitive and visually appealing \\\\
-    \indent\textbf{Rationale:} The least amount of clicks necessary will result in more user friendly UI\\\\
+    \indent\textbf{Rationale:} The least amount of clicks necessary will result in a more user-friendly UI\\\\
     \textbf{LFR2.} Smart Serve must have all electrical and mechanical components concealed \\
 
 \subsection{Usability and Humanity Requirements}
     \subsubsection{Ease of use}
         \noindent\textbf{UHR1.} Smart Serve must serve the drink at a height that is easy to grab for an average adult \\\\
         \textbf{UHR2.} Smart Serve must make grabbing the drink easy for the user, without blockages or inconveniences\\\\
-        \textbf{UHR3.} The web app must have a simple payment system\\\\
-        \textbf{UHR4.} The web app must make it easy to navigate and select drinks\\
+        \textbf{UHR3.} The web app must make it easy to navigate and select drinks\\
     \subsubsection{Ease of learning}
-        \noindent\textbf{UHR5.} Finding and gaining access to the web app must be easy \\
+        \noindent\textbf{UHR4.} Finding and gaining access to the web app must be easy \\
 
 \subsection{Performance Requirements}
     \subsubsection{Speed requirement}
-        \noindent\textbf{PR1.} The drink must be ready and served within 45 seconds of when the drink began to be made \\\\
+        \noindent\textbf{PR1.} The drink must be ready and served within 60 seconds of when the drink began to be made \\\\
         \textbf{PR2.} The web app must be highly responsive to user inputs \\\\
-        \textbf{PR3.} The web app must add a users order to the queue of orders within 20 seconds of ordering \\
+        \textbf{PR3.} The web app must add a users order to the queue of orders within 5 seconds of ordering \\
         \indent\textbf{Rationale:} This requirement is set in order to be comparable to a human creating the same drink\\\
     \subsubsection{Safety critical requirement}
         \noindent\textbf{PR4.} Smart Serve must not release more than 1.1x the amount of expected alcohol \\
@@ -375,25 +372,25 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
         \noindent\textbf{PR6.} Smart Serve must be able to create the correct drink every time as long as it has the correct ingredients \\
     \subsubsection{Capacity requirement}
         \noindent\textbf{PR7.} Smart Serve must be able to store up to 5 ingredients \\\\
-        \textbf{PR8.} Smart Serve must be able to store up to 1 liters of each ingredient \\
+        \textbf{PR8.} Smart Serve must be able to store up to 2 liters of each ingredient \\
 
 \subsection{Operational and Environmental Requirements}
     \subsubsection{Expected physical environment}
         \noindent\textbf{OER1.} Smart Serve must not be exposed to rain or poor weather \\\\
         \textbf{OER2.} Smart Serve must be placed upright on a flat surface \\
     \subsubsection{Expected technological environment}
-        \noindent\textbf{OER4.} Smart Serve must have access to wifi \\\\
-        \textbf{OER5.} Smart Serve must have access to electricity \\\\
-        \textbf{OER6.} The user must have internet access and a device to access the web app \\
+        \noindent\textbf{OER3.} Smart Serve must have access to wifi \\\\
+        \textbf{OER4.} Smart Serve must have access to electricity \\\\
+        \textbf{OER5.} The user must have internet access to the same wifi network as Smart Serve and a device to access the web app \\
     \subsubsection{Partner applications}
-        \noindent\textbf{OER7.} Smart Serve must be equipped with a cup to serve a drink \\\\
+        \noindent\textbf{OER6.} Smart Serve must be equipped with a cup to serve a drink \\\\
 
 \subsection{Maintainability and Support Requirements}
     \subsubsection{Maintainability}
-        \noindent\textbf{MSR1.} Smart Serve should be cleaned once every month \\\\
+        \noindent\textbf{MSR1.} Smart Serve should be cleaned once every day \\\\
         \textbf{MSR2.} Smart Serve must be restocked with new ingredients to be able to serve drinks \\
     \subsubsection{Special Maintenance Conditions} 
-        \noindent\textbf{MSR3.} No electronic or water sensitive components of Smart Serve can get wet during cleaning \\\\
+        \noindent\textbf{MSR3.} No electronic or water-sensitive components of Smart Serve can get wet during cleaning \\\\
         \textbf{MSR4.} The operator must add the ingredients to the web app when Smart Serve is restocked \\
     \subsubsection{Portability}
         \noindent\textbf{MSR5.} Smart Serve must be modular and easy to transport \\\\
@@ -401,10 +398,9 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
         \indent\textbf{Rationale:} This is done so it can be carried with one to two people with ease\\
 
 \subsection{Security Requirements}
-    \noindent\textbf{SR1.} The users payment and personal information must be secure \\\\
-    \textbf{SR2.} Communication between the web app and Smart Serve must be secure \\\\
-    \textbf{SR3.} The operator must be responsible for correctly operating the machine and restocking ingredients \\\\
-    \textbf{SR4.} The user must provide identification and be of drinking age to order and receive a drink from Smart Serve \\\\
+    \textbf{SR1.} Communication between the web app and Smart Serve must be secure \\\\
+    \textbf{SR2.} The operator must be responsible for correctly operating the machine and restocking ingredients \\\\
+    \textbf{SR3.} The user must provide identification and be of drinking age to order and receive a drink from Smart Serve \\\\
 
 \subsection{Cultural and Political Requirements}
     \noindent{Not applicable} \\
@@ -421,13 +417,13 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
 
 \section{Likely Changes to Requirements}
 \subsection{Machine Improvements}
-    \noindent Although the first design of the machine has a degree of durability and ease of maintenance, a goal within the group is to have the machine not only be able to last longer, but allow for even less maintenance/care. This can be accomplished with the following new requirements. \\\\
+    \noindent Although the first design of the machine has a degree of durability and ease of maintenance, a goal within the group is to have the machine not only be able to last longer but allow for even less maintenance/care. This can be accomplished with the following new requirements. \\\\
     \textbf{RLC 1:} Incorporate self-cleaning after every drink is made\\\\
     \textbf{RLC 2:} Design system hardware to have a high water resistance\\\\
     \textbf{RLC 3:} Have the system be more robust to lessen the risk of impact damage\\\\
     \textbf{RLC 4:} Machine sends specific error codes to the operator to inform why the machine is breaking\\
 \subsection{Data Analytics}
-    \noindent With the current design, the system will use basic Data Analytics to track information like popular drinks and stock of ingredients. A likely change will to take advantage of the data to produce the following requirements. \\\\
+    \noindent With the current design, the system will use basic Data Analytics to track information like popular drinks and stock of ingredients. A likely change will be to take advantage of the data to produce the following requirements. \\\\
     \textbf{RLC 5:} Purchasing patterns are used to track optimal inventory \\\\
     \textbf{RLC 6:} Analysis of user data is used to find correlations with drink orders to derive optimal drink mixes or drink recommendations\\
 
@@ -437,14 +433,14 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
     \noindent\textbf{Justification: }One of the main purposes of this project is to incorporate more automation into the bartending profession. The requirements outlined reflect that. Any increase in human interference for base functionality will contradict this purpose. \\\\
     \noindent\textbf{UCR 2:} Application will \textbf{always} comply with safety and the law. \\
 
-    \noindent\textbf{Justification: }Due to the device serving, it is important that all government regulations be followed. Misuse of the device could result in lawsuits, jail time, injury, or death. While handling alcohol, it is of the utmost importance that the device follows  the substance's regulations.\\\\
+    \noindent\textbf{Justification: }Due to the device serving, it is important that all government regulations be followed. Misuse of the device could result in lawsuits, jail time, injury, or death. While handling alcohol, it is of the utmost importance that the device follows the substance's regulations.\\\\
     \noindent\textbf{UCR 3:} Web Application must be user-friendly and very simple to use.  \\
 
     \noindent\textbf{Justification: }Theoretically, the system can be a substitute for the simplistic traditional human-to-human interaction of asking for a drink. The app must be at least as straightforward as the traditional method.\\\\
 
-    \noindent\textbf{UCR 4:} System must be able to create drinks with the high the level of preciseness and consistency as an average bartender.  \\
+    \noindent\textbf{UCR 4:} System must be able to create drinks with a high level of preciseness and consistency as an average bartender.  \\
 
-    \noindent\textbf{Justification: }With  the system replacing the need for a bartender, it must be able to (at the very least) create drinks with both the appropriate measurements and a strong degree of consistency.\\\\
+    \noindent\textbf{Justification: }With the system replacing the need for a bartender, it must be able to (at the very least) create drinks with both the appropriate measurements and a strong degree of consistency.\\\\
     \noindent\textbf{UCR 5:} Maintenance of Smart Serve must be simplistic.  \\
 
     \noindent\textbf{Justification: }It must be assumed that a large demographic of operators of Smart Serve do not have a background in technology. The maintenance of the device should be straightforward, with limited technological experience required. 
