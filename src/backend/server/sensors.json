@@ -1,0 +1,22 @@
+[
+    {
+        "Sensor": 1,
+        "Pin": 16,
+        "IO": "output"  
+    },
+    {
+        "Sensor": 1,
+        "Pin": 18,
+        "IO" : "input"
+    },
+    {
+        "Sensor": 2,
+        "Pin": 22,
+        "IO" : "output"
+    },
+    {
+        "Sensor": 1,
+        "Pin": 36,
+        "IO" : "input"
+    }
+]
