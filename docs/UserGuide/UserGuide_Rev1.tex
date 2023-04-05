@@ -1,0 +1,62 @@
+\documentclass{article}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\title{User Guide\\\progname}
+
+\author{\authname}
+
+\date{}
+
+\begin{document}
+
+
+\newpage
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\addlinespace
+\addlinespace
+\addlinespace
+\addlinespace
+
+\begin{table}[hp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\midrule
+04/05/23 & David Bednar & Revision 1.0 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\section{Frontend}
+Run the commands from Smart-Serve/src/react-web-app/README.md.
+The commands can be summarized as follows.
+\addlinespace
+1.npm install
+\addlinespace
+2.npm start
+\section{Backend}
+Run the commands from Smart-Serve/src/backend/server/README.md.
+The commands can be summarized as follows.
+\addlinespace
+1.configure host credentials in index.js lines 28-31
+\addlinespace
+2.npm install
+\addlinespace
+3.npm start
+\section{Hardware}
+Setup the machine with the correct pin configurations, and run node on pi using backend steps.
+\section{Database}
+Set up an empty or pre-populated mySQL database.
+
+\end{document}
