@@ -76,6 +76,8 @@
         \hline
          03/31/23 & Ryan Were & Revised Functional Requirement numbers so they are sequential. Removed functional requirements that are no longer relevant\\
         \hline
+         04/05/23 & Ryan Were & Updated SRS to Rev 1. Updated according to instructor feedback (added more rationale to requirements, updated monitored variables, updated context diagram, stimulus effect table, and system response table)\\
+        \hline
         \end{tabularx}
     \end{table}
 
@@ -86,7 +88,7 @@
     Stonecap Solutions aims to solve existing issues in the billion dollar bartending industry relating to the process of fulfilling drink orders. Bars are often busy with many orders being processed through a mental queue by bartenders. This can result in long wait times. Furthermore, many restaurants and bars are susceptible to being understaffed, further exasperating this issue. Cocktails and other drinks are imprecisely made, varying in volume and consistency. When bartenders are rushing around to make these drinks, the risk of spilling them arises. If these issues are severe enough, it could result in unsatisfied customers, decreasing business profits. \\
 
     % Proposed Solution
-    Stonecap Solutions aims to solve this problem by developing a drink delivery system that streamlines the process of a customer ordering a drink up to them receiving it. The system would automate the tasks of taking customer orders, making the drinks, and alerting the end user when the drinks are ready. This would result in a system that creates consistent, accurate and timely drinks while avoiding unnecessary spillage.
+    Stonecap Solutions aims to solve this problem by developing a drink delivery system that streamlines the process of a customer ordering a drink up to them receiving it. The system would automate the tasks of taking customer orders, making the drinks, and alerting the end-user when the drinks are ready. This would result in a system that creates consistent, accurate and timely drinks while avoiding unnecessary spillage.
 
 
 
@@ -189,48 +191,66 @@
 \subsection{Monitored and Controlled Variables}
 \subsubsection{Monitored Variables} % variables that go into the hardware
     \begin{itemize}
-        \item M\_ingredientReady
+        \item ingredientVolume
+        \begin{itemize}
+            \item int: range 0-2000
+        \end{itemize}
+        \item distance
+        \begin{itemize}
+            \item float
+        \end{itemize}
+        \item cup\_status
         \begin{itemize}
             \item True or False
         \end{itemize}
-        \item M\_cupPresent
+        \item cup\_status\_turn
         \begin{itemize}
             \item True or False
         \end{itemize}
-        \item M\_cupEmpty
+        \item fill\_status
         \begin{itemize}
             \item True or False
         \end{itemize}
-        \item M\_username
+        \item shotType
+        \begin{itemize}
+            \item int: range 0-4
+        \end{itemize}
+        \item pumpconfiguration
+        \begin{itemize}
+            \item an array with int values of 13, 15, 19, 37, and 40 to map where the ingredient is placed in the physical world to the correct pump pin on the Raspberry Pi
+        \end{itemize}
+        \item username
         \begin{itemize}
             \item True or False
         \end{itemize}
-        \item M\_password
+        \item password
         \begin{itemize}
             \item True or False
         \end{itemize}
-        \item M\_alcoholID
-        \begin{itemize}
-            \item 0-5 range
-        \end{itemize}
-        \item M\_mixID
-        \begin{itemize}
-            \item 0-5 range
-        \end{itemize}
-        \item M\_drinkVolume
-        \begin{itemize}
-            \item 0-2 range
-        \end{itemize}
-        \item M\_orderPlaced
+        \item order_placed
         \begin{itemize}
             \item True or False
         \end{itemize}
-    \end{itemize}
+ \end{itemize}
     
 \subsubsection{Controlled Variables} % variables that come out of the hardware
     \begin{itemize}
-        \item C\_valveOpen
-        \item C\_notification
+        \item output_motor
+        \begin{itemize}
+            \item We are controlling the output signal of the turntable motor pin to be either on or off. Values of True or False. True is off and False is on.
+        \end{itemize}
+        \item output_TRIG
+        \begin{itemize}
+            \item We are controlling the output signal of the trigger pin for the ultrasonic sensor to output a wave so we can sense the distance. Values of True or False. True is off and False is on.
+        \end{itemize}
+        \item output_pump[]
+        \begin{itemize}
+            \item We are controlling the output signal of the pump pin(s) to be either on or off. Values of True or False. True is off and False is on.
+        \end{itemize}        
+        \item notification
+        begin{itemize}
+            \item True or False for if a message is to be sent or not.
+        \end{itemize}
     \end{itemize}
 \subsubsection{System Responses}
     
@@ -242,7 +262,7 @@
 
      % Figure 3
     \begin{figure}[H]
-    \centerline{\includegraphics[scale=0.9]{StimulusEffect.JPG}}
+    \centerline{\includegraphics[scale=1.1]{StimulusEffect.JPG}}
     \caption{Stimulus Effect Chart}
     \label{fig}
     \end{figure}
@@ -306,52 +326,82 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
 
 \section{Function Requirements}
 \subsection{Ordering Drink}
-    \noindent\textbf{ODR1.} User can scan QR code launching smart-serve web app \\\\ 
-    \textbf{ODR2.} User can access the menu and select drinks to order\\\\
-    \textbf{ODR3.} Users can view the placement of their order in the queue \\\\ 
-    \textbf{ODR4.} User is notified if drink ingredients are out of inventory\\\\ 
-    \textbf{ODR5.} User is notified when their drink is done\\
-
-    \textbf{Rationale:} This is done so the drink does not stay idle while other customers are waiting\\\\
-    \textbf{ODR6.} Operator is notified if drink ingredients are out of inventory\\\\
-    \textbf{ODR7.} Operator inputs all ingredients available for drinks into the web app\\\\
-    \textbf{ODR8.} Operator inputs dispenser location of each ingredient into web app\\
+    \noindent\textbf{ODR1.} User can scan QR code launching smart-serve web app \\\\
+    \textbf{Rationale:} This makes it easy for users to access the Web App.\\\\
     
+    \textbf{ODR2.} User can access the menu and select drinks to order\\\\
+    
+    \textbf{ODR3.} Users can view the placement of their order in the queue \\\\
+    \textbf{Rationale:} This allows users to get an estimate for when their order will begin so they can be by the machine when they need to be.\\\\
+    
+    \textbf{ODR4.} User is unable to order a drink if the ingredients in the drink's recipe are out of inventory\\\\
+    \textbf{Rationale:} Users should not be able to order something that cannot be made as this will cause dissatisfaction.\\\\
+    
+    \textbf{ODR5.} User is notified when their drink is done\\
+    \textbf{Rationale:} This is done so the drink does not stay idle while other customers are waiting\\\\
+    
+    \textbf{ODR6.} Operator is notified if drink ingredients are out of inventory\\\\
+    \textbf{Rationale:} This allows ingredients to be refilled quickly so there is little downtime between drinks.\\\\
+    
+    \textbf{ODR7.} Operator inputs all ingredients available for drinks into the web app\\\\
+    
+    \textbf{ODR8.} Operator inputs dispenser location of each ingredient into web app\\   
     \textbf{Rationale:} This allows for more flexibility with drink mixing and makes the system more universal.\\\\
+    
     \textbf{ODR9.} User gets notified when the drink is ready via web app\\\\
+    
     \textbf{ODR10.} Web app keeps track of drinks made\\
-
     \textbf{Rationale:} Data is used for analytics to track popular drinks/ingredients or for inventory check\\\\
+    
     \textbf{ODR11.} Server decrypts drink name and gathers ingredients\\\\
+    
     \textbf{ODR12.} User's drink is the same drink they ordered on the app \\\\
+    
     \textbf{ODR13.} User can log in successfully into the app \\\\
+    
     \textbf{ODR14.} User has user permissions  \\\\
+    \textbf{Rationale:} This prevents users from being able to change the drink type and volumes inappropriately so operations can run smoothly.\\\\
+    
     \textbf{ODR15.} Electrical components of high exposure to liquids have waterproof covering\\\\
+    \textbf{Rationale:} This improves the robustness of the design as causes of failure for electrical components have been mitigated.\\\\
+    
     \textbf{ODR16.} Have a robust and durable architecture/components\\\\
     \indent\textbf{Rationale:} Bars and pubs can be high-traffic areas resulting in spills and collisions\\
 
 \subsection{Making Drink}
     \noindent\textbf{MDR1.} Hardware receives ingredients from server \\\\
+    
     \textbf{MDR2.} Hardware dispenses the appropriate amount of liquid from respective bottle \\\\
+    \textbf{Rationale:} This is essential so the volume of alcohol being served is consistent.\\\\
+    
     \textbf{MDR3.} Hardware can detect if a cup is present \\\\
+    
     \textbf{MDR4.} Hardware can detect if the cup is empty or full \\\\
-    \textbf{MDR8.} Web app displays that an order is ready so the user can remove it \\\\
-    \textbf{MDR9.} Hardware will not start the next order until the completed drink is removed, and a new empty cup is placed in dispensing area \\\\
-    \textbf{MDR10.} Hardware does not begin a new drink until the previous drink is removed \\\\
+    \textbf{Rationale:} This is important to monitor so full cups are not poured into.\\
+    
+    \textbf{MDR5.} Web app displays that an order is ready so the user can remove it \\\\
+    \textbf{Rationale:} This allows for a quick transition of the device to begin handling the next customer's order.\\\\
+    
+    \textbf{MDR6.} Hardware will not start the next order until an empty cup is detected in the dispensing area\\\\
+    \textbf{Rationale:} This prevents spillage and customers' drinks needing to be remade.\\\\
+    
+    \textbf{MDR7.} Hardware does not begin a new drink until at least one of two completed drinks are removed \\\\
 
 \section{Non-Functional Requirements}
 \subsection{Quality requirements of the entire system}
     \noindent\textbf{QR1.} Smart Serve must be robust\\ 
     
-    \textbf{Rationale:} During steady state operation, smart serve will satisfy all its functional requirements.\\
+    \textbf{Rationale:} During steady state operation, Smart Serve will satisfy all its functional requirements.\\
 \subsection{Look and Feel Requirements}
     \noindent\textbf{LFR1.} The web app must be intuitive and visually appealing \\\\
-    \indent\textbf{Rationale:} The least amount of clicks necessary will result in a more user-friendly UI\\\\
-    \textbf{LFR2.} Smart Serve must have all electrical and mechanical components concealed \\
+    \textbf{Rationale:} The least amount of clicks necessary will result in a more user-friendly UI.\\\\
+    \textbf{LFR2.} Smart Serve must have all electrical and mechanical components concealed \\\\
+    \textbf{Rationale:} This protects Smart Serve from being damaged.\\
 
 \subsection{Usability and Humanity Requirements}
     \subsubsection{Ease of use}
         \noindent\textbf{UHR1.} Smart Serve must serve the drink at a height that is easy to grab for an average adult \\\\
+        \textbf{Rationale:} This makes Smart Serve more ergonomic and accessible to all people.\\\\
         \textbf{UHR2.} Smart Serve must make grabbing the drink easy for the user, without blockages or inconveniences\\\\
         \textbf{UHR3.} The web app must make it easy to navigate and select drinks\\
     \subsubsection{Ease of learning}
@@ -372,7 +422,9 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
         \noindent\textbf{PR6.} Smart Serve must be able to create the correct drink every time as long as it has the correct ingredients \\
     \subsubsection{Capacity requirement}
         \noindent\textbf{PR7.} Smart Serve must be able to store up to 5 ingredients \\\\
-        \textbf{PR8.} Smart Serve must be able to store up to 2 liters of each ingredient \\
+        \textbf{Rationale:} This allows for a wide variety of drinks to be available at all times, this generally allows for 5-9 different drink combinations.
+        \textbf{PR8.} Smart Serve must be able to store up to 2 litres of each ingredient \\
+        \textbf{Rationale:} This allows for Smart Serve to still be relatively small in size, but contain enough liquid for a minimum of 11 orders to be completed before having to refill an ingredient.\\\\
 
 \subsection{Operational and Environmental Requirements}
     \subsubsection{Expected physical environment}
@@ -387,7 +439,8 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
 
 \subsection{Maintainability and Support Requirements}
     \subsubsection{Maintainability}
-        \noindent\textbf{MSR1.} Smart Serve should be cleaned once every day \\\\
+        \noindent\textbf{MSR1.} Smart Serve should be cleaned at least once every day \\\\
+        \textbf{Rationale:} This is to follow health and safety standards.\\\\
         \textbf{MSR2.} Smart Serve must be restocked with new ingredients to be able to serve drinks \\
     \subsubsection{Special Maintenance Conditions} 
         \noindent\textbf{MSR3.} No electronic or water-sensitive components of Smart Serve can get wet during cleaning \\\\
@@ -398,22 +451,23 @@ There are two intended users for Smart Serve: Managers and Customers. \\\\
         \indent\textbf{Rationale:} This is done so it can be carried with one to two people with ease\\
 
 \subsection{Security Requirements}
-    \textbf{SR1.} Communication between the web app and Smart Serve must be secure \\\\
+    \noindent\textbf{SR1.} Communication between the web app and Smart Serve must be secure \\\\
     \textbf{SR2.} The operator must be responsible for correctly operating the machine and restocking ingredients \\\\
     \textbf{SR3.} The user must provide identification and be of drinking age to order and receive a drink from Smart Serve \\\\
+    \textbf{Rationale:} This is to comply with liquor laws.
 
 \subsection{Cultural and Political Requirements}
     \noindent{Not applicable} \\
 \subsection{Legal Requirements}
     \noindent\textbf{LR1.} Smart Serve must only be used in countries where alcohol is legal \\\\
     \textbf{LR2.} Smart Serve must not produce a drink that is consumed by persons under the drinking age \\\\
-    \textbf{LR3.} The operator of Smart Serve is liable for all drinks served \\
+    \textbf{LR3.} The owner of Smart Serve is liable for all drinks served \\
 
 \subsection{Health and Safety Requirements}
     \noindent\textbf{HSR1.} Smart Serve or the operator must not serve a drink to someone who is dangerously intoxicated \\\\
     \textbf{HSR2.} Smart Serve should not be operational near unsupervised persons under the drinking age \\\\
     \textbf{HSR3.} Smart Serve or the operator must not serve more than 2 drinks per hour to one user\textsuperscript{[1]} \\\\
-    \textbf{HSR4.} No electrical component can come into contact with any fluid \\
+    \textbf{HSR4.} No electrical components can come into contact with any fluid \\
 
 \section{Likely Changes to Requirements}
 \subsection{Machine Improvements}
