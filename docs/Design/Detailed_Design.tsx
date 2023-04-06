@@ -1,0 +1,797 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{amsmath, mathtools}
+
+\usepackage[round]{natbib}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{caption}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\hypersetup{
+bookmarks=true,     % show bookmarks bar?
+colorlinks=true,       % false: boxed links; true: colored links
+linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+citecolor=blue,      % color of links to bibliography
+filecolor=magenta,  % color of file links
+urlcolor=cyan          % color of external links
+}
+
+\usepackage{array}
+
+\externaldocument{../../SRS/SRS}
+
+\newcommand{\progname}{SmartServe} % PUT YOUR PROGRAM NAME HERE
+\newcommand{\authname}{Team 21, StoneCap Solutions
+\\ Max Turek $turekm$
+\\ Ryan Were $werer$
+\\ Sam Nusselder $nusselds$
+\\ Peter Minbashian $minbashp$
+\\ David Bednar $bednad1$} % AUTHOR NAMES  
+
+\begin{document}
+
+\title{Module Interface Specification for \progname{}}
+
+\author{\authname}
+
+\date{\today}
+
+\maketitle
+
+\pagenumbering{roman}
+
+\section{Revision History}
+
+\begin{tabularx}{\textwidth}{| s | s | s | X |}
+        \toprule
+        \textbf{Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change(s)}\\
+        \midrule
+         & & Max Turek & \\
+         & & Ryan Were & \\
+        1.0 & 01/18/23 & Sam Nusselder & Initial Draft\\
+         & & Peter Minbashian & \\ 
+         & & David Bednar & \\ 
+        \bottomrule
+        \hline
+\end{tabularx}
+
+~\newpage
+
+\section{Symbols, Abbreviations and Acronyms}
+
+See SRS Documentation at \href{https://github.com/purefisher/Smart-Serve/blob/main/docs/SRS/SRS.pdf}{SRS}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Introduction}
+
+The following document details the Module Interface Specifications for
+Smart Serve, an autonomous drink creation machine. 
+
+Complementary documents include the System Requirement Specifications
+and Module Guide.  The full documentation and implementation can be
+found at \href{https://github.com/purefisher/Smart-Serve}{Smart-Serve}.
+
+\section{Module Decomposition}
+
+The following table is taken directly from the Module Guide document for this project.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Level 1} & \textbf{Level 2}\\
+\midrule
+
+{Hardware-Hiding Module} & Python Hardware ~ \\
+\midrule
+
+\multirow{3}{0.3\textwidth}{Behaviour-Hiding Module}
+& Send Order\\
+& Volume Tracker\\
+& Drink Ready\\
+\midrule
+
+\multirow{3}{0.3\textwidth}{Software Decision Module}
+& Menu Page\\
+& Admin Ingredient Input\\
+& Order History\\
+& Header\\
+& Login Page\\
+\bottomrule
+
+\end{tabular}
+\caption{Module Hierarchy}
+\label{TblMH}
+\end{table}
+
+\newpage
+~\newpage
+
+\newpage
+\section{MIS of \wss{Drink Ready}}
+
+\subsection{Module}
+
+\wss{Drink Ready}
+
+\subsection{Uses}
+Used to determine whether a not a drink has been completed. This is used for the system logic as it helps the system decide if a new drink is ready to be made.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & finished \\
+\hline
+\textbf{Type} & Boolean \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{drinkDone} & sentDone & finished & errorInMaking 
+\end{tabular}
+\end{center}
+
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\wss{sendDone: \textit{Boolean}}
+
+\subsubsection{Environment Variables}
+
+\wss{Cup
+    Ingredients}
+
+\subsubsection{Assumptions}
+
+\wss{N/A}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{sendDone}():
+\begin{itemize}
+\item output: \\ \wss{\textbf{If} cupfill()} 
+\\ \wss{\textbf{Then} send 'True' Boolean}
+\item exception: \wss{\textbf{If} error found in making drink} 
+\\ \wss{\textbf{Then} send 'False' Boolean}
+\end{itemize}
+
+\noindent \wss{drinkDone}():
+\begin{itemize}
+\item output: \\ \wss{\textbf{If} sentDone()} 
+\\ \wss{\textbf{Then} notifyUser()} 
+\item exception: \wss{If error found in making drink} 
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\wss{\textbf{notifyUser()}: Displays pop up window to user that their drink is complete \\} \\ 
+\wss{\textbf{cupfill()}: Outputs True Boolean if cup if full, using sensor data, or output False if not full \\\\}
+
+\newpage
+
+\section{MIS of \wss{Volume Tracker Module}} \label{Module}
+
+\subsection{Module}
+
+\wss{Volume Tracker}
+
+\subsection{Uses}
+Used to keep track of the amount of ingredients available within the system to ensure appropriate drinks are being offered
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & ingredientAmounts \\
+\hline
+\textbf{Type} & JSON \\
+\hline
+
+\end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{trackVol} & ingredientAmounts & N/A & negativeIngredients 
+\end{tabular}
+\end{center}
+
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\wss{currentVolumes: \textit{JSON} \\
+    ingredientAmounts: \textit{JSON}\\
+    drinkOrdered: \textit{Boolean}}
+    
+
+\subsubsection{Environment Variables}
+
+\wss{Ingredients}
+
+\subsubsection{Assumptions}
+
+\wss{Owner of machine appropriately sets the location of each of their ingredients}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{changeVolumeAmounts}():
+\begin{itemize}
+\item output: \\ \wss{\textbf{If} drinkOrdered}
+\wss \\
+{\textbf{Then} Subtract Volume Amounts drinkOrdered} 
+\item exception: \\ \wss{\textbf{If} ingredient volume goes is in the negative} 
+\end{itemize}
+
+\subsubsection{Local Functions}\
+
+\wss{N/A}
+
+\newpage
+  
+\section{MIS of Send Order Module} \label{Module} 
+
+\subsection{Module}
+Send Order
+
+\subsection{Uses}
+Used to send data to the hardware to signal a drink must be made and the ingredients for said drinks
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & drinkIngredients \\
+\hline
+\textbf{Type} & JSON \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{sendOrder} & drinkName & drinkIngredients & drinkDNE 
+\end{tabular}
+\end{center}
+
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\wss{drinkName: \textit{String} \\
+    drinkList: \textit{JSON}} \\
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+
+\wss{N/A}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{sendOrder}():
+\begin{itemize} 
+\item output: \\ \wss{ \textbf{If }getIngredients(drinkName) is not NULL} 
+\\ \wss{\textbf{Then} sendDrinkIngredients(ingredients)} 
+\item exception: \wss{\textbf{If getIngredients(drinkName) is NULL}} 
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\wss{\textbf{getIngredients(drinkName)}: Gets ingredients of corresponding drink name from JSON library of all drink names and respective ingredients. Returns Null if drink does not exist. \\\\
+    \textbf{sendDrinkIngredients(ingredients)}: Send JSON object containing all appropraite ingredients and their measurements}
+
+\newpage
+
+
+\section{MIS of Python Hardware} \label{Module} 
+
+
+\subsection{Module}
+
+Python Hardware
+
+\subsection{Uses}This module serves to link the web application and the hardware with each other. The module gets called with parameters that are already hard coded in the web application.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & cocktailCreated \\
+\hline
+\textbf{Type} & boolean \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{makeDrink} & ingredientList & Boolean & incorrectOrder \\
+ & ingredientLocations & & noOrder
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\wss{Drink: \textit{Drink} \\
+     cocktailCreated: \textit{cocktailCreated}}
+
+\subsubsection{Environment Variables}
+
+\wss{Cup \\
+    Ingredients}
+
+\subsubsection{Assumptions}
+
+\wss{Owner of machine appropriately sets the location of each of their ingredients}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{makeCocktail}():
+\begin{itemize}
+\item output: \\ \quad \wss{ If Drink order is sent \\ \textbf{and} If cuppresent()  \\ \textbf{then} pourDrink()} 
+\\ \textbf{then} rotate()
+\item exception: \wss{If Ingredients are not available \textbf{or} If Cups not available} 
+\end{itemize}
+
+
+
+\subsubsection{Local Functions}
+
+\wss{\textbf{cupfill()}: Outputs True Boolean if cup if full, using sensor data, or output False if not full \\\\
+                        \textbf{cuppresent()}:  Outputs Boolean True if the cup is present, using the sensor, or outputs False \\\\
+                        \textbf{pourDrink()}:  Called to activate GPIO pins to activate pump \\\\
+                        \textbf{rotate()}: Called after the drink is made to rotate the "lazy susan" to fill the next cup}
+
+\newpage
+
+\newpage
+
+\section{MIS of \wss{Login Page Module}} \label{Module}
+
+\subsection{Module}
+
+\wss{Login Page}
+
+\subsection{Uses}
+
+\wss{The module is used to register or sign in regular and administrative users. Access to the header module is granted upon successful registration or sign in.}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+loginDB:\\
+for each row entry:\\
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & username & password \\
+\hline
+\textbf{Type} & string  & string \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{2cm} p{7cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{signIn} & \wss{username, password} & \wss{N/A} & \wss{doesUExist, doesUPMatch, isChLimit} \\
+\wss{register} & \wss{username, password} & \wss{N/A} & \wss{!doesUExist,isChLimit} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\textbf{Name}  & \textbf{Type}  & \textbf{Range}\\
+Username  & string  & 15 characters \\
+Password  & string  & 20 characters \\
+
+\subsubsection{Environment Variables}
+
+\wss{The web application is displayed on a screen using HTML, CSS, and reactJS}
+
+\subsubsection{Assumptions}
+
+\wss{N/A}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{signIn }(username, password):
+\begin{itemize}
+\item transition:\\if (doesUnameExist(username)\\ and doesUnamePassMatch(username, password) \\ and isCharLimit(username, password))\\ then \\ Goto header module
+\item exception:\\ else \\ Goto Login Page Module
+\end{itemize}
+
+\noindent \wss{Register}(username, password):
+\begin{itemize}
+\item transition:\\if (not doesUnameExist(username)\\ and isCharLimit(username, password))\\ then \\ Goto header module
+\item exception: \\else \\ Goto Login Page Module
+\end{itemize}
+
+
+
+\subsubsection{Local Functions}
+
+\noindent \wss{doesUExist}(username):
+\begin{itemize}
+\item transition:\\Output: True if username in all loginDB.username
+\end{itemize}
+
+\noindent \wss{doesUPMatch}(username, password):
+\begin{itemize}
+\item Output: True if loginDB(username) == password
+\end{itemize}
+
+\noindent \wss{isChLimit}(username, password):
+\begin{itemize}
+\item Output: True if username.length $\leq$ to 15 and password.length $\leq$ 20
+
+\end{itemize}
+
+\newpage
+\section{MIS of \wss{Header Module}} \label{Module}
+
+\subsection{Module}
+
+\wss{Header}
+
+\subsection{Uses}
+
+\wss{The module is used to navigate to either the menu page, the admin ingredient input, or the order history module}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+adminDB:\\
+for each row entry:\\
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & adminUName \\
+\hline
+\textbf{Type} & string \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{goToMenu} & \wss{N/A} & \wss{N/A} & \wss{N/A} \\
+\wss{goToAdmin} & \wss{username} & \wss{N/A} & \wss{isAdmin} \\
+\wss{goToHistory} & \wss{N/A} & \wss{N/A} & \wss{N/A} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+
+\wss{The web application is displayed on a screen using HTML, CSS, and reactJS}
+
+\subsubsection{Assumptions}
+
+\wss{N/A}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{goToMenu }():
+\begin{itemize}
+\item transition: Goto menu page module
+\end{itemize}
+
+\noindent \wss{goToAdmin }(username):
+\begin{itemize}
+\item transition: \\if isAdmin(username) \\ then \\ Goto admin ingredient input module
+\item exception: \\else \\ Goto Header Module
+\end{itemize}
+
+\noindent \wss{goToHistory}():
+\begin{itemize}
+\item transition: Goto order history module
+\end{itemize}
+
+
+\subsubsection{Local Functions}
+
+\noindent \wss{isAdmin}(username):
+\begin{itemize}
+\item transition:\\Output: True if username in all adminDB.adminUName
+\end{itemize}
+
+\newpage
+
+\section{MIS of \wss{Menu Page Module}} \label{Module}
+
+\subsection{Module}
+
+\wss{Menu Page}
+
+\subsection{Uses}
+
+\wss{The module is used to order available drinks.
+}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+drinkDB:\\
+for each row entry:\\
+\begin{center}
+\begin{tabular}{p{2cm} p{3cm} p{3cm} p{3cm} p{3cm}}
+\hline
+\textbf{Name} & name & image & category & ingredient \\
+\hline
+\textbf{Type} & string & png/jpg & string & list(string) \\
+\hline
+\end{tabular}
+\end{center}
+\\
+drinkHistoryDB:\\
+for each row entry:\\
+\begin{center}
+\begin{tabular}{p{2cm} p{3cm} p{3cm} p{3cm} p{3cm}}
+\hline
+\textbf{Name} & drinkName \\
+\hline
+\textbf{Type} & string \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{orderDrink} & \wss{drinkName} & \wss{N/A} & \wss{isDrinkAvailable} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\textbf{Name}  & \textbf{Type}  & \textbf{Range}\\
+drinkName   & string & 30 characters\\
+
+\subsubsection{Environment Variables}
+
+\wss{The web application is displayed on a screen using HTML, CSS, and reactJS}
+
+\subsubsection{Assumptions}
+
+\wss{N/A}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{orderDrink}(drinkName):
+\begin{itemize}
+\item transition: \\if isDrinkAvailable(drinkName) \\then \\Send "send order module":\\ (drinkDB(drinkName).ingredients and ingDB) \\ and \\ drinkHistoryDB.append(drinkName) \\ and \\ export drinkHistoryDB to order history module
+\item transition: Goto menu page module
+\end{itemize}
+
+
+\subsubsection{Local Functions}
+
+\noindent \wss{isDrinkAvailable}(drinkName):
+\begin{itemize}
+\item transition:\\Output: True if \\ all ingredients in drinkDB(drinkName).ingredients \\ in ingDB.ing
+\end{itemize}
+
+\newpage
+
+\section{MIS of \wss{Admin Ingredient Input}} \label{Module}
+
+\subsection{Module}
+\wss{Admin Ingredient Input}
+
+\subsection{Uses}
+
+\wss{The module is used by an admin user to input ingredients and corresponding dispenser locations}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+ingDB:\\
+for each row entry:\\
+\begin{center}
+\begin{tabular}{p{2cm} p{3cm} p{3cm} p{3cm} p{3cm}}
+\hline
+\textbf{Name} & ing & dispenser \\
+\hline
+\textbf{Type} & string & int \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{addIng} & \wss{ingName, dispNum} & \wss{N/A} & \wss{N/A} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\textbf{Name}  & \textbf{Type}  & \textbf{Range}\\
+ingName   & string & 30 characters\\
+dispNum    &  int & -\\
+
+\subsubsection{Environment Variables}
+
+\wss{The web application is displayed on a screen using HTML, CSS, and reactJS}
+
+\subsubsection{Assumptions}
+
+\wss{N/A}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{addIng}(ingName, dispNum):
+\begin{itemize}
+\item transition: ingDB(ingName) = dispNum \\ and \\export ingDB to main page module
+\end{itemize}
+
+
+\subsubsection{Local Functions}
+
+N/A
+
+\newpage
+
+\section{MIS of \wss{Order History Module}} \label{Module}
+
+\subsection{Module}
+
+\wss{Order History}
+
+\subsection{Uses}
+
+\wss{The module is used to store a list of the names of made drinks}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{displayList} & \wss{N/A} & \wss{drinkList} & \wss{N/A} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\textbf{Name}  & \textbf{Type}  & \textbf{Range}\\
+N/A
+
+\subsubsection{Environment Variables}
+
+\wss{The web application is displayed on a screen using HTML, CSS, and reactJS}
+
+\subsubsection{Assumptions}
+
+\wss{N/A}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{displayList}():
+\begin{itemize}
+\item otput:  import drinkHistoryDB from "main menu module"
+\end{itemize}
+
+
+\subsubsection{Local Functions}
+
+N/A
+
+\newpage
+
+
+\bibliographystyle {plainnat}
+\bibliography {../../../refs/References}
+
+\newpage
+
+\section{Appendix} \label{Appendix}
+
+\end{document}
