@@ -73,12 +73,14 @@
         & David Bednar & \\
         \bottomrule
         \hline
+        04/05/23 & Max Turek & Removed some security requirements and updated some failures in the FMEA table\\
+        \hline
         \end{tabularx}
     \end{table}
 
 \newpage
 \section{Introduction}
-    This document is the Hazard Analysis for Stonecap Solutions - Smart Serve. Smart Serve is an autonomous bartending robot that aims to streamline the process of a customer ordering a drink up to them receiving it. The system would automate the tasks of taking customer orders, making the drinks, and alerting the end user when the drinks are ready. This would result in a system that creates consistent, accurate and timely drinks while avoiding unnecessary spillage.
+    This document is the Hazard Analysis for StoneCap Solutions - Smart Serve. Smart Serve is an autonomous bartending robot that aims to streamline the process of a customer ordering a drink up to them receiving it. The system would automate the tasks of taking customer orders, making the drinks, and alerting the end user when the drinks are ready. This would result in a system that creates consistent, accurate and timely drinks while avoiding unnecessary spillage.
 
 \section{Scope and Purpose of Hazard Analysis}
     The scope of this document is to conduct a Hazard Analysis on the proposed Smart Serve System using a Failure Modes and Effects Analysis (FMEA). We aim to identify possible failures, their modes, effects, and causes. Knowing these, we will be able to recommend actions to mitigate these hazards.
@@ -96,7 +98,7 @@
     \item The web application both front and back end which is used for users and operators to interact with the system
     \item The container used to house the cocktail 
     \end{enumerate}
-    All the hardware of the system excluding cloud servers for the web application and the users phone, are the responsibility of StoneCap Solutions. All these systems work together to create the overall system boundary profile of Smart Serve for every use case. 
+    All the hardware of the system excluding the WiFi network and the users phone, are the responsibility of StoneCap Solutions. All these systems work together to create the overall system boundary profile of Smart Serve for every use case. 
 
 \section{Definition of Hazard}
 As defined by Nancy Leveson's work a hazard is a condition, property or state of a system coupled with a state in the environment that has the potential to cause harm or damage. %need citation 
@@ -105,7 +107,6 @@ As defined by Nancy Leveson's work a hazard is a condition, property or state of
     Critical assumptions of the system include:
     \begin{itemize}
         \item Smart Serve is not intentionally tampered with or physically damaged by anyone 
-        \item Cloud services that are provided by third parties for the web app are always up and running 
         %could we also say something about smart serve being in a safe area where it can't fall? 
         %Yeeeee, we could also add a bracket to the base of it where you could just add some screws to mount it to a surface pretty easily tho
         \item Smart Serve is set up on a well balanced surface that users aren't able to easily knock over
@@ -120,9 +121,7 @@ As defined by Nancy Leveson's work a hazard is a condition, property or state of
     \begin{itemize}
         \item The physical location of a bar or restaurant environment
         \item The user's mobile device to connect to the web application and works as intended
-        \item Database and backend resource issues which are provided by a third party
         \item Human behaviour from the result of intoxication or alcohol use 
-        \item User payment failure
     \end{itemize}
     
     %Maybe instead of focusing on a component, lets focus on an area like his lecture slides example, so pouring too much liquid can have a failure cause from electrical and mechanical sources.
@@ -144,9 +143,9 @@ As defined by Nancy Leveson's work a hazard is a condition, property or state of
             \cline{2-7}
             & System dispenses improper drink ingredients & User could become ill & a. Software sends the wrong drink order & a. Notify operator of issue, and run our test suite to validate drink orders & ODR11 & H1-3  \\
             \cline{2-7}
-                & Glass is misaligned & Water could spill in the machine, on the user, or on the table & a. User does not place glass in machine correctly & a. Clean up mess and dry machine & ODR11 & H1-4  \\
+                & Cup is misaligned & Water could spill in the machine, on the user, or on the table & a. User does not place glass in machine correctly & a. Clean up mess and dry machine & ODR11 & H1-4  \\
             \hline
-            Hardware of System & Short circuiting of electrical components & Undefined System behaviour would result & a. Damage to smart serve could loosen components, or a spill/leak as described above & a. Use heat shrink on any loose wiring and epoxy to cover and secure electronic components that are exposed & ODR14 ODR15 & H2-1\\
+            Hardware of System & Failure of electrical components & Undefined System behaviour would result & a. Damage to smart serve could loosen components, or a spill/leak as described above & a. Notification to web app with an error message corresponding to the component failure & ODR14 ODR15 & H2-1\\
             \cline{2-7}
             & Front panels for chassis are not water tight & Damage to key components can result in system failures, i.e. short circuiting & a. Spillage of internal or external liquids of the system may be able to permeate into key electrical/hardware components & a. Use an epoxy to seal key areas that spills are likely to occur in that lead to electrical components of the Smart Serve System & ODR14 & H2-2 \\ 
             \cline{2-7}
@@ -160,7 +159,7 @@ As defined by Nancy Leveson's work a hazard is a condition, property or state of
             \label{tab: caption}
             %table gets messed up with caption
         \end{table}
-    \end{landscape}
+     \end{landscape}
     \end{rotate}
 
     \begin{rotate}{}
@@ -200,11 +199,9 @@ As defined by Nancy Leveson's work a hazard is a condition, property or state of
     \\\\
     \noindent\textbf{ODR1:} User can scan QR code launching smart-serve web app \\\\ 
     \textbf{ODR2:} User can access the menu and select drinks to order\\\\ 
-    \textbf{ODR3:} User can cancel or change order while waiting for drink to be made \\\\ 
-    \textbf{ODR4:} User can view place/time remaining for the drink to be made \\\\ 
+    \textbf{ODR3:} User can view place/time remaining for the drink to be made \\\\ 
     \textbf{ODR5:} User is notified if drink ingredients are out of inventory\\\\ 
     \textbf{ODR6:} User is notified when drink is done\\\\
-    \textbf{ODR7:} Web app gives an intoxication test when the customer has ordered too many drinks too quickly\\\\
     \textbf{ODR8:} Operator is notified if drink ingredients are out of inventory\\\\
     \textbf{ODR9:} Operator inputs all ingredients available for drinks into the web app\\\\
     \textbf{ODR10:} Operator inputs dispenser location of each ingredient into web app\\\\
@@ -212,8 +209,8 @@ As defined by Nancy Leveson's work a hazard is a condition, property or state of
     \textbf{ODR12:} User can login successfully into the app 
     \\\\
     \textbf{ODR13:} User has user permissions } \\\\
-    \textbf{ODR14:} \textbf{Electrical components of high exposure to liquids have waterproof covering}\\\\
-    \textbf{ODR15:} \textbf{Have a robust and durable architcecture/components}
+    \textbf{ODR14:} \textbf{Electrical components with high exposure to liquids are separated from liquid}\\\\
+    \textbf{ODR15:} \textbf{Have a robust and durable architecture/components}
     
     
 \section{Roadmap}
