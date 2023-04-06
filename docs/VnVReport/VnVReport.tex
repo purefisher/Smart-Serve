@@ -64,6 +64,8 @@
         03/08/23 & Ryan Were & Initial Draft\\
         & Peter Minbasian & \\
         & David Bednar & \\
+        \midrule
+        04/05/23 & Sam Nusselder & Updated VnV Report to address issues and feedback from instructors, Tas, and test users. Also ensured this document aligned with preceding documents such as the SRS document and VnV Plan by updating the corresponding requirement numbers in the SRS document and test cases in the VnV Plan.\\
         \bottomrule
         \hline
         \end{tabularx}
@@ -85,11 +87,11 @@ Refer to Definitions, Terms, Acronyms and Abbreviations table in \href{https://g
 This document serves to detail the results of our Verification and Validation Plan of our system Smart Serve.  
 
 \subsection{Relevant Documentation}
-Relevant documentation includes the \href{https://github.com/purefisher/Smart-Serve/blob/main/docs/VnVPlan/VnVPlan.pdf}{VnV Plan}. This provides a detailed explanation of all of our tests that we reference in this report.
+Relevant documentation includes the \href{https://github.com/purefisher/Smart-Serve/blob/main/docs/VnVPlan/VnVPlan.pdf}{VnV Plan} and \href{https://github.com/purefisher/Smart-Serve/blob/main/docs/SRS/SRS.pdf}{SRS} document. This provides a detailed explanation of all of our tests that we reference in this report.
 
 \newpage
 \section{Functional Requirements Test Results}
-All test results are qualitative and not measured, so we are simply saying "Pass" or "Fail" Depending on the observed behaviour of the system during testing.
+Most test results are qualitative and not measured, so we are simply saying "Pass" or "Fail" Depending on the observed behaviour of the system during testing. If the test results are quantitative, then the measured result is used to determine if the test was a "Pass" or "Fail."
     \begin{rotate}{}
     \begin{landscape}
         \begin{table}
@@ -97,13 +99,13 @@ All test results are qualitative and not measured, so we are simply saying "Pass
             \hline
             Test Number & Functional \newline Requirements & Inputs & Expected Outputs & Actual Outputs & Results  \\ [0.5ex]
             \hline\hline
-            ST-FR-ICT-01 & MDR6 \newline ODR2 \newline ODR5 \newline ODR8 & Ingredient(s) are out of inventory. & The operator receives a notification on the Web App. Specifying which ingredient vat(s) are empty. Menus on user accounts will display that drinks containing out of inventory ingredients are now unavailable. & Web App displays notification message alerting operator that the respective drink vat has been consumed and must be replaced. Drinks containing the out of inventory ingredient are no longer appearing on the Web App. & Pass \\
+            % ST-FR-ICT-01 & MDR6 \newline ODR2 \newline ODR5 \newline ODR8 & Ingredient(s) are out of inventory. & The operator receives a notification on the Web App. Specifying which ingredient vat(s) are empty. Menus on user accounts will display that drinks containing out of inventory ingredients are now unavailable. & Web App displays notification message alerting operator that the respective drink vat has been consumed and must be replaced. Drinks containing the out of inventory ingredient are no longer appearing on the Web App. & Pass \\
+            % \hline
+            ST-FR-ICT-01 & ODR2 \newline ODR4 \newline ODR7  & Ingredients are all in inventory. & The operator has no notifications on the Web App relating to ingredients being out of inventory. The menu on a user account has all drinks being available. & Web App displays all drinks are available for order. & Pass \\
             \hline
-            ST-FR-ICT-02 & MDR6 \newline ODR2 \newline ODR5 \newline ODR8  & Ingredients are all in inventory. & The operator has no notifications on the Web App relating to ingredients being out of inventory. The menu on a user account has all drinks being available. & Web App displays all drinks are available for order. & Pass \\
+            ST-FR-ICT-02 & ODR7 \newline ODR8 & Operator inputs all ingredients available and dispenser location of each ingredient into the Web App. & The ingredients and dispenser location map is updated to match the inputted ingredients and dispenser locations added by the operator. The menu on a user account has all drink combinations possible available. & Web App displays all given drink combinations for multiple combinations of inputed drink ingredients (rum and coke ingredients resulted in rum and coke and rum selection). & Pass \\
             \hline
-            ST-FR-ICT-03 & ODR9 \newline ODR10 & Operator inputs all ingredients available and dispenser location of each ingredient into the Web App. & The ingredients and dispenser location map is updated to match the inputted ingredients and dispenser locations added by the operator. The menu on a user account has all drink combinations possible available. & Web App displays all given drink combinations for multiple combinations of inputed drink ingredients (rum and coke ingredients resulted in rum and coke and rum selection). & Pass \\
-            \hline
-            ST-FR-WAUT-01 & ODR1 & Operator scans QR code with their phone. & Operator successfully reaches the Web App. Web App is functional. & Not available at as this as not been implemented yet & Fail \\
+            ST-FR-WAUT-01 & ODR1 & Operator scans QR code with their phone. & Operator successfully reaches the Web App. Web App is functional. & Upon scanning the Web App, the login screen is shown. & Pass \\
             \hline
             
             \end{tabular}
@@ -120,15 +122,11 @@ All test results are qualitative and not measured, so we are simply saying "Pass
             \hline
             Test Number & Functional \newline Requirements & Inputs & Expected Outputs & Actual Outputs & Results  \\ [0.5ex]
             \hline\hline
-            ST-FR-DOT-01 & ODR4 & Operator orders a drink on a user account. & Operator can view the order number in the queue of orders and the estimated time remaining until the drink is made. & User is able to successfully order a drink. Queue is still being implemented. & Fail \\
+            ST-FR-DOT-01 & ODR3 & Operator orders a drink on a user account. & Operator can view the order number in the queue of orders. & User is able to successfully order a drink. Queue updates automatically as soon as a drink is ordered. & Pass \\
             \hline
-            ST-FR-DOT-02 & ODR3 & Operator changes the drink order on the user account while waiting in queue. & The drink order is updated to the new order. The order number in the queue remains the same and the estimated time remaining is same. & Queue is still being implemented. & Fail \\
+            ST-FR-CPT-01 &  MDR3 \newline MDR6 & Operator orders a drink on a user account with no cup present. & Smart Serve searches for a cup by doing a full rotation, waiting 8 seconds and repeating this to give the user 3 chances to place their cup. & When no cup is present hardware successfully searches for a cup and doesn't pour without a cup present. & Pass \\
             \hline
-            ST-FR-DOT-03 & ODR3 & Operator cancels the drink order on the user account. & The drink order is cancelled and no longer appears in the queue. & Queue is still being implemented. & Fail \\
-            \hline
-            ST-FR-CPT-01 &  MDR3 \newline MDR7 & Operator orders a drink on a user account with no cup present. & Operator receives a ”no cup present” notification. & When no cup is present hardware successfully relays message to web app alerting user that there is no cup present and drink cannot be made. & Pass \\
-            \hline
-            ST-FR-CPT-02 & MDR3 \newline MDR7 & Operator supplies a cup into the pouring area while the initial order is still active. & The no cup present notification on the operators account has been removed. & Drink is successfully made and no error message is relayed to the web app. & Pass \\
+            ST-FR-CPT-02 & MDR3 \newline MDR6 & Operator supplies a cup into the pouring area while the initial order is still active. & Smart Serve begins making the drink ordered as soon as the cup is sensed. The drink is poured until completion. & Drink is successfully made and no error message is relayed to the web app. & Pass \\
             \hline
             \end{tabular}
             \caption{Test Results for Functional Requirements (2)}
@@ -145,11 +143,13 @@ All test results are qualitative and not measured, so we are simply saying "Pass
             \hline
             Test Number & Functional \newline Requirements & Inputs & Expected Outputs & Actual Outputs & Results  \\ [0.5ex]
             \hline\hline
-            ST-FR-DMT-01 & MDR2 \newline MDR4 \newline MDR5 \newline MDR7 \newline MDR8 \newline ODR11 \newline ODR12 & System is dispensing a drink. & Completed drink made with the correct proportions. The correct user account receives a drink is done notification. & Pump successfully dispenses drink into cup with correct proportions. User account receives a drink is done message.  & Pass \\
+            ST-FR-DMT-01 & MDR2 \newline MDR4 \newline ODR10 \newline ODR11 & System is dispensing a drink. & Completed drink made with the correct proportions. The correct user is removed from the queue. & Pump successfully dispenses drink into cup with correct proportions. User is removed from the queue once their drink is complete.  & Pass \\
             \hline
-            ST-FR-DMT-02 & MDR9 \newline MDR10 & Operator orders a drink on a user account while a full cup is present. & The user whose drink is completed still has a drink is complete notification. New order does not pour into the already full cup and attempts to cycle to an empty cup for 6 scans. & Notification is present. The full cup is skipped and the system scans for an empty one. & Pass \\
+            ST-FR-DMT-02 & MDR6 \newline MDR7 & Operator orders a drink on a user account while a full cup is present. & Smart Serve checks to see if the cup is full and rejects it as Smart Serve will not pour a drink in a full cup. Smart Serve will continue checking every 8 seconds to see if an empty cup is present to pour into. & The full cup is skipped and the system scans for an empty one. & Pass \\
             \hline
-            ST-FR-DMT-03 & MDR2 \newline MDR4 \newline MDR5 \newline MDR7 \newline MDR8 \newline ODR11 & Operator adds a cup to the pouring area while scanning from previous test is still occurring. & The drink is successfully poured into the empty cup. & The full cup is skipped still and the drink is successfully poured into the empty cup. & Pass \\
+            ST-FR-DMT-03 & MDR2 \newline MDR4 \newline ODR10 & Operator adds a cup to the pouring area while scanning from previous test is still occurring. & The system successfully scans the cups for the empty cup. It then pours the drink into the empty cup. & The full cup is skipped still and the drink is successfully poured into the empty cup. & Pass \\
+            \hline
+            ST-FR-DMT-04 & MDR6 \newline MDR7 & Operator orders a drink on a user account while a half full cup is present. & Smart Serve checks to see if the cup is full and rejects it as Smart Serve will not pour a drink in a full cup. Smart Serve will continue checking every 8 seconds to see if an empty cup is present to pour into. & The half full cup is skipped still and the drink is successfully poured into the empty cup. & Pass \\
             \hline
             \end{tabular}
             \caption{Test Results for Functional Requirements (3)}
@@ -160,7 +160,8 @@ All test results are qualitative and not measured, so we are simply saying "Pass
 
 
 \section{Nonfunctional Requirements Test Results}
-All test results are qualitative and not measured, so we are simply saying "Pass" or "Fail" Depending on the observed behaviour of the system during testing.
+Most test results are qualitative and not measured, so we are simply saying "Pass" or "Fail" Depending on the observed behaviour of the system during testing. If the test results are quantitative, then the measured result is used to determine if the test was a "Pass" or "Fail."
+
     \begin{rotate}{}
     \begin{landscape}
         \begin{table}
@@ -168,13 +169,13 @@ All test results are qualitative and not measured, so we are simply saying "Pass
             \hline
             Test Number & Functional \newline Requirements & Inputs & Expected Outputs & Actual Outputs & Results  \\ [0.5ex]
             \hline\hline
-            ST-NFR-UR-01 & UHR4 & Testers are asked to navigate the web page and place an order. Testers will rate their navigating and ordering experience on a scale from 1 to 5: 1 - unusable, 2 - poor, 3 - satisfactory, 4- good, 5 - excellent. & The average score from the testers in the survey is greater than 3 & Testers rate that their navigation and ordering experience are all 3 or higher & Pass \\
+            ST-NFR-UR-01 & UHR3 & Testers are asked to navigate the web page and place an order. Testers will rate their navigating and ordering experience on a scale from 1 to 5: 1 - unusable, 2 - poor, 3 - satisfactory, 4- good, 5 - excellent. & The average score from the testers in the survey is greater than 3 & Testers rate that their navigation and ordering experience are all 3 or higher & Pass \\
             \hline
             ST-NFR-UR-02 & UHR1 & Testers are asked to grab a cup. Testers will report if the machine was too high, too low, or fine. & More than half of the testers say the height is fine. & Testers unanimously agree that the machine height is desirable  & Pass \\
             \hline
-            ST-NFR-PR-01 & PR1 & Operator orders a drink on a user account & The drink is made and ready within 45 seconds of input. & Drink is ordered and available to customer within 40 seconds. & Pass \\
+            ST-NFR-PR-01 & PR1 & Operator orders a drink on a user account & The drink is made and ready within 60 seconds of input. & Drink is ordered and available to customer within 50 seconds. & Pass \\
             \hline
-            ST-NFR-PR-02 & PR2 & Testers are asked to navigate the Web App and perform many different operations. Testers will rate the responsiveness of the webpage on a scale from 1 to 5: 1 - unusable, 2 - slow, 3 - satisfactory, 4- fast, 5 - instant. & The average score from the testers in the survey is larger than 3 & 9 testers consisting of friends and family of the smart-serve team members performed the outline task. The test results consisted of two 5's, one 4, four 3's, and two 2's. The average result was 3 and 1/3. The result was larger than 3 and passing. & Pass \\
+            ST-NFR-PR-02 & PR2 & Testers are asked to navigate the Web App and perform many different operations. Testers will rate the responsiveness of the webpage on a questionnaire with a scale from 1 to 5: 1 - unusable, 2 - slow, 3 - satisfactory, 4- fast, 5 - instant. & The average score from the testers in the survey is larger than 3 & 9 testers consisting of friends and family of the smart-serve team members performed the outline task. The test results consisted of two 5's, one 4, four 3's, and two 2's. The average result was 3 and 1/3. The result was larger than 3 and passing. & Pass \\
             \hline
             \end{tabular}
             \caption{Test Results for Non Functional Requirements (1)}
@@ -192,7 +193,7 @@ All test results are qualitative and not measured, so we are simply saying "Pass
             \hline\hline
             ST-NFR-PR-03 & PR3 & User initiates test case & The order is added to Smart Serves internal database within 20 seconds of input & All orders were received in the database within the required time frame. & Pass \\
             \hline
-            ST-NFR-PR-04 & PR4 & Operator orders a drink consisting of a single type of alcohol mixed without anything on a user account & The drink must contain less than 1.1x the amount of expected alcohol & A total of 12 test runs were conducted where all drinks were under the limit. & Pass \\
+            ST-NFR-PR-04 & PR4 \newline PR5 & Operator orders a drink consisting of a single type of alcohol mixed without anything on a user account & The drink must contain less than 1.1x the amount of expected alcohol & A total of 12 test runs were conducted where all drinks were under the limit. & Pass \\
             \hline
             \hline
             \end{tabular}
@@ -210,7 +211,7 @@ All test results are qualitative and not measured, so we are simply saying "Pass
 This section is not appropriate for this project.
 
 \section{Unit Testing}
-This section is not applicable for this project.
+This section is not applicable for this project. The important boundary test cases were included in the above tests.
 
 \section{Changes Due to Testing}
 \tab Following our Revision 0 demo, the feedback we received was that the machine needed to have a more streamlined process from start to finish for the end-user. The user should be able to order a drink on the web app with messages/notifications throughout the process until their drink is finished and ready to be retrieved. We have decided to remove the idea of having an operator replenish the empty cup in the turntable between orders and instead give the opportunity to users to order ahead and place them in a virtual queue with waiting times. Once their order is ready to be processed they are alerted to place a cup in the machine. This was done to reduce the extra use cases that would arise if users weren't responsible for placing their own cup along with improving the autonomy of our system. Our testing also, demonstrated that our project was missing communication with the user therefore we have decided to include message boxes/notifications at checkpoints throughout the process to help streamline the order process. This would include a message upon drink selection, during drink creation and finally once drink is complete. Respectively, these would trigger the user to place a cup on the turntable to prepare the drink, prevent any user from ordering a drink during drink creation and finally alert the drink needs to be retrieved upon completion and the next user is available to order. 
@@ -224,31 +225,27 @@ The code that is used to control the hardware components of the system, will be 
  \hline
  Test Case & Requirement(s)  \\ [0.5ex] 
  \hline\hline
- ST-FR-ICT-01 & MDR6, ODR2, ODR5, \& ODR8 \\ 
+ ST-FR-ICT-01 & ODR2, ODR4, \& ODR7 \\ 
  \hline
- ST-FR-ICT-02 & MDR6, ODR2, ODR5, \& ODR8 \\ 
- \hline
- ST-FR-ICT-03 & ODR9 \& ODR10 \\ 
+ ST-FR-ICT-02 & ODR7 \& ODR8 \\ 
  \hline
  ST-FR-WAUT-01 & ODR1\\ 
  \hline
- ST-FR-DOT-01 & ODR4 \\ 
+ ST-FR-DOT-01 & ODR3 \\  
  \hline
- ST-FR-DOT-02 & ODR3 \\ 
- \hline
- ST-FR-DOT-03 & ODR3 \\ 
- \hline
- ST-FR-CPT-01 & MDR3 \& MDR7 \\ 
+ ST-FR-CPT-01 & MDR3 \& MDR6 \\ 
  \hline 
- ST-FR-CPT-02 & MDR3 \& MDR7 \\ 
+ ST-FR-CPT-02 & MDR3 \& MDR6 \\ 
  \hline
- ST-FR-DMT-01 & MDR2, MDR4, MDR5, MDR7, MDR8, ODR11, \& ODR12 \\ 
+ ST-FR-DMT-01 & MDR2, MDR4, ODR10, \& ODR11 \\ 
  \hline
- ST-FR-DMT-02 & MDR9 \& MDR10 \\ 
+ ST-FR-DMT-02 & MDR6 \& MDR7 \\ 
  \hline
- ST-FR-DMT-03 & MDR2, MDR4, MDR5, MDR7, MDR8, \& ODR11 \\ 
+ ST-FR-DMT-03 & MDR2, MDR4, \& ODR10 \\ 
  \hline
- ST-NFR-UR-01 & UHR4  \\ 
+ ST-FR-DMT-04 & MDR6 \& MDR7 \\ 
+ \hline
+ ST-NFR-UR-01 & UHR3  \\ 
  \hline
  ST-NFR-UR-02 & UHR1 \\
  \hline
@@ -258,7 +255,7 @@ The code that is used to control the hardware components of the system, will be 
  \hline
  ST-NFR-PR-03 & PR3 \\ [1ex] 
  \hline
- ST-NFR-PR-04 & PR4 \\ [1ex] 
+ ST-NFR-PR-04 & PR4, \& PR5 \\ [1ex] 
  \hline
 \end{tabular}
 \end{center}
@@ -269,9 +266,9 @@ The code that is used to control the hardware components of the system, will be 
  \hline
  Test Case & Requirement(s)  \\ [0.5ex] 
  \hline\hline
- ST-FR-ICT-01 & M2, M3, M5, M6, \& ODR8 \\ 
+ ST-FR-ICT-01 & M2, M3, M5, M6, \& ODR7 \\ 
  \hline
- ST-FR-ICT-02 & M2, M3, M5, M6, \& ODR8 \\ 
+ ST-FR-ICT-02 & M2, M3, M5, M6, \& ODR7 \\ 
  \hline
  ST-FR-ICT-03 & M6 \& M7 \\ 
  \hline
@@ -285,7 +282,7 @@ The code that is used to control the hardware components of the system, will be 
 \end{center}
 
 \section{Code Coverage Metrics}
-Code coverage was found for the React web application only. There are some lines in the React code that should be modified before the Rev 1 Demo.\\\\
+Code coverage was found for the React web application only. There are some lines in the React code that were modified for the Rev 1 Demo.\\\\
 
 \begin{center}
 \begin{tabular}{||c | c | c | c|} 
