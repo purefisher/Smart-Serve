@@ -67,6 +67,12 @@ urlcolor=cyan          % color of external links
         1.0 & 01/18/23 & Sam Nusselder & Initial Draft\\
          & & Peter Minbashian & \\ 
          & & David Bednar & \\ 
+        \midrule
+         & & Max Turek & \\
+         & & Ryan Were & \\
+        2.0 & 04/05/23 & Sam Nusselder & Final Version\\
+         & & Peter Minbashian & \\ 
+         & & David Bednar & \\ 
         \bottomrule
         \hline
 \end{tabularx}
