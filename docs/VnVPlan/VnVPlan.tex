@@ -48,6 +48,8 @@
         & David Bednar & \\
         \midrule
         03/08/23 & Ryan Were & Revised Test Cases During VnV Report\\
+        \midrule
+        04/05/23 & Sam Nusselder & Updated VnV Plan to address issues and feedback from instructors, Tas, and test users. Also ensured this document aligned with preceding documents such as the SRS document by updating the corresponding requirement numbers as some requirements were removed from the SRS document.\\
         \bottomrule
         \hline
         \end{tabularx}
@@ -121,7 +123,12 @@ The Plan Section will document the Verification and Validation Team and their gi
       \label{Table 1}
   \end{table}
   \end{center}
-  
+
+\subsection{SRS Validation Plan}
+
+All team members will be required to help contribute to testing to ensure that Smart Serve was built and is functioning as intended and that Smart Serve successfully fulfills the requirements set out in the SRS document. This will ensure that Smart Serve is the right system and can complete the required tasks as intended.
+
+
 \subsection{SRS Verification Plan}
 
 \subsubsection{Reviewers}
@@ -189,29 +196,29 @@ Due to the nature of the system, and the physical product which is used as the o
 \subsubsection{Ingredient Availability}
 
 
-\wss{The area of testing in this subsection verifies how our system handles ingredient availability. This relates to requirements MDR6, ODR5, ODR8, ODR9, and ODR10 in the SRS documentation. The tests run through two scenarios of different ingredient availability. The Web App is then checked to ensure that the system is properly communicating this information as detailed in the requirements. A final test is performed to ensure the operator is able to communicate the available ingredients and the dispenser location of these ingredients with the Web App.}
+\wss{The area of testing in this subsection verifies how our system handles ingredient availability. This relates to requirements ODR2, ODR4, ODR7, and ODR8 in the SRS documentation. The tests run through two scenarios of different ingredient availability. The Web App is then checked to ensure that the system is properly communicating this information as detailed in the requirements. A final test is performed to ensure the operator is able to communicate the available ingredients and the dispenser location of these ingredients with the Web App.}
 		
 \paragraph{Ingredient Communications Test}
 
 \begin{enumerate}
 
+% \item{ST-FR-ICT-01\\}
+% %Test for MDR6, ODR2, ODR5, ODR8 this is right
+% %Could automate this, but sounds like a PITA
+
+% Control: Manual
+					
+% Initial State: System is powered and ready.
+					
+% Input: Ingredient(s) are out of inventory.
+					
+% Output: \wss{The operator receives a notification on the Web App. Specifying which ingredient vat(s) are empty. Menus on user accounts will display that drinks containing out of inventory ingredients are now unavailable.}
+
+% Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. These are ODR6 and ODR9.}
+					
+% How test will be performed: The operator will remove ingredient(s) at their choosing, and check the Web App to see if they have a notification relating to the specific ingredient(s) being out of inventory. They will also check the menu on a user account, and verify that affected drinks are unavailable. For example, if the vat of gin is removed, then a gin & tonic will not be available on the menu.
+					
 \item{ST-FR-ICT-01\\}
-%Test for MDR6, ODR2, ODR5, ODR8 this is right
-%Could automate this, but sounds like a PITA
-
-Control: Manual
-					
-Initial State: System is powered and ready.
-					
-Input: Ingredient(s) are out of inventory.
-					
-Output: \wss{The operator receives a notification on the Web App. Specifying which ingredient vat(s) are empty. Menus on user accounts will display that drinks containing out of inventory ingredients are now unavailable.}
-
-Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. These are MDR6, ODR6, and ODR9.}
-					
-How test will be performed: The operator will remove ingredient(s) at their choosing, and check the Web App to see if they have a notification relating to the specific ingredient(s) being out of inventory. They will also check the menu on a user account, and verify that affected drinks are unavailable. For example, if the vat of gin is removed, then a gin & tonic will not be available on the menu.
-					
-\item{ST-FR-ICT-02\\}
 %Test for MDR6, ODR2, ODR5, ODR8 this is right
 
 Control: Manual
@@ -224,9 +231,9 @@ Output: \wss{The operator has no notifications on the Web App relating to ingred
 
 Test Case Derivation: \wss{This is the expected behaviour for our system when there are no errors present.}
 
-How test will be performed: After completing ST-FR-ICT-01, the operator will refill all previously empty vats. Once this is complete, they will check the Web App to see if the previous notification has been removed. Then they will check the menu on a user account to verify that all drinks are now available. 
+How test will be performed: The operator will refill all previously empty vats. Then they will check the menu on a user account to verify that all drinks are now available. 
 
-\item{ST-FR-ICT-03\\}
+\item{ST-FR-ICT-02\\}
 %Test for ODR9, ODR10 (this is right)
 
 Control: Manual
@@ -237,7 +244,7 @@ Input: Operator inputs all ingredients available and dispenser location of each 
 
 Output: \wss{The ingredients and dispenser location map is updated to match the inputted ingredients and dispenser locations added by the operator. The menu on a user account has all drink combinations possible available.} %note we could have a separate test case to ensure the ingredients and dispenser location map match up with the hardware ingredients.. i.e. vat 1 on the map has vodka and the physical vat 1 actually has vodka
 
-Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. These are ODR9 and ODR10.}
+Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. These are ODR7 and ODR8.}
 
 How test will be performed: The operator will use the Web App and go to the ingredients and dispenser location map page. They will input all ingredients available and the corresponding dispenser location for each ingredient. Once saved, the operator will check to see if the ingredients and dispenser location map is updated properly and that the menu the user will see has all the correct possible drink combinations as options.
 
@@ -281,41 +288,41 @@ Initial State: System is powered and ready.
 					
 Input: Operator orders a drink on a user account.
 					
-Output: \wss{Operator can view the order number in the queue of orders and the estimated time remaining until the drink is made.}
-
-Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. This is ODR4.}
-					
-How test will be performed: The operator will order a drink on a user account. They will then check the order number in the queue and the estimated time remaining until the drink is made.
-					
-\item{ST-FR-DOT-02\\}
-%Test for ODR3 this is right
-
-Control: Manual
-
-Initial State: Initial State: System is powered and ready. User has ordered a drink.
-
-Input: Operator changes the drink order on the user account.
-
-Output: \wss{The drink order is updated to the new order. The order number in the queue remains the same and the estimated time remaining is very similar.}
+Output: \wss{Operator can view the order number in the queue of orders.}
 
 Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. This is ODR3.}
+					
+How test will be performed: The operator will order a drink on a user account. They will then check the order number in the queue.
+					
+% \item{ST-FR-DOT-02\\}
+% %Test for ODR3 this is right
 
-How test will be performed: After completion of test ST-FR-DOT-01, the operator will change the drink order they previously placed. They will then check to see that the drink order was in fact updated and the order number in the queue remained the same.
+% Control: Manual
 
-\item{ST-FR-DOT-03\\}
-%Test for ODR3 this is right
+% Initial State: Initial State: System is powered and ready. User has ordered a drink.
 
-Control: Manual
+% Input: Operator changes the drink order on the user account.
 
-Initial State: Initial State: System is powered and ready. User has ordered a drink.
+% Output: \wss{The drink order is updated to the new order. The order number in the queue remains the same.}
 
-Input: Operator cancels the drink order on the user account.
+% Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. This is ODR3.}
 
-Output: \wss{The drink order is cancelled and no longer appears in the queue.}
+% How test will be performed: After completion of test ST-FR-DOT-01, the operator will change the drink order they previously placed. They will then check to see that the drink order was in fact updated and the order number in the queue remained the same.
 
-Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. This is ODR3.}
+% \item{ST-FR-DOT-03\\}
+% %Test for ODR3 this is right
 
-How test will be performed: After completion of test ST-FR-DOT-02, the operator will cancel the drink order they previously placed. They will then check to see that the drink order was in fact cancelled and the order no longer appears in the queue.
+% Control: Manual
+
+% Initial State: Initial State: System is powered and ready. User has ordered a drink.
+
+% Input: Operator cancels the drink order on the user account.
+
+% Output: \wss{The drink order is cancelled and no longer appears in the queue.}
+
+% Test Case Derivation: \wss{The expected output has been derived from the functional requirements listed in the SRS document. This is ODR3.}
+
+% How test will be performed: After completion of test ST-FR-DOT-02, the operator will cancel the drink order they previously placed. They will then check to see that the drink order was in fact cancelled and the order no longer appears in the queue.
 
 \end{enumerate}
 
@@ -338,12 +345,12 @@ Initial State: System is powered and ready, except no cup is present.
 					
 Input: Operator orders a drink on a user account. 
 					
-Output: \wss{Operator receives a "no cup present" notification.}%should we mention that system shouldn't pour without a cup
+Output: \wss{Smart Serve searches for a cup by doing a full rotation, waiting 8 seconds and repeating this to give the user 3 chances to place their cup.}%should we mention that system shouldn't pour without a cup
 
-Test Case Derivation: \wss{If the system is ready, this is the only scenario that a notification about no cup being present will occur.}
+Test Case Derivation: \wss{This test proves that Smart Serve can handle the scenario where a drink is ordered and no cup is present.}
 					
-How test will be performed: The operator will order a drink on a user account. They will then check their operator account to see if they have received a notification that there is no cup present for the current order.
-					
+How test will be performed: The operator will order a drink on a user account. They will then check to ensure Smart Serve is performing as expected.
+
 \item{ST-FR-CPT-02\\}
 %Test for MDR3 and MDR7 this is right
 
@@ -351,14 +358,14 @@ Control: Manual
 
 Initial State: Initial State: System is powered and ready, except no cup is present. User has ordered a drink.
 
-Input: Operator supplies a cup into the pouring area.
+Input: After 10 seconds operator supplies a cup into the pouring area.
 
-Output: \wss{The no cup present notification on the operators account has been removed.}
+Output: \wss{Smart Serve begins making the drink ordered as soon as the cup is sensed. The drink is poured until completion.}
 
-Test Case Derivation: \wss{The no cup present notification will only occur when an order has been placed and there is no cup present. By adding a cup, this notification is no longer expected.}
+Test Case Derivation: \wss{This test case checks what happens when there is initially no cup after a drink is ordered, and then a cup is placed.}
 %Should I also add a test case where instead of adding a cup the order is removed, so no orders are placed?
 
-How test will be performed: After completion of test ST-FR-CPT-01, the operator will place a cup correctly orientated in the pouring area. They will then check their operator account to see if the no cup present notification has been removed.
+How test will be performed: After completion of test ST-FR-CPT-01, the operator will place a cup correctly orientated in the pouring area. They will then check to ensure Smart Serve behaves as expected.
 
 \end{enumerate}
 
@@ -375,12 +382,12 @@ Initial State: System is powered and ready. Operator has ordered a drink on a us
 					
 Input: System is dispensing a drink.
 					
-Output: \wss{Completed drink made with the correct proportions. The operator receives a "cup is full" notification. The correct user account receives a drink is done notification.}
+Output: \wss{Completed drink made with the correct proportions. The correct user is removed from the queue.}
 %do we want the cup is full notification to only occur for the operator after 30 seconds so they are not spammed every time? If so I will make another test case for this
 
-Test Case Derivation: \wss{If the system is ready, this is the only scenario that a notification about a full cup being present in the pouring area will occur. Likewise it is the only scenario when a user will receive an order completed notification.}
+Test Case Derivation: \wss{If the system is ready, this is the only scenario where the user is removed from the queue.}
 					
-How test will be performed: After completion of test ST-FR-CPT-01 the ordered drink will begin to pour. Once this process has completed, the operator will check their account to see if they have received a notification that there is full cup present at the pouring area. Then they will then check the user account that placed the order to see if an order completed notification has been received on that users account. They will also check another user account that did not place the order to make sure they have not received this notification. The operator will check if the proportions dispensed for the drink are correct, using a calibration apparatus. Lastly, the operator will also check the Web App statistics to ensure that these have been updated to include this completed order in the statistics.
+How test will be performed: After completion of test ST-FR-CPT-02 the ordered drink will begin to pour. Once this process has completed, the operator will check that the corresponding user is removed from the queue as the drink has been completed. The operator will check if the proportions dispensed for the drink are correct, using a calibration apparatus. Lastly, the operator will also check the Web App statistics to ensure that these have been updated to include this completed order in the statistics.
 %apparatus will divide the pouring of each ingredient into separate areas
 
 \item{ST-FR-DMT-02\\}
@@ -388,31 +395,46 @@ How test will be performed: After completion of test ST-FR-CPT-01 the ordered dr
 
 Control: Manual
 
-Initial State: Initial State: System is powered and ready, cup is full in the pouring area.
+Initial State: System is powered and ready, cup is full in the pouring area.
 
-Input: Operator orders a drink on a user account.
+Input: Operator orders a drink on a user account while full cup is present.
 
-Output: \wss{The full cup present notification on the operators account remains. The correct users account will continue to have an order completed notification. The user who has just placed an order will not have an order done notification, unless it is the user account that placed the initial order. The next drink that has been ordered does not start pouring.}
+Output: \wss{Smart Serve checks to see if the cup is full and rejects it as Smart Serve will not pour a drink in a full cup. Smart Serve will continue checking every 8 seconds to see if an empty cup is present to pour into.}
 %Could add a test where the next order is placed using the same user account, make sure they still have their order completed notification from the first drinks, and still have order info for their next one.
 
-Test Case Derivation: \wss{From requirement MDR9 and MDR10 in the SRS, the expected behaviour of our system when there is a completed drink in the pouring area and other drinks in queue, is to not pour the next drink until the completed one is removed.}
+Test Case Derivation: \wss{From requirement MDR6 and MDR7 in the SRS, the expected behaviour of our system when there is a completed drink in the pouring area and other drinks in queue, is to not pour the next drink until the completed one is removed.}
 
-How test will be performed: After completion of test ST-FR-DMT-01, the operator will order another drink with a different user account. They will note whether the system is dispensing another drink or not, as it should not be. Then they will check their operator account to see if the full cup present notification remains. Next they will check the user account that placed the initial order to see if the order completed notification remains on that account. They will also check the users account who placed the new order, looking to see that they have their own order status information, but no drink complete notification. Lastly, they will check another user account that did not place the order to make sure they still have not received any notifications.
+How test will be performed: After completion of test ST-FR-DMT-01, the operator will order another drink with a different user account. They will note whether the system is dispensing another drink or not, as it should not be. After 20 seconds or so, the operator will remove the full drink and place an empty cup instead. Smart Serve is expected to complete the drink that was previously ordered.
 
 \item{ST-FR-DMT-03\\}
 %Test for MDR4, MDR5, MDR7, MDR8, and ODR11 this is right
 
 Control: Manual
 
-Initial State: Initial State: System is powered and ready, cup is full in the pouring area. Another user order is in the queue.
+Initial State: System is powered and ready, cup is full in the pouring area. Another user order is in the queue.
 
 Input: Operator adds a cup to the pouring area while scanning from previous test is still occurring.
 
-Output: \wss{Order complete notification is still present for the first users order. The system successfully scans the cups for the empty cup. It then pours the drink into the empty cup.}
+Output: \wss{The system successfully scans the cups for the empty cup. It then pours the drink into the empty cup.}
 
-Test Case Derivation: \wss{Full cups should never have another drink poured into them. Because a full cup is still present, the user should still have a notification that their order is complete. The system should scan until it finds an empty cup and then pour it into that.  }
+Test Case Derivation: \wss{Full cups should never have another drink poured into them. The system should scan until it finds an empty cup and then pour it into that. This test covers the case where a full cup is present and there is an order in the queue. The queue order can be made assuming there is an empty cup in the second cup holder. }
 
-How test will be performed: After completion of test ST-FR-DMT-02, the operator will add an empty cup to the pouring area. Next, they will check their operator account to see if the full cup present notification is still there. Then they will check the user account that placed the first order to see if the order completed notification is still there. They will also check another user account that did not place the order to make sure they still have not received any notifications. The operator will make that the new users order is only being poured into the empty cup, and that the full cup is scanned and skipped.
+How test will be performed: After completion of test ST-FR-DMT-02, the operator will add an empty cup to the pouring area. The operator will make sure that the order in the queue is only being poured into the empty cup, and that the full cup is scanned and skipped.
+
+\item{ST-FR-DMT-04\\}
+
+Control: Manual
+
+Initial State: System is powered and ready, cup is half full in the pouring area.
+
+Input: Operator orders a drink on a user account.
+
+Output: \wss{Smart Serve checks to see if the cup is considered full and rejects it as Smart Serve will not pour a drink in a full cup. Smart Serve will continue checking every 8 seconds to see if an empty cup is present to pour into.}
+%Could add a test where the next order is placed using the same user account, make sure they still have their order completed notification from the first drinks, and still have order info for their next one.
+
+Test Case Derivation: \wss{From requirement MDR6 and MDR7 in the SRS, the expected behaviour of our system when there is a completed drink in the pouring area and other drinks in queue, is to not pour the next drink until the completed one is removed.}
+
+How test will be performed: After completion of test ST-FR-DMT-03, the operator will take out all previous cups in the pouring area and place a half full cup. The operator will then order another drink with a different user account. They will note whether the system is dispensing another drink or not, as it should not be. After 20 seconds or so, the operator will remove the half full drink and place an empty cup instead. Smart Serve is expected to complete the drink that was previously ordered.
 
 \end{enumerate}
 
@@ -430,25 +452,25 @@ How test will be performed: After completion of test ST-FR-DMT-02, the operator 
 
 Control: Manual
 
-Initial State: Testers are logged into a user account on the Web App
+Initial State: Testers are logged into a user account on the Web App.
 
 Input: Testers are asked to navigate the web page and place an order. Testers will rate their navigating and ordering experience on a scale from 1 to 5: 1 - unusable, 2 - poor, 3 - satisfactory, 4- good, 5 - excellent.
 
-Output: The average score from the testers in the survey is greater than 3
+Output: The average score from the testers in the survey is greater than 3.
 
-How the test will be performed: A test group of individuals who are of legal drinking age will be equipped with a device and a user account to log into the Smart Serve Web App. The testers will be given 10 minutes to navigate the webpage and submit mock orders that will not be sent to 
+How the test will be performed: A test group of individuals who are of legal drinking age will be equipped with a device and a user account to log into the Smart Serve Web App. The testers will be given 10 minutes to navigate the webpage and submit mock orders that will not be sent to Smart Serve.
 
 \item{ST-NFR-UR-02\\}
 
 Control: Manual
 
-Initial State: Testers will approach Smart Serve and grab a cup
+Initial State: Testers will approach Smart Serve and grab a cup.
 
-Input: Testers are asked to grab a cup. Testers will report if the machine was too high, too low, or fine.
+Input: Testers are asked to grab a cup. Testers will report if the machine was too high, too low, or fine by filling out a questionnaire.
 
 Output:  More than half of the testers say the height is fine.
 
-How the test will be performed: A test group of individuals who are of legal drinking age will approach Smart Serve and grab a cup. Testers will report if the height of the machine was too high, too low, or fine. The test will pass if more than half of the testers say that the height is fine.
+How the test will be performed: A test group of individuals who are of legal drinking age will approach Smart Serve and grab a cup. Testers will report if the height of the machine was too high, too low, or fine on a questionnaire. The test will pass if more than half of the testers say that the height is fine.
 
 \end{enumerate}
 
@@ -460,47 +482,47 @@ How the test will be performed: A test group of individuals who are of legal dri
 
 Control: Manual
 
-Initial State: System is powered and ready with an empty cup present
+Initial State: System is powered and ready with an empty cup present.
 
-Input: Operator orders a drink on a user account
+Input: Operator orders a drink on a user account.
 
-Output: The drink is made and ready within 45 seconds of input
+Output: The drink is made and ready within 60 seconds of input
 
-How the test will be performed: The operator will have already gone through the process of logging into the user account. The operator will order any drink on the menu and begin a timer at the same time of the order. The order will then be sent to and made by Smart Serve. The operator will wait until the user account receives a drink is done message and will stop the timer. The test will pass if the timer has recorded less than 45 seconds.
+How the test will be performed: The operator will have already gone through the process of logging into the user account. The operator will order any drink on the menu and begin a timer at the same time of the order. The order will then be sent to and made by Smart Serve. The operator will wait until the user account receives their drink. The test will pass if the timer has recorded less than 60 seconds.
 					
 \item{ST-NFR-PR-02\\}
 
 Control: Manual
 
-Initial State: Testers are logged into a user account on the Web App
+Initial State: Testers are logged into a user account on the Web App.
 
-Input: Testers are asked to navigate the Web App and perform many different operations. Testers will rate the responsiveness of the webpage on a scale from 1 to 5: 1 - unusable, 2 - slow, 3 - satisfactory, 4- fast, 5 - instant.
+Input: Testers are asked to navigate the Web App and perform many different operations. Testers will rate the responsiveness of the webpage on a questionnaire with a scale from 1 to 5: 1 - unusable, 2 - slow, 3 - satisfactory, 4- fast, 5 - instant.
 
-Output: The average score from the testers in the survey is larger than 3
+Output: The average score from the testers in the survey is larger than 3.
 
-How the test will be performed: A test group of individuals who are of legal drinking age will be equipped with a device and the Web App logged into a user account. The testers will be given 5 minutes to navigate the web page and will be told to try as many different actions as possible. The Web App will be disconnected from Smart Serve and will not send any commands to the machine. The testers will be asked to rate the responsiveness of the Web App from 1-5 based on the criteria explained above. The test will pass if the average is over 3.
+How the test will be performed: A test group of individuals who are of legal drinking age will be equipped with a device and the Web App logged into a user account. The testers will be given 5 minutes to navigate the web page and will be told to try as many different actions as possible. The Web App will be disconnected from Smart Serve and will not send any commands to the machine. The testers will be asked to rate the responsiveness of the Web App on a questionnaire from 1-5 based on the criteria explained above. The test will pass if the average is over 3.
 
 \item{ST-NFR-PR-03\\}
 
 Control: Manual
 
-Initial State: System is powered and ready with an empty cup present
+Initial State: System is powered and ready with an empty cup present.
 
-Input: User orders a drink
+Input: User orders a drink.
 
-Output: The order is added to Smart Serves internal database within 20 seconds of input
+Output: The order is added to Smart Serves internal database within 20 seconds of input.
 
-How the test will be performed: The test case has a user send an order to Smart Serve. Smart Serve will record the order details into a database. An administrative user will manually check the database to verify that each order has been recorded. The  test will pass if the order is added to Smart Serves internal database within 20 seconds of input
+How the test will be performed: The test case has a user send an order to Smart Serve. Smart Serve will record the order details into a database. An administrative user will manually check the database to verify that each order has been recorded. The  test will pass if the order is added to Smart Serves internal database within 20 seconds of input.
 
 \item{ST-NFR-PR-04\\}
 
 Control: Manual
 
-Initial State: System is powered and ready with an empty cup present
+Initial State: System is powered and ready with an empty cup present.
 
-Input: Operator orders a drink consisting of a single type of alcohol mixed without anything on a user account
+Input: Operator orders a drink consisting of a single type of alcohol mixed without anything on a user account.
 
-Output: The drink must contain less than 1.1x the amount of expected alcohol
+Output: The drink must contain less than 1.1x the amount of expected alcohol.
 
 How the test will be performed: The operator will have already gone through the process of logging into the user account. The operator will order a drink consisting of a single type of alcohol mixed without anything. The order will then be sent to and made by Smart Serve. The drink will be poured into a measuring cup to manually measure the content. The test will pass if the content of the measuring cup is less than 1.1x the ordered amount of alcohol.
 
@@ -517,31 +539,27 @@ How the test will be performed: The operator will have already gone through the 
  \hline
  Test Case & Requirement(s)  \\ [0.5ex] 
  \hline\hline
- ST-FR-ICT-01 & MDR6, ODR2, ODR5, \& ODR8 \\ 
+ ST-FR-ICT-01 & ODR2, ODR4, \& ODR7 \\ 
  \hline
- ST-FR-ICT-02 & MDR6, ODR2, ODR5, \& ODR8 \\ 
- \hline
- ST-FR-ICT-03 & ODR9 \& ODR10 \\ 
+ ST-FR-ICT-02 & ODR7 \& ODR8 \\ 
  \hline
  ST-FR-WAUT-01 & ODR1\\ 
  \hline
- ST-FR-DOT-01 & ODR4 \\ 
+ ST-FR-DOT-01 & ODR3 \\  
  \hline
- ST-FR-DOT-02 & ODR3 \\ 
- \hline
- ST-FR-DOT-03 & ODR3 \\ 
- \hline
- ST-FR-CPT-01 & MDR3 \& MDR7 \\ 
+ ST-FR-CPT-01 & MDR3 \& MDR6 \\ 
  \hline 
- ST-FR-CPT-02 & MDR3 \& MDR7 \\ 
+ ST-FR-CPT-02 & MDR3 \& MDR6 \\ 
  \hline
- ST-FR-DMT-01 & MDR2, MDR4, MDR5, MDR7, MDR8, ODR11, \& ODR12 \\ 
+ ST-FR-DMT-01 & MDR2, MDR4, ODR10, \& ODR11 \\ 
  \hline
- ST-FR-DMT-02 & MDR9 \& MDR10 \\ 
+ ST-FR-DMT-02 & MDR6 \& MDR7 \\ 
  \hline
- ST-FR-DMT-03 & MDR2, MDR4, MDR5, MDR7, MDR8, \& ODR11 \\ 
+ ST-FR-DMT-03 & MDR2, MDR4, \& ODR10 \\ 
  \hline
- ST-NFR-UR-01 & UHR4  \\ 
+ ST-FR-DMT-04 & MDR6 \& MDR7 \\ 
+ \hline
+ ST-NFR-UR-01 & UHR3  \\ 
  \hline
  ST-NFR-UR-02 & UHR1 \\
  \hline
@@ -551,10 +569,14 @@ How the test will be performed: The operator will have already gone through the 
  \hline
  ST-NFR-PR-03 & PR3 \\ [1ex] 
  \hline
- ST-NFR-PR-04 & PR4 \\ [1ex] 
+ ST-NFR-PR-04 & PR4, \& PR5 \\ [1ex] 
  \hline
 \end{tabular}
 \end{center}
+
+As can be seen above, not all of the requirements in the SRS document are tested for in the above test cases. Requirements that were difficult to test for or requirements that were not essential to the successful operation of Smart Serve (i.e. specific non functional requirements such as OER6, MSR1, MSR2, MSR3, MSR4, etc.) were left out of the test cases.
+
+
   
 \newpage
 \section{Unit Test Description}
