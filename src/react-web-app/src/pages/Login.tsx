@@ -10,31 +10,7 @@ import Logo from '../images/Logo.jpg';
 
     
 
-const loginRequest = (setsignedin: any, username: string, password: string) => {
-    axios.post('login', {username: username, password: password}, {headers: { 'Content-Type': 'application/json' }})
-    .then((response) => {
-        if(response.data.admin){
-            setsignedin({signedin:true,
-                        admin: true})
-        }
-        else if (response.data.login){
-            setsignedin({signedin:true,
-                admin: false})
-        }
-    })
-}
 
-const userRequest = (setsignedin: any, username: string, password: string) => {
-    axios.post('user', {username: username, password: password}, {headers: { 'Content-Type': 'application/json' }})
-    .then((response) => {
-        if(response.data.admin){
-            setsignedin({signedin:true,
-                        admin: true})
-        }
-        setsignedin({signedin:true,
-            admin: false})
-    })
-}
 
 const LoginPage = (props: any) => {
 
@@ -43,6 +19,29 @@ const LoginPage = (props: any) => {
     const [loginOpened, setLoginOpened] = useState(false);
     const [signupOpened, setSignupOpened] = useState(false);
     const navigate = useNavigate();
+
+    const loginRequest = (setsignedin: any, setLoginOpened: any, username: string, password: string) => {
+        axios
+          .post(
+            "login",
+            { username: username, password: password },
+            { headers: { "Content-Type": "application/json" } }
+          )
+          .then((response) => {
+            console.log("response.data.login:", response.data.login);
+            let x = !response.data.login;
+            if (response.data.admin) {
+              setsignedin({ signedin: true, admin: true });
+            } else if (!x) {
+              setsignedin({ signedin: true, admin: false });
+            }
+            console.log("x:", x);
+            if (x) {
+              setLoginOpened(true);
+            }
+          });
+      };
+      
     
     return (
         <>
@@ -97,7 +96,7 @@ const LoginPage = (props: any) => {
                             <InputField name={"Username"} password={0} setInput={props.setUsername}/>
                             <InputField password={1} setInput={props.setPassword}/>
                             <Group>
-                                <GeneralButton event={() => {loginRequest(props.setsignedin, props.username, props.password); setLoginOpened(true)}} name="Login"></GeneralButton>
+                                <GeneralButton event={() => {loginRequest(props.setsignedin, setLoginOpened, props.username, props.password)}} name="Login"></GeneralButton>
                                 <GeneralButton event={() => props.setsignedin({signedin:true, admin:false})} name="Guest"></GeneralButton>
                             </Group>
                             <GeneralButton  event={()=>{navigate("/signup")}} name="Sign Up"></GeneralButton>
