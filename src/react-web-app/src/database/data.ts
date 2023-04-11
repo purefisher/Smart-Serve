@@ -16,6 +16,12 @@ import CS from '../images/CS.jpg';
 import Whiskey from '../images/whiskey.jpg';
 import Coke from '../images/coke.jpg';
 import Lemonade from '../images/lemonade.jpg';
+import Sprite from '../images/sprite.jpg';
+import OrangeSpritzer from '../images/orangespritzer.jpg';
+import GingerAle from '../images/gingerale.jpg';
+import GingerAleandOrange from '../images/gingeraleandorange.jpg';
+import ShirleyTemple from '../images/shirleytemple.jpg';
+import MaxSpecial from '../images/maxspecial.jpg';
 
 const info = [
   {
@@ -96,6 +102,50 @@ const info = [
           IG2: {name: 'orange juice', amount: 64.5, shot: ",1.5"},
           IG3: {name: 'lemonade', amount: 64.5, shot: ",1.5"},
           IG4: {name: null, amount: null, shot: null}
+}
+      },
+      {
+        name: 'Orange Spritzer',
+        image: OrangeSpritzer,
+        category: 'Drinks',
+        ingredients: {
+          IG1: {name: 'orange juice', amount: 129, shot: ",3"},
+          IG2: {name: 'club soda', amount: 43, shot: ",1"},
+          IG3: {name: null, amount: null, shot: null },
+          IG4: {name: null, amount: null, shot: null}
+}
+      },
+      {
+        name: 'Ginger Ale and OJ Mocktail',
+        image: GingerAleandOrange,
+        category: 'Drinks',
+        ingredients: {
+          IG1: {name: 'orange juice', amount: 86, shot: ",1.5"},
+          IG2: {name: 'gingerale', amount: 86, shot: ",1.5"},
+          IG3: {name: null, amount: null, shot: null },
+          IG4: {name: null, amount: null, shot: null}
+}
+      },
+      {
+        name: 'Shirley Temple',
+        image: ShirleyTemple,
+        category: 'Drinks',
+        ingredients: {
+          IG1: {name: 'orange juice', amount: 43, shot: ",1"},
+          IG2: {name: 'gingerale', amount: 43, shot: ",1"},
+          IG3: {name: 'sprite', amount: 43, shot: ",1" },
+          IG4: {name: 'grenadine', amount: 10.75, shot: ",.25" }
+}
+      },
+      {
+        name: 'Max\'s Special',
+        image: MaxSpecial,
+        category: 'Drinks',
+        ingredients: {
+          IG1: {name: 'sprite', amount: 64.5, shot: ",1.5"},
+          IG2: {name: 'orange juice', amount: 64.5, shot: ",1.5"},
+          IG3: {name: 'club soda', amount: 43, shot: ",1" },
+          IG4: {name: null, amount: null, shot: null }
 }
       },
     ],
@@ -224,6 +274,28 @@ const info = [
         category: 'Juice',
         ingredients: {
           IG1: {name: 'coke', amount: 172, shot: ",4"},
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
+        }
+      },
+      {
+        name: 'Sprite',
+        image: Sprite,
+        category: 'Juice',
+        ingredients: {
+          IG1: {name: 'sprite', amount: 172, shot: ",4"},
+          IG2: {name: null, amount: null, shot: null},
+          IG3: {name: null, amount: null, shot: null},
+          IG4: {name: null, amount: null, shot: null}
+        }
+      },
+      {
+        name: 'Ginger Ale',
+        image: GingerAle,
+        category: 'Juice',
+        ingredients: {
+          IG1: {name: 'gingerale', amount: 172, shot: ",4"},
           IG2: {name: null, amount: null, shot: null},
           IG3: {name: null, amount: null, shot: null},
           IG4: {name: null, amount: null, shot: null}

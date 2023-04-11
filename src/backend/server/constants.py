@@ -1,5 +1,5 @@
 rotation_constant = 2.2#2.7 #2.9 was ok
-finished_rotation_constant = 0.6
+finished_rotation_constant = 0.4
 cleaning_constant = 10
 
 cup_distance_limit_lower = 4.6
