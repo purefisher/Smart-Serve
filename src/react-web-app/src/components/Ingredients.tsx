@@ -36,7 +36,7 @@ function Drinks(props:any) {
         },
       });
 
-      const options = ["whiskey", "orange juice", "lemon juice", "vodka", "tequila", "coke", "rum", "syrup", "club soda", "lemonade", "pineapple juice"];
+      const options = ["whiskey", "orange juice", "lemon juice", "vodka", "tequila", "coke", "rum", "syrup", "club soda", "lemonade", "pineapple juice", "sprite", "gingerale", "grenadine"];
       const uniqueOptions = Array.from(new Set(options));
     
       const [selectedOptions, setSelectedOptions] = useState(
